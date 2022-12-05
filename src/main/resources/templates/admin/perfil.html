@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Mi Perfil Admin</title>
+
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.css}"/>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css"/>
+    <link href="/css/dataTable/buttons.dataTables.min.css" rel="stylesheet">
+
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <script th:src="@{/webjars/datatables/1.10.20/media/js/jquery.dataTables.min.js}"></script>
+
+    <link rel="stylesheet" type="text/css" href="/css/dash-style.css" />
+
+
+</head>
+<body>
+    <div class="main-container d-flex">
+        <!--SIDEBAR-->
+        <div th:replace="/layouts/sidebar :: sidebar"></div>
+
+        <div class="content">
+
+            <!--NAV-DASH-->
+            <nav th:replace="/layouts/nav-dash :: nav-dash"></nav>
+
+            <div class="dashboard-content px-3 pt-4">
+
+                <!--HEADER -->
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <tr>
+                            <th colspan="5" style="text-align: center; font-size: xx-large" th:text="${'Perfil del Administrador'}"></th>
+                        </tr>
+                    </table>
+                </div>
+                <br>
+
+                <div class="card border-light">
+                    <div class="card-header">
+                        <h3 class="card-title">Mis Datos</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-2"></div>
+                            <div class="col-8">
+
+                                <div class="table-responsive">
+                                    <table  class="table table-bordered table-striped">
+
+                                        <tr>
+                                            <th>Tipo documento</th>
+                                            <td th:text="${admin.tipo_documento}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Documento</th>
+                                            <td th:text="${admin.documento}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Nombres</th>
+                                            <td th:text="${admin.nombre}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Apellido</th>
+                                            <td th:text="${admin.apellido}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Telefono</th>
+                                            <td th:text="${admin.telefono}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Fecha de Nacimiento</th>
+                                            <td th:text="${#dates.format(admin.fecha_nacimiento, 'dd-MMM-yyyy')}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Email</th>
+                                            <td th:text="${admin.email}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Contraseña</th>
+                                            <td th:text="${admin.password}"></td>
+                                        </tr>
+
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-2"></div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col-6"></div>
+                            <div class="col-2">
+
+                                <a href="#" class="btn btn-secondary"
+                                   data-bs-toggle="modal" data-bs-target="#mi-perfil">
+                                    <i class="fas fa-pencil"></i> Editar
+                                </a>
+                                <div class="modal fade" id="mi-perfil" tabindex="-1" aria-labelledby="perfil" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="perfil">Editar Mi Perfil</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <form th:action="@{/admin/perfil/guardar-perfil}" th:object="${admin}"
+                                                  method="POST" enctype="multipart/form-data" class="was-validated">
+                                                <div class="modal-body">
+                                                    <div class="form-group">
+                                                        <label for="id_admin">Id Administrador: </label>
+                                                        <input type="number" class="form-control" name="id_admin" id="id_admin"
+                                                               readonly th:value="${admin.id_usuario}"/>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="tipodocumento">Tipo de Documento: </label>
+                                                        <input type="text" class="form-control" name="tipo_documento" id="tipodocumento"
+                                                               readonly th:value="${admin.tipo_documento}"/>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="documentoA">Documento: </label>
+                                                        <input type="number" class="form-control" name="documento" id="documentoA"
+                                                               readonly th:value="${admin.documento}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="nombre">Nombre: </label>
+                                                        <input type="text" class="form-control" name="nombre" id="nombre"
+                                                               th:value="${admin.nombre}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="apellido">Apellido: </label>
+                                                        <input type="text" class="form-control" name="apellido" id="apellido"
+                                                               th:value="${admin.apellido}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="telefono">Telefono: </label>
+                                                        <input type="text" class="form-control" name="telefono" id="telefono"
+                                                               th:value="${admin.telefono}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="fecha_nacimiento">Fecha de Nacimiento: </label>
+                                                        <input type="date" class="form-control" name="fecha_nacimiento" id="fecha_nacimiento"
+                                                               th:field="${admin.fecha_nacimiento}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="email">Email: </label>
+                                                        <input type="text" class="form-control" name="email" id="email"
+                                                               th:value="${admin.email}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="password">Password: </label>
+                                                        <input type="text" class="form-control" name="password" id="password"
+                                                               th:value="${admin.password}">
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                    <button class="btn btn-primary" type="submit">Guardar</button>
+                                                </div>
+
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!--SCRIPT SIDEBAR-->
+    <script th:replace="/layouts/script-sidebar :: script-sidebar"></script>
+
+
+</body>
+</html>

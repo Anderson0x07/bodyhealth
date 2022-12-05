@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <title>Agregar Proveedor</title>
+  <meta charset="UTF-8"/>
+</head>
+<body>
+<section th:fragment="agregar-proveedor">
+  <div class="modal fade" id="agregar-proveedor" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar Proveedor</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form th:action="@{/admin/dash-proveedores/guardar}" th:object="${proveedor}"
+              method="POST" class="was-validated">
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="nombre_empresa">Nombre Empresa: *</label>
+              <input type="text" class="form-control" name="nombre_empresa" id="nombre_empresa" required="true">
+            </div>
+            <div class="form-group">
+              <label for="telefono">Telefono: *</label>
+              <input type="tel" class="form-control" name="telefono" id="telefono" required="true">
+            </div>
+            <div class="form-group">
+              <label for="direccion">Dirección: *</label>
+              <input type="text" class="form-control" name="direccion" id="direccion" required="true">
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button class="btn btn-primary" type="submit">Guardar</button>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

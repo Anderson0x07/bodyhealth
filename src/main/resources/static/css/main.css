@@ -1,0 +1,193 @@
+/*ESTILO DE TODO EL BODY*/
+#body-index{
+    text-align: center;
+    font-size: x-large;
+    font-family: Arial, Helvetica, sans-serif;
+    font-style: normal;
+
+}
+
+#registro{
+    font-size: x-large;
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+
+/*BARRA DE NAVEGACION DEL BODY*/
+#center{
+    text-align: center;
+}
+
+#logo{
+    float: right;
+}
+#logo a{
+    padding: 0px;
+    text-align: right;
+}
+#navega li{
+    float: left;
+}
+#navega li a{
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 15px;
+    text-decoration: none;
+}
+#navega li a:hover{
+    color: black;
+    background-color: rgb(220, 220, 226);
+    font-weight: bold;
+}
+
+/*CREAR BOTONES A PARTIR DE LINKS*/
+#boton:link, #boton:visited{
+    background-color: rgb(55, 61, 61);
+    color: white;
+    padding: 5px 30px;
+    text-decoration: none;
+}
+#boton:hover, #boton:active{
+    background-color: rgb(27, 27, 29);
+}
+
+/*ESTILO DEL FOOTER*/
+#footer{
+    color: white;
+    background-color: #212529;
+    text-align: center;
+    font-size: x-large;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+#nav-footer{
+    font-size: x-large;
+    
+}
+
+
+#img-hover:hover, #img-hover:active{
+    background: url(https://fundacionmasqueideas.org/wp-content/uploads/2014/03/logo-cruz-portada-fundacionMQI.png);
+    opacity: 10;
+}
+
+#text:link, #text:visited{
+    text-decoration: none;
+    color: black;
+    
+}
+
+#text:hover, #text:active{
+    font-weight: bold;
+    color: darkblue;
+}
+
+/*Estilos Base*/
+.contenedor-img {
+    width: 300px;
+    height: 200px;
+    float: left;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    cursor: default;
+    background: #fff;
+    }
+    .contenedor-img .mascara,.contenedor-img .contenido {
+    width: 300px;
+    height: 200px;
+    position: absolute;
+    overflow: hidden;
+    top: 0;
+    left: 0
+    }
+    .contenedor-img img {
+    display: block;
+    position: relative;
+    
+    }
+    .contenedor-img h2 {
+    text-transform: uppercase;
+    color: #fff;
+    text-align: center;
+    position: relative;
+    font-size: 17px;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.9);
+    margin: 20px 0 0 0
+    }
+    .contenedor-img p {
+    font-size: 12px;
+    position: relative;
+    color: #fff;
+    padding: 10px 20px 10px;
+    text-align: center
+    }
+    .contenedor-img a.link {
+    display: inline-block;
+    text-decoration: none;
+    padding: 7px 14px;
+    background: #222;
+    color: #fff;
+    text-transform: uppercase;
+    box-shadow: 0 0 1px #000
+    }
+    .contenedor-img a.link:hover {
+    box-shadow: 0 0 5px #000
+    }
+
+/*Ejemplo 2*/
+.ejemplo-2 img {
+    transition: all 0.2s ease-in;
+    }
+    .ejemplo-2 .mascara {
+    background-color: rgba(25,96,184, 0.8);
+    width: 300px;
+    padding: 60px;
+    height: 300px;
+    opacity: 1;
+    transform: translate(300px, 200px) rotate(45deg); /*Rotamos para dar efecto de diagonal y lo movemos por donde queremos que entre.*/
+    transition: all 0.5s ease-in-out;
+    }
+    .ejemplo-2 h2 {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+    background: transparent;
+    margin: 20px 40px 0px 40px;
+    transform: translate(200px, -200px);/*Desplazamos el título arriba a la derecha*/
+    transition: all 0.3s ease-in-out;
+    }
+    .ejemplo-2 p {
+    transform: translate(-200px, 200px);/*Desplazamos la descripción abajo a la izquierda*/
+    transition: all 0.4s ease-in-out;
+    }
+    .ejemplo-2 a.link {
+    transform: translate(0px, 100px);/*Desplazamos el link para abajo*/
+    transition: all 0.3s 0.1s ease-in-out;
+    }
+    
+    .ejemplo-2:hover .mascara {
+    opacity:1;
+    transform: translate(-96px, -120px) rotate(45deg);
+    }
+    .ejemplo-2:hover h2 {
+    transform: translate(0px,0px);
+    transition-delay: 0.3s;
+    }
+    .ejemplo-2:hover p {
+    transform: translate(0px,0px);
+    transition-delay: 0.4s;
+    }
+    .ejemplo-2:hover a.link {
+    transform: translate(0px,0px);
+    transition-delay: 0.5s;
+    }
+
+#left {
+    font-size: smaller;
+    text-align: left;
+}
+#table {
+    font-size: smaller;
+}

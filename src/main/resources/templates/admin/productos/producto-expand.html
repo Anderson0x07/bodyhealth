@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dash-Clientes</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.css}"/>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css"/>
+    <link href="/css/dataTable/buttons.dataTables.min.css" rel="stylesheet">
+
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <script th:src="@{/webjars/datatables/1.10.20/media/js/jquery.dataTables.min.js}"></script>
+
+    <link rel="stylesheet" type="text/css" href="/css/dash-style.css" />
+</head>
+<body>
+    <div class="main-container d-flex">
+        <!--SIDEBAR-->
+        <div th:replace="/layouts/sidebar :: sidebar"></div>
+
+        <div class="content">
+            <!--NAV-DASH-->
+            <nav th:replace="/layouts/nav-dash :: nav-dash"></nav>
+
+            <div class="dashboard-content px-3 pt-4">
+
+
+                <div class="card border-light">
+                    <div class="card-header">
+                        <h3 class="card-title">Datos del Producto</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-5">
+                                <img th:src="@{'/images/' + ${producto.foto}}" width="500" height="450">
+                            </div>
+                            <div class="col-7">
+
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped">
+
+                                        <tr>
+                                            <th>Id Producto</th>
+                                            <td th:text="${producto.id_producto}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Nombre</th>
+                                            <td th:text="${producto.nombre}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Stock</th>
+                                            <td th:text="${producto.stock}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Precio</th>
+                                            <td th:text="${producto.precio}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Proveedor</th>
+                                            <td th:text="${producto.id_proveedor.nombre_empresa}"></td>
+                                        </tr>
+
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col-6"></div>
+                            <div class="col-2">
+                                <a th:href="@{/admin/dash-productos}" class="btn btn-dark btn-block">
+                                    <i class="fas fa-arrow-left"></i> Regresar
+                                </a>
+                            </div>
+                            <div class="col-2">
+                                <a th:href="@{/admin/dash-productos/expand/editar/} + ${producto.id_producto}" class="btn btn-secondary">
+                                    <i class="fas fa-angle-double-right"></i> Editar
+                                </a>
+                            </div>
+                            <div  class="col-2">
+                                <a th:if="${producto.stock==0 && producto.estado == true}" th:href="@{/admin/dash-productos/expand/desactivar/} + ${producto.id_producto}" class="btn btn-danger btn-block">
+                                    <i class="fa-solid fa-xmark"></i> Desactivar
+                                </a>
+                                <a th:if="${producto.stock>0 && producto.estado == false}" th:href="@{/admin/dash-productos/expand/activar/} + ${producto.id_producto}" class="btn btn-success btn-block">
+                                    <i class="fas fa-check"></i> Activar
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!--SCRIPT SIDEBAR-->
+    <script th:replace="/layouts/script-sidebar :: script-sidebar"></script>
+
+
+</body>
+</html>

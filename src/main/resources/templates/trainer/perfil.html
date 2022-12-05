@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard Trainer</title>
+
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.css}"/>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css"/>
+    <link href="/css/dataTable/buttons.dataTables.min.css" rel="stylesheet">
+
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <script th:src="@{/webjars/datatables/1.10.20/media/js/jquery.dataTables.min.js}"></script>
+
+    <link rel="stylesheet" type="text/css" href="/css/dash-style.css" />
+
+
+</head>
+<body>
+    <div class="main-container d-flex">
+        <!--SIDEBAR-->
+        <div th:replace="/layouts/sidebar-trainer :: sidebar-trainer"></div>
+
+        <div class="content">
+
+            <!--NAV-DASH-->
+            <nav th:replace="/layouts/nav-dash :: nav-dash"></nav>
+
+            <div class="dashboard-content px-3 pt-4">
+
+                <!--HEADER -->
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <tr>
+                            <th colspan="5" style="text-align: center; font-size: xx-large" th:text="${'Perfil del Entrenador'}"></th>
+                        </tr>
+                    </table>
+                </div>
+                <br>
+
+                <div class="card border-light">
+                    <div class="card-header">
+                        <h3 class="card-title">Mis Datos</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-5">
+                                <img th:src="@{'/images/' + ${trainer.foto}}" width="500" height="450">
+                            </div>
+                            <div class="col-7">
+
+                                <div class="table-responsive">
+                                    <table  class="table table-bordered table-striped">
+
+                                        <tr>
+                                            <th>Tipo documento</th>
+                                            <td th:text="${trainer.tipo_documento}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Documento</th>
+                                            <td th:text="${trainer.documentoE}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Nombres</th>
+                                            <td th:text="${trainer.nombre}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Apellido</th>
+                                            <td th:text="${trainer.apellido}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Telefono</th>
+                                            <td th:text="${trainer.telefono}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Fecha de Nacimiento</th>
+                                            <td th:text="${#dates.format(trainer.fechaN, 'dd-MMM-yyyy')}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Email</th>
+                                            <td th:text="${trainer.email}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Contraseña</th>
+                                            <td th:text="${trainer.password}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Jornada</th>
+                                            <td th:text="${trainer.jornada}"></td>
+                                        </tr>
+
+
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col-6"></div>
+                            <div class="col-2">
+
+                                <a href="#" class="btn btn-secondary"
+                                   data-bs-toggle="modal" data-bs-target="#mi-perfil">
+                                    <i class="fas fa-pencil"></i> Editar
+                                </a>
+                                <div class="modal fade" id="mi-perfil" tabindex="-1" aria-labelledby="perfil" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="perfil">Editar Mi Perfil</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <form th:action="@{/trainer/perfil/guardar-perfil}" th:object="${entrenador}"
+                                                  method="POST" enctype="multipart/form-data" class="was-validated">
+                                                <div class="modal-body">
+                                                    <input type="hidden" name="id_admin" id="id_admin" th:value="${trainer.id_admin.id_admin}"/>
+                                                    <input type="hidden" name="id_rol" id="id_rol" th:value="${trainer.id_rol.id_rol}"/>
+                                                    <div class="form-group">
+                                                        <label for="id_entrenador">Id Entrenador: </label>
+                                                        <input type="number" class="form-control" name="id_entrenador" id="id_entrenador"
+                                                               readonly th:value="${trainer.id_entrenador}"/>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="tipo_documento">Tipo de Documento: </label>
+                                                        <input type="text" class="form-control" name="tipo_documento" id="tipo_documento"
+                                                               readonly th:value="${trainer.tipo_documento}"/>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="documentoE">Documento: </label>
+                                                        <input type="number" class="form-control" name="documentoE" id="documentoE"
+                                                               readonly th:value="${trainer.documentoE}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="nombre">Nombre: </label>
+                                                        <input type="text" class="form-control" name="nombre" id="nombre"
+                                                               th:value="${trainer.nombre}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="apellido">Apellido: </label>
+                                                        <input type="text" class="form-control" name="apellido" id="apellido"
+                                                               th:value="${trainer.apellido}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="telefono">Telefono: </label>
+                                                        <input type="text" class="form-control" name="telefono" id="telefono"
+                                                               th:value="${trainer.telefono}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="fechaN">Fecha de Nacimiento: </label>
+                                                        <input type="date" class="form-control" name="fechaN" id="fechaN"
+                                                               th:field="${trainer.fechaN}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="email">Email: </label>
+                                                        <input type="text" class="form-control" name="email" id="email"
+                                                               th:value="${trainer.email}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="password">Password: </label>
+                                                        <input type="text" class="form-control" name="password" id="password"
+                                                               th:value="${trainer.password}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="foto">Foto: </label>
+                                                        <input type="file" class="form-control" name="file" id="foto"
+                                                               th:value="${trainer.foto}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="experiencia">Experiencia: </label>
+                                                        <input type="number" class="form-control" name="experiencia" id="experiencia"
+                                                               th:value="${trainer.experiencia}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="hoja_vida">Hoja de Vida: </label>
+                                                        <input type="text" class="form-control" name="hoja_vida" id="hoja_vida"
+                                                               th:value="${trainer.hoja_vida}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="titulo_academico">Titulo Académico: </label>
+                                                        <input type="text" class="form-control" name="titulo_academico" id="titulo_academico"
+                                                               th:value="${trainer.titulo_academico}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="jornada" class="form-label">Jornada: </label>
+                                                        <select name="jornada" id="jornada" required class="form-control  ">
+
+                                                            <option th:value="${'Mañana'}" th:text="${'Mañana'}"></option>
+                                                            <option th:value="${'Tarde'}" th:text="${'Tarde'}"></option>
+
+                                                        </select> <br>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                    <button class="btn btn-primary" type="submit">Guardar</button>
+                                                </div>
+
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div  class="col-2">
+                                <a th:href="@{/trainer/dash-trainer/ver-horario/} + ${trainer.id_entrenador}" class="btn btn-success btn-block">
+                                    <i class="fa-solid fa-xmark"></i> Ver Horario
+                                </a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!--SCRIPT SIDEBAR-->
+    <script th:replace="/layouts/script-sidebar :: script-sidebar"></script>
+
+
+</body>
+</html>

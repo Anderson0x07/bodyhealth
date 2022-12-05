@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <title>Agregar Control</title>
+  <meta charset="UTF-8"/>
+</head>
+<body>
+<section th:fragment="agregar-control">
+  <div class="modal fade" id="agregar-control" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar Control</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form th:action="@{/trainer/dash-clientes/guardar-control}" th:object="${controls}"
+              method="POST" class="was-validated">
+          <div class="modal-body">
+            <input type="hidden" class="form-control" name="id_cliente" id="id_cliente" th:value="${cliente.id_cliente}">
+
+
+            <div class="form-group">
+              <label for="peso">Peso: *</label>
+              <input type="number" class="form-control" name="peso" id="peso" required="true">
+            </div>
+            <div class="form-group">
+              <label for="estatura">Estatura: *</label>
+              <input type="number" class="form-control" name="estatura" id="estatura" required="true">
+            </div>
+            <div class="form-group">
+              <label for="fecha">Fecha: *</label>
+              <input type="date" class="form-control" name="fecha" id="fecha" required="true">
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button class="btn btn-primary" type="submit">Guardar</button>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

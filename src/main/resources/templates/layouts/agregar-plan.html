@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <title>Agregar Plan</title>
+  <meta charset="UTF-8"/>
+</head>
+<body>
+<section th:fragment="agregar-plan">
+  <div class="modal fade" id="agregar-plan" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar Plan</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form th:action="@{/admin/dash-planes/guardar}" th:object="${plan}"
+              method="POST" class="was-validated">
+          <div class="modal-body">
+
+            <div class="form-group">
+              <label for="plan">Plan: *</label>
+              <input type="text" class="form-control" name="plan" id="plan" required="true">
+            </div>
+            <div class="form-group">
+              <label for="precio">Precio: *</label>
+              <input type="text" class="form-control" name="precio" id="precio" required="true">
+            </div>
+            <div class="form-group">
+              <label for="meses">Meses: *</label>
+              <input type="text" class="form-control" name="meses" id="meses" required="true">
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button class="btn btn-primary" type="submit">Guardar</button>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dash-Clientes</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.css}"/>
+
+
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <script src="/webjars/datatables/1.10.20/media/js/jquery.dataTables.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="/css/dash-style.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css"/>
+    <link href="/css/dataTable/buttons.dataTables.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="main-container d-flex">
+        <!--SIDEBAR-->
+        <div th:replace="/layouts/sidebar :: sidebar"></div>
+
+        <div class="content">
+            <!--NAV-DASH-->
+            <nav th:replace="/layouts/nav-dash :: nav-dash"></nav>
+
+            <div class="dashboard-content px-3 pt-4">
+                <h2 class="fs-3">Lista de Clientes</h2>
+                <br>
+                <a href="#" class="btn btn-secondary"
+                   data-bs-toggle="modal" data-bs-target="#agregar-cliente">
+                    <i class="fas fa-plus"></i> Agregar Cliente
+                </a>
+                <section th:replace="/layouts/agregar-cliente :: agregar-cliente"></section>
+                <br>
+                <div th:if="${msj.contains('Error')}">
+                    <div class="alert alert-danger" role="alert" th:text="${msj}"></div>
+                </div>
+                <div th:if="${msj.contains('exito')}">
+                    <div class="alert alert-success" role="alert" th:text="${msj}"></div>
+                </div>
+                <br>
+
+                <h2 class="fs-3">Lista de Clientes Activos</h2>
+
+                <div  class="table-responsive">
+                    <table id="tablaUsuarios" class="table table-bordered">
+
+                        <thead>
+                        <tr>
+                            <th>Documento</th>
+                            <th>Nombres</th>
+                            <th>Apellido</th>
+                            <th>Telefono</th>
+                            <th>Fecha Nacimiento</th>
+                            <th>Email</th>
+                            <th>Foto</th>
+                            <th>Jornada</th>
+                            <th>Plan</th>
+                            <th>Acciones</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="cliente : ${clientesActivados}">
+                            <td th:text="${cliente.id_cliente.tipo_documento}+' - '+${cliente.id_cliente.documento}"></td>
+                            <td th:text="${cliente.id_cliente.nombre}"></td>
+                            <td th:text="${cliente.id_cliente.apellido}"></td>
+                            <td th:text="${cliente.id_cliente.telefono}"></td>
+                            <td th:text="${#dates.format(cliente.id_cliente.fecha_nacimiento, 'dd-MMM-yyyy')}"></td>
+                            <td th:text="${cliente.id_cliente.email}"></td>
+                            <td th:text="${cliente.id_cliente.foto}"></td>
+                            <td th:text="${cliente.id_cliente.jornada}"></td>
+                            <td th:text="${cliente.id_detalle.plan+' por '+cliente.id_detalle.meses+' meses'}"></td>
+
+                            <td>
+
+                                <a th:href="@{/admin/dash-clientes/expand/} + ${cliente.id_cliente.id_usuario}" style="text-decoration: none">
+                                    <i class="fa-solid fa-arrow-up-right-from-square" style="color:black"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+                <br> <hr>
+                <br>
+                <h2 class="fs-3">Lista de Clientes Desactivados</h2>
+
+                <div  class="table-responsive">
+                    <table id="tablaUsuariosDesactivados" class="table table-bordered">
+
+                        <thead>
+                            <tr>
+                                <th>Documento</th>
+                                <th>Nombres</th>
+                                <th>Apellido</th>
+                                <th>Telefono</th>
+                                <th>Fecha Nacimiento</th>
+                                <th>Email</th>
+                                <th>Foto</th>
+                                <th>Jornada</th>
+                                <th>Acciones</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="cliente : ${clientesDesactivados}">
+                                <td th:text="${cliente.tipo_documento}+' - '+${cliente.documento}"></td>
+                                <td th:text="${cliente.nombre}"></td>
+                                <td th:text="${cliente.apellido}"></td>
+                                <td th:text="${cliente.telefono}"></td>
+                                <td th:text="${#dates.format(cliente.fecha_nacimiento, 'dd-MMM-yyyy')}"></td>
+                                <td th:text="${cliente.email}"></td>
+                                <td th:text="${cliente.foto}"></td>
+                                <td th:text="${cliente.jornada}"></td>
+
+                                <td>
+
+                                    <a th:href="@{/admin/dash-clientes/expand/} + ${cliente.id_usuario}" style="text-decoration: none">
+                                        <i class="fa-solid fa-arrow-up-right-from-square" style="color:black"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--SCRIPT SIDEBAR-->
+    <script th:replace="/layouts/script-sidebar :: script-sidebar"></script>
+
+    <!--SCRIPTS BOTONES Y DATATABLE-->
+    <div th:replace="/layouts/scripts :: scripts"></div>
+
+    <!--SCRIPT DATATABLE-->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#tablaUsuarios').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'excel', 'pdf'
+                ],
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#tablaUsuariosDesactivados').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'excel', 'pdf'
+                ],
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dash-Clientes</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.css}"/>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css"/>
+    <link href="/css/dataTable/buttons.dataTables.min.css" rel="stylesheet">
+
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <script th:src="@{/webjars/datatables/1.10.20/media/js/jquery.dataTables.min.js}"></script>
+
+    <link rel="stylesheet" type="text/css" href="/css/dash-style.css" />
+</head>
+<body>
+    <div class="main-container d-flex">
+        <!--SIDEBAR-->
+        <div th:replace="/layouts/sidebar-trainer :: sidebar-trainer"></div>
+
+        <div class="content">
+            <!--NAV-DASH-->
+            <nav th:replace="/layouts/nav-dash :: nav-dash"></nav>
+
+            <div class="dashboard-content px-3 pt-4">
+
+
+                <div class="card border-light">
+                    <div class="card-header">
+                        <h3 class="card-title">Datos del cliente</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-5">
+                                <img th:src="@{'/images/' + ${cliente.foto}}" width="500" height="450">
+                            </div>
+                            <div class="col-7">
+
+                                <div class="table-responsive">
+                                    <table  class="table table-bordered table-striped">
+
+                                        <tr>
+                                            <th>Tipo documento</th>
+                                            <td th:text="${cliente.tipo_documento}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Documento</th>
+                                            <td th:text="${cliente.documentoC}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Nombres</th>
+                                            <td th:text="${cliente.nombre}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Apellido</th>
+                                            <td th:text="${cliente.apellido}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Telefono</th>
+                                            <td th:text="${cliente.telefono}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Fecha de Nacimiento</th>
+                                            <td th:text="${#dates.format(cliente.fechaN, 'dd-MMM-yyyy')}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Email</th>
+                                            <td th:text="${cliente.email}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Contraseña</th>
+                                            <td th:text="${cliente.password}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Foto</th>
+                                            <td th:text="${cliente.foto}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Jornada</th>
+                                            <td th:text="${cliente.jornada}"></td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>Control</th>
+                                            <td  th:text="${'Peso: '+control.peso+' - Estatura: '+control.estatura}"></td>
+
+                                        </tr>
+                                        <tr>
+                                            <th>Rutina Asignada</th>
+                                            <div th:if="${clienteRutina != null}">
+                                                <td th:text="${'Rutina: '+clienteRutina.id_rutina.nombre_rutina}"></td>
+                                            </div>
+                                            <div th:if="${clienteRutina == null}">
+                                                <td   th:text="${'Rutina: No Asignada'}"></td>
+                                            </div>
+
+                                        </tr>
+
+
+
+
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col-6"></div>
+                            <div class="col-2">
+                                <a th:href="@{/trainer/dash-clientes}" class="btn btn-dark btn-block">
+                                    <i class="fas fa-arrow-left"></i> Regresar
+                                </a>
+                            </div>
+                            <div class="col-2">
+
+                                <a href="#" class="btn btn-secondary"
+                                   data-bs-toggle="modal" data-bs-target="#agregar-control">
+                                    <i class="fas fa-plus"></i> Editar Control
+                                </a>
+                                <section th:replace="/layouts/layoutsTrainer/agregar-control :: agregar-control"></section>
+                            </div>
+                            <div class="col-2">
+
+                                <a href="#" class="btn btn-secondary"
+                                   data-bs-toggle="modal" data-bs-target="#agregar-cliente-rutina">
+                                    <i class="fas fa-plus"></i> Agregar o Editar Rutina
+                                </a>
+                                <!--<section th:replace="/layouts/layoutsTrainer/agregar-cliente-rutina :: agregar-cliente-rutina"></section>-->
+                                <div class="modal fade" id="agregar-cliente-rutina" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar o Editar Rutina a Cliente</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <form th:action="@{/trainer/dash-rutinas/guardar-cliente-rutina}" th:object="${cliente_rutina}"
+                                                  method="POST" class="was-validated">
+                                                <div class="modal-body">
+
+                                                    <div th:if="${clienteRutina!=null}" >
+                                                        <div class="form-group">
+                                                            <label for="id_clienterutina">Id Rutina asignada: </label>
+                                                            <input readonly type="text" class="form-control" name="id_clienterutina" id="id_clienterutina" th:value="${clienteRutina.id_clienterutina}">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="id_cliente">Cliente: </label>
+                                                        <input readonly type="text" class="form-control" name="id_cliente" id="id_cliente" th:value="${cliente.id_cliente}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="id_rutina" class="form-label">Rutina: *</label>
+                                                        <select name="id_rutina" id="id_rutina" required class="form-control">
+
+                                                            <div th:each="rutina : ${rutinas}">
+                                                                <option th:value="${rutina.id_rutina}" th:text="${rutina.id_rutina+' - '+rutina.nombre_rutina}"></option>
+                                                            </div>
+                                                        </select> <br>
+                                                    </div>
+                                                </div>
+
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                    <button class="btn btn-primary" type="submit">Guardar</button>
+                                                </div>
+
+                                            </form>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+
+                <!--TABLA DE RUTINA COMPLETA -->
+                <div th:if="${clienteRutina!=null}" class="table-responsive">
+                    <table class="table table-bordered table-striped">
+
+                        <tr>
+                            <th colspan="5" style="text-align: center; font-size: xx-large" th:text="${'Rutina '+clienteRutina.id_rutina.nombre_rutina}"></th>
+
+                        </tr>
+                        <tr>
+                            <th>Musculo</th>
+                            <th>Descripcion de Ejercicio</th>
+                            <th>Series</th>
+                            <th>Repeticiones</th>
+                            <th>URL Video</th>
+
+                        </tr>
+                        <tr th:each="rutinaejercicio : ${rutinaconejercicios}">
+                            <td th:text="${rutinaejercicio.id_rutina_ejercicio.id_ejercicio.id_musculo.descripcion}"></td>
+                            <td th:text="${rutinaejercicio.id_rutina_ejercicio.id_ejercicio.descripcion}"></td>
+                            <td th:text="${rutinaejercicio.id_rutina_ejercicio.id_ejercicio.series}"></td>
+                            <td th:text="${rutinaejercicio.id_rutina_ejercicio.id_ejercicio.repeticiones}"></td>
+                            <td th:text="${rutinaejercicio.id_rutina_ejercicio.id_ejercicio.url_video}"></td>
+                        </tr>
+
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!--SCRIPT SIDEBAR-->
+    <script th:replace="/layouts/script-sidebar :: script-sidebar"></script>
+
+
+</body>
+</html>

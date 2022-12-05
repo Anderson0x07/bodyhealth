@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dash-Planes</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.css}"/>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css"/>
+    <link href="/css/dataTable/buttons.dataTables.min.css" rel="stylesheet">
+
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <script th:src="@{/webjars/datatables/1.10.20/media/js/jquery.dataTables.min.js}"></script>
+
+    <link rel="stylesheet" type="text/css" href="/css/dash-style.css" />
+</head>
+<body>
+    <div class="main-container d-flex">
+        <!--SIDEBAR-->
+        <div th:replace="/layouts/sidebar :: sidebar"></div>
+
+        <div class="content">
+            <!--NAV-DASH-->
+            <nav th:replace="/layouts/nav-dash :: nav-dash"></nav>
+
+            <div class="dashboard-content px-3 pt-4">
+
+
+                <div class="card border-light">
+                    <div class="card-header">
+                        <h3 class="card-title">Datos de Maquina</h3>
+                    </div>
+                    <div class="card-body">
+
+                        <form th:action="@{/admin/dash-maquinas/expand/guardar}" th:object="${maquina}" method="POST">
+
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-3"></div>
+                                    <div class="col-6">
+                                        <div class="card">
+                                            <div class="card-body">
+
+                                                <input type="hidden" name="id" id="id" th:value="${maquina.id}"/>
+
+                                                <div class="form-group">
+                                                    <label for="id_maquina">Id Maquina: </label>
+                                                    <input type="text" class="form-control" name="id_maquina" id="id_maquina"
+                                                           required="true" th:value="${maquina.id_maquina}"/>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="nombre">Nombre: </label>
+                                                    <input type="text" class="form-control" name="nombre" id="nombre"
+                                                           required="true" th:value="${maquina.nombre}"/>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="estado">Estado: </label>
+                                                    <input type="text" class="form-control" name="estado" id="estado"
+                                                           required="true" th:value="${maquina.estado}"/>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="observacion">Observación: </label>
+                                                    <input type="text" class="form-control" name="observacion" id="observacion"
+                                                           required="true" th:value="${maquina.observacion}"/>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="id_proveedor" class="form-label">Proveedor: </label>
+                                                    <select name="id_proveedor" id="id_proveedor" required class="form-control mi-selector ">
+
+                                                        <div th:each="proveedor : ${proveedores}">
+                                                            <option th:value="${proveedor.id_proveedor}" th:text="${proveedor.nombre_empresa}"></option>
+                                                        </div>
+                                                    </select> <br>
+                                                </div>
+                                                <h2 class="fs-5" style="color: red" th:text="${error}"></h2>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-3"></div>
+                                </div>
+                            </div>
+                            <br>
+
+                            <div class="card-footer">
+                                <div class="row">
+                                    <div class="col-8"></div>
+                                    <div class="col-2">
+                                        <a th:href="@{/admin/dash-maquinas/expand/}+${maquina.id}" class="btn btn-dark btn-block">
+                                            <i class="fas fa-arrow-left"></i> Regresar
+                                        </a>
+                                    </div>
+                                    <div class="col-2">
+                                        <button type="submit" class="btn btn-success btn-block">
+                                            <i class="fas fa-check"></i> Guardar
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+
+    <!--SCRIPT SIDEBAR-->
+    <script th:replace="/layouts/script-sidebar :: script-sidebar"></script>
+
+</body>
+</html>

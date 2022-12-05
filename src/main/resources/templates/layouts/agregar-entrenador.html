@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <title>Agregar Entrenador</title>
+  <meta charset="UTF-8"/>
+</head>
+<body>
+<section th:fragment="agregar-entrenador">
+  <div class="modal fade" id="agregar-entrenador" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar Entrenador</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form th:action="@{/admin/dash-trainers/expand/guardar}" th:object="${entrenador}"
+              method="POST" enctype="multipart/form-data" class="was-validated">
+          <div class="modal-body">
+
+            <div class="form-group">
+              <label for="documentoE">Documento: </label>
+              <input type="text" class="form-control" name="documento" id="documentoE" required="true">
+            </div>
+            <div class="form-group">
+              <label for="tipo_documento">Tipo de Documento: </label>
+              <input type="text" class="form-control" name="tipo_documento" id="tipo_documento" required="true">
+            </div>
+
+            <div class="form-group">
+              <label for="nombre">Nombre: </label>
+              <input type="text" class="form-control" name="nombre" id="nombre" required="true">
+            </div>
+            <div class="form-group">
+              <label for="apellido">Apellido: </label>
+              <input type="text" class="form-control" name="apellido" id="apellido" required="true">
+            </div>
+            <div class="form-group">
+              <label for="telefono">Teléfono: </label>
+              <input type="text" class="form-control" name="telefono" id="telefono" required="true">
+            </div>
+            <div class="form-group">
+              <label for="fechaN">Fecha de Nacimiento: </label>
+              <input type="date" class="form-control" name="fecha_nacimiento" id="fechaN" required="true">
+            </div>
+            <div class="form-group">
+              <label for="email">Email: </label>
+              <input type="email" class="form-control" name="email" id="email" required="true">
+            </div>
+            <div class="form-group">
+              <label for="password">Password: </label>
+              <input type="text" class="form-control" name="password" id="password" required="true">
+            </div>
+
+            <div class="form-group">
+              <label for="foto">Foto: </label>
+              <input type="file" class="form-control" name="file" id="foto" >
+            </div>
+            <div class="form-group">
+              <label for="experiencia">Experiencia: </label>
+              <input type="text" class="form-control" name="experiencia" id="experiencia"
+                     required="true" />
+            </div>
+            <div class="form-group">
+              <label for="hoja_vida">Hoja de Vida: </label>
+              <input type="text" class="form-control" name="hoja_vida" id="hoja_vida"
+                     required="true" />
+            </div>
+            <div class="form-group">
+              <label for="titulo_academico">Título Académico: </label>
+              <input type="text" class="form-control" name="titulo_academico" id="titulo_academico"
+                     required="true" />
+            </div>
+
+            <div class="form-group">
+              <label for="jornada" class="form-label">Jornada: </label>
+              <select name="jornada" id="jornada" required class="form-control mi-selector ">
+
+                <option th:value="${'Mañana'}" th:text="${'Mañana'}"></option>
+                <option th:value="${'Tarde'}" th:text="${'Tarde'}"></option>
+
+              </select> <br>
+            </div>
+
+
+            <div class="form-group">
+              <label for="estado">Estado: </label>
+              <input type="text" class="form-control" name="estado" id="estado"
+                     readonly value="1"/>
+            </div>
+
+
+
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button class="btn btn-primary" type="submit">Guardar</button>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

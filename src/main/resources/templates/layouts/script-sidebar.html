@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Script-Sidebar</title>
+</head>
+<body>
+  <script th:fragment="script-sidebar">
+    $(".sidebar ul li").on('click',function (){
+      $(".sidebar ul li.active").removeClass('active');
+      $(this).addClass('active');
+    });
+
+    $('.open-btn').on('click', function (){
+      $('.sidebar').addClass('active');
+    });
+
+    $('.close-btn').on('click', function (){
+      $('.sidebar').removeClass('active');
+    });
+  </script>
+</body>
+</html>

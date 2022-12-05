@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dash-Trainers</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.css}"/>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css"/>
+    <link href="/css/dataTable/buttons.dataTables.min.css" rel="stylesheet">
+
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <script th:src="@{/webjars/datatables/1.10.20/media/js/jquery.dataTables.min.js}"></script>
+
+    <link rel="stylesheet" type="text/css" href="/css/dash-style.css" />
+</head>
+<body>
+    <div class="main-container d-flex">
+        <!--SIDEBAR-->
+        <div th:replace="/layouts/sidebar :: sidebar"></div>
+
+        <div class="content">
+            <!--NAV-DASH-->
+            <nav th:replace="/layouts/nav-dash :: nav-dash"></nav>
+
+            <div class="dashboard-content px-3 pt-4">
+                <h2 class="fs-3">Lista de Entrenadores Activos</h2>
+                <br>
+                <a href="#" class="btn btn-secondary"
+                   data-bs-toggle="modal" data-bs-target="#agregar-entrenador">
+                    <i class="fas fa-plus"></i> Agregar Entrenador
+                </a>
+                <section th:replace="/layouts/agregar-entrenador :: agregar-entrenador"></section>
+                <br>
+                <div th:if="${msj.contains('Error')}">
+                    <div class="alert alert-danger" role="alert" th:text="${msj}"></div>
+                </div>
+                <div th:if="${msj.contains('exito')}">
+                    <div class="alert alert-success" role="alert" th:text="${msj}"></div>
+                </div>
+                <br>
+
+
+                <div class="table-responsive">
+                    <table id="tablaTrainers" class="table table-bordered">
+
+                        <thead>
+                        <tr>
+                            <th>Documento</th>
+                            <th>Nombres</th>
+                            <th>Apellidos</th>
+                            <th>Telefono</th>
+                            <th>Fecha Nacimiento</th>
+                            <th>Email</th>
+                            <th>Experiencia</th>
+                            <th>Hoja de Vida</th>
+                            <th>Titulo Académico</th>
+                            <th>Acciones</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="trainer : ${trainers}">
+                            <td th:text="${trainer.tipo_documento}+' - '+${trainer.documento}"></td>
+                            <td th:text="${trainer.nombre}"></td>
+                            <td th:text="${trainer.apellido}"></td>
+                            <td th:text="${trainer.telefono}"></td>
+                            <td th:text="${#dates.format(trainer.fecha_nacimiento, 'dd-MMM-yyyy')}"></td>
+                            <td th:text="${trainer.email}"></td>
+                            <td th:text="${trainer.experiencia}"></td>
+                            <td th:text="${trainer.hoja_vida}"></td>
+                            <td th:text="${trainer.titulo_academico}"></td>
+
+                            <td>
+                                <a th:href="@{/admin/dash-trainers/expand/} + ${trainer.id_usuario}" style="text-decoration: none">
+                                    <i class="fa-solid fa-arrow-up-right-from-square" style="color:black"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+
+
+                <h2 class="fs-3">Lista de Entrenadores Desactivados</h2>
+
+                <div class="table-responsive">
+                    <table id="tablaTrainersDesactivados" class="table table-bordered">
+
+                        <thead>
+                        <tr>
+                            <th>Documento</th>
+                            <th>Nombres</th>
+                            <th>Apellidos</th>
+                            <th>Telefono</th>
+                            <th>Fecha Nacimiento</th>
+                            <th>Email</th>
+                            <th>Experiencia</th>
+                            <th>Hoja de Vida</th>
+                            <th>Titulo Académico</th>
+                            <th>Acciones</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="trainer : ${trainersDesactivados}">
+                            <td th:text="${trainer.tipo_documento}+' - '+${trainer.documento}"></td>
+                            <td th:text="${trainer.nombre}"></td>
+                            <td th:text="${trainer.apellido}"></td>
+                            <td th:text="${trainer.telefono}"></td>
+                            <td th:text="${#dates.format(trainer.fecha_nacimiento, 'dd-MMM-yyyy')}"></td>
+                            <td th:text="${trainer.email}"></td>
+                            <td th:text="${trainer.experiencia}"></td>
+                            <td th:text="${trainer.hoja_vida}"></td>
+                            <td th:text="${trainer.titulo_academico}"></td>
+
+                            <td>
+                                <a th:href="@{/admin/dash-trainers/expand/} + ${trainer.id_usuario}" style="text-decoration: none">
+                                    <i class="fa-solid fa-arrow-up-right-from-square" style="color:black"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!--SCRIPT SIDEBAR-->
+    <script th:replace="/layouts/script-sidebar :: script-sidebar"></script>
+
+    <!--SCRIPTS BOTONES-->
+    <div th:replace="/layouts/scripts :: scripts"></div>
+
+    <!--SCRIPT DATATABLE-->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#tablaTrainers').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'excel', 'pdf'
+                ],
+            });
+        });
+    </script>
+
+    <!--SCRIPT DATATABLE-->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#tablaTrainersDesactivados').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'excel', 'pdf'
+                ],
+            });
+        });
+    </script>
+
+
+</body>
+</html>

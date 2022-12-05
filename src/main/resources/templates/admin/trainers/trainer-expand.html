@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dash-Clientes</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.css}"/>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css"/>
+    <link href="/css/dataTable/buttons.dataTables.min.css" rel="stylesheet">
+
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <script th:src="@{/webjars/datatables/1.10.20/media/js/jquery.dataTables.min.js}"></script>
+
+    <link rel="stylesheet" type="text/css" href="/css/dash-style.css" />
+</head>
+<body>
+    <div class="main-container d-flex">
+        <!--SIDEBAR-->
+        <div th:replace="/layouts/sidebar :: sidebar"></div>
+
+        <div class="content">
+            <!--NAV-DASH-->
+            <nav th:replace="/layouts/nav-dash :: nav-dash"></nav>
+
+            <div class="dashboard-content px-3 pt-4">
+
+
+                <div class="card border-light">
+                    <div class="card-header">
+                        <h3 class="card-title">Datos del Entrenador</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-5">
+                                <img th:src="@{'/images/' + ${trainer.foto}}" width="500" height="450">
+                            </div>
+                            <div class="col-7">
+
+                                <div class="table-responsive">
+                                    <table  class="table table-bordered table-striped">
+
+                                        <tr>
+                                            <th>Tipo documento</th>
+                                            <td th:text="${trainer.tipo_documento}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Documento</th>
+                                            <td th:text="${trainer.documento}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Nombres</th>
+                                            <td th:text="${trainer.nombre}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Apellido</th>
+                                            <td th:text="${trainer.apellido}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Telefono</th>
+                                            <td th:text="${trainer.telefono}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Fecha de Nacimiento</th>
+                                            <td th:text="${#dates.format(trainer.fecha_nacimiento, 'dd-MMM-yyyy')}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Email</th>
+                                            <td th:text="${trainer.email}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Contraseña</th>
+                                            <td th:text="${trainer.password}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Foto</th>
+                                            <td th:text="${trainer.foto}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Experiencia</th>
+                                            <td th:text="${trainer.experiencia}+' Años'"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Hoja de Vida</th>
+                                            <td th:if="${trainer.hoja_vida!=null}" th:text="${trainer.hoja_vida}">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Título Académico</th>
+                                            <td th:text="${trainer.titulo_academico}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Jornada</th>
+                                            <td th:text="${trainer.jornada}"></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col-6"></div>
+                            <div class="col-2">
+                                <a th:href="@{/admin/dash-trainers}" class="btn btn-dark btn-block">
+                                    <i class="fas fa-arrow-left"></i> Regresar
+                                </a>
+                            </div>
+                            <div class="col-2">
+                                <a th:href="@{/admin/dash-trainers/expand/editar/} + ${trainer.id_usuario}" class="btn btn-secondary">
+                                    <i class="fas fa-angle-double-right"></i> Editar
+                                </a>
+                            </div>
+                            <div  class="col-2">
+                                <a th:if="${trainer.estado == true}" th:href="@{/admin/dash-trainers/expand/desactivar/} + ${trainer.id_usuario}" class="btn btn-danger btn-block">
+                                    <i class="fa-solid fa-xmark"></i> Desactivar
+                                </a>
+                                <a th:if="${trainer.estado == false}" th:href="@{/admin/dash-trainers/expand/activar/} + ${trainer.id_usuario}" class="btn btn-success btn-block">
+                                    <i class="fas fa-check"></i> Activar
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!--SCRIPT SIDEBAR-->
+    <script th:replace="/layouts/script-sidebar :: script-sidebar"></script>
+
+
+</body>
+</html>

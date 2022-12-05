@@ -1,0 +1,42 @@
+    <!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sidebar</title>
+</head>
+<body>
+    <div th:fragment="sidebar" class="sidebar" id="side_nav">
+        <div class="header-box px-2 pt-3 pb-4 d-flex justify-content-between">
+            <h1 class="fs-4"><span class="bg-white text-dark rounded shadow px-2 me-2">DB</span>
+                <span class="text-white">DashBoard</span>
+            </h1>
+
+            <button class="btn d-md-none d-block close-btn px-1 py-0 text-white"><i class="fa-solid fa-bars"></i></button>
+        </div>
+
+        <ul class="list-unstyled px-2">
+            <li class=""><a th:href="@{/admin/dashboard}"class="text-decoration-none px-3 py-2 d-block"><i class="fa-solid fa-house"></i> Tablero</a></li>
+            <li class=""><a th:href="@{/admin/dash-clientes}" class="text-decoration-none px-3 py-2 d-block"><i class="fa-solid fa-users"></i> Clientes</a></li>
+            <li class=""><a th:href="@{/admin/dash-trainers}" class="text-decoration-none px-3 py-2 d-block"><i class="fa-solid fa-user-group"></i> Entrenadores</a></li>
+            <li class=""><a th:href="@{/admin/dash-productos}" class="text-decoration-none px-3 py-2 d-block"><i class="fa-solid fa-shop"></i>  Productos</a></li>
+            <li class=""><a th:href="@{/admin/dash-planes}" class="text-decoration-none px-3 py-2 d-block"><i class="fa-solid fa-list"></i>  Planes</a></li>
+            <li class=""><a th:href="@{/admin/dash-rutinas}" class="text-decoration-none px-3 py-2 d-block"><i class="fa-solid fa-heart-pulse"></i>  Rutinas</a></li>
+            <li class=""><a th:href="@{/admin/dash-maquinas}" class="text-decoration-none px-3 py-2 d-block"><i class="fa-solid fa-dumbbell"></i>  Maquinas</a></li>
+            <li class=""><a th:href="@{/admin/dash-fact-planes}" class="text-decoration-none px-3 py-2 d-block"><i class="fa-regular fa-credit-card"></i>  Fact. Planes</a></li>
+            <li class=""><a th:href="@{/admin/dash-fact-productos}" class="text-decoration-none px-3 py-2 d-block"><i class="fa-regular fa-credit-card"></i>  Fact. Productos</a></li>
+            <li class=""><a th:href="@{/admin/dash-proveedores}" class="text-decoration-none px-3 py-2 d-block"><i class="fa-solid fa-people-group"></i>  Proveedores</a></li>
+            <li class=""><a th:href="@{/admin/dash-horarios}" class="text-decoration-none px-3 py-2 d-block"><i class="fa-solid fa-calendar-week"></i>  Horarios</a></li>
+        </ul>
+        <hr class="h-color mx-3">
+
+        <ul class="list-unstyled px-2">
+            <li class=""><a th:href="@{/admin/perfil}" class="text-decoration-none px-3 py-2 d-block"><i class="fa-solid fa-gear"></i> Configuracion</a></li>
+        </ul>
+
+    </div>
+</body>
+</html>

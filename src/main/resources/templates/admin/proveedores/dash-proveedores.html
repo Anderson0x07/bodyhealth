@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dash-Productos</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.css}"/>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css"/>
+    <link href="/css/dataTable/buttons.dataTables.min.css" rel="stylesheet">
+
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <script th:src="@{/webjars/datatables/1.10.20/media/js/jquery.dataTables.min.js}"></script>
+
+    <link rel="stylesheet" type="text/css" href="/css/dash-style.css" />
+</head>
+<body>
+    <div class="main-container d-flex">
+        <!--SIDEBAR-->
+        <div th:replace="/layouts/sidebar :: sidebar"></div>
+
+        <div class="content">
+            <!--NAV-DASH-->
+            <nav th:replace="/layouts/nav-dash :: nav-dash"></nav>
+
+            <div class="dashboard-content px-3 pt-4">
+
+                <h2 class="fs-5">Lista de Proveedores</h2> <br>
+
+                <a href="#" class="btn btn-secondary"
+                   data-bs-toggle="modal" data-bs-target="#agregar-proveedor">
+                    <i class="fas fa-plus"></i> Agregar Proveedor
+                </a>
+
+
+                <section th:replace="/layouts/agregar-proveedor :: agregar-proveedor"></section>
+
+                <br>
+                <div class="table-responsive">
+                    <table id="tablaProveedores" class="table table-bordered">
+
+                        <thead>
+                        <tr>
+                            <th>Id Proveedor</th>
+                            <th>Nombre Empresa</th>
+                            <th>Telefono</th>
+                            <th>Direccion</th>
+                            <th>Acciones</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="proveedor : ${proveedores}">
+                            <td th:text="${proveedor.id_proveedor}"></td>
+                            <td th:text="${proveedor.nombre_empresa}"></td>
+                            <td th:text="${proveedor.telefono}"></td>
+                            <td th:text="${proveedor.direccion}"></td>
+
+                            <td>
+
+                                <a th:href="@{/admin/dash-proveedores/expand/} + ${proveedor.id_proveedor}" style="text-decoration: none">
+                                    <i class="fa-solid fa-arrow-up-right-from-square" style="color:black"></i>
+                                </a>
+
+                            </td>
+                        </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!--SCRIPT SIDEBAR-->
+    <script th:replace="/layouts/script-sidebar :: script-sidebar"></script>
+
+    <!--SCRIPTS BOTONES-->
+    <div th:replace="/layouts/scripts :: scripts"></div>
+
+    <!--SCRIPT DATATABLE-->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#tablaProveedores').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'excel', 'pdf'
+                ],
+            });
+        });
+    </script>
+
+</body>
+</html>

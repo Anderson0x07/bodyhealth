@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <title>Agregar Maquina</title>
+  <meta charset="UTF-8"/>
+</head>
+<body>
+<section th:fragment="agregar-maquina">
+  <div class="modal fade" id="agregar-maquina" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar Maquina</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form th:action="@{/admin/dash-maquinas/guardar}" th:object="${maquina}"
+              method="POST" class="was-validated">
+          <div class="modal-body">
+
+            <div class="form-group">
+              <label for="id_maquina">ID: </label>
+              <input type="number" class="form-control" name="id_maquina" id="id_maquina" required="true">
+            </div>
+            <div class="form-group">
+              <label for="nombre">Nombre: </label>
+              <input type="text" class="form-control" name="nombre" id="nombre" required="true">
+            </div>
+            <div class="form-group">
+              <label for="estado">Estado: </label>
+              <input type="text" class="form-control" name="estado" id="estado" required="true">
+            </div>
+            <div class="form-group">
+              <label for="observacion">Observación: </label>
+              <input type="text" class="form-control" name="observacion" id="observacion" required="true">
+            </div>
+              <!--SELECT-->
+            <div class="form-group">
+              <label for="id_proveedor" class="form-label">Proveedor: </label>
+              <select name="id_proveedor" id="id_proveedor" required class="form-control mi-selector ">
+
+                <div th:each="proveedor : ${proveedores}">
+                  <option th:value="${proveedor.id_proveedor}" th:text="${proveedor.nombre_empresa}"></option>
+                </div>
+              </select> <br>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button class="btn btn-primary" type="submit">Guardar</button>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

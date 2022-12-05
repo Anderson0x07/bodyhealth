@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <title>Agregar Ejercicio</title>
+  <meta charset="UTF-8"/>
+</head>
+<body>
+<section th:fragment="agregar-ejercicio">
+  <div class="modal fade" id="agregar-ejercicio" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar Ejercicio</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form th:action="@{/trainer/dash-rutinas/guardar-ejercicio}" th:object="${ejercicio}"
+              method="POST" class="was-validated">
+          <div class="modal-body">
+
+            <div class="form-group">
+              <label for="id_musculo2" class="form-label">Musculo: *</label>
+              <select name="id_musculo" id="id_musculo2" required class="form-control">
+
+                <div th:each="musculo : ${musculos}">
+                  <option th:value="${musculo.id_musculo}" th:text="${musculo.descripcion}"></option>
+                </div>
+              </select> <br>
+            </div>
+            <div class="form-group">
+              <label for="descripcionE">Descripcion: </label>
+              <input type="text" class="form-control" name="descripcion" id="descripcionE" required="true">
+            </div>
+            <div class="form-group">
+              <label for="series">Series: *</label>
+              <input type="text" class="form-control" name="series" id="series" required="true">
+            </div>
+            <div class="form-group">
+              <label for="repeticiones">Repeticiones: *</label>
+              <input type="text" class="form-control" name="repeticiones" id="repeticiones" required="true">
+            </div>
+            <div class="form-group">
+              <label for="url_video">Url Video: *</label>
+              <input type="text" class="form-control" name="url_video" id="url_video" required="true">
+            </div>
+
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button class="btn btn-primary" type="submit">Guardar</button>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

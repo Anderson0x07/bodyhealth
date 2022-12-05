@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dash-Planes</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.css}"/>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css"/>
+    <link href="/css/dataTable/buttons.dataTables.min.css" rel="stylesheet">
+
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <script th:src="@{/webjars/datatables/1.10.20/media/js/jquery.dataTables.min.js}"></script>
+
+    <link rel="stylesheet" type="text/css" href="/css/dash-style.css" />
+</head>
+<body>
+    <div class="main-container d-flex">
+        <!--SIDEBAR-->
+        <div th:replace="/layouts/sidebar :: sidebar"></div>
+
+        <div class="content">
+            <!--NAV-DASH-->
+            <nav th:replace="/layouts/nav-dash :: nav-dash"></nav>
+
+            <div class="dashboard-content px-3 pt-4">
+
+
+                <div class="card border-light">
+                    <div class="card-header">
+                        <h3 class="card-title">Datos del Plan</h3>
+                    </div>
+                    <div class="card-body">
+
+                        <form th:action="@{/admin/dash-planes/expand/guardar}" th:object="${detalle}" method="POST">
+
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-3"></div>
+                                    <div class="col-6">
+                                        <div class="card">
+                                            <div class="card-body">
+
+                                                <div class="form-group">
+                                                    <label for="id_detalle">Id Detalle: </label>
+                                                    <input type="text" class="form-control" name="id_detalle" id="id_detalle"
+                                                           readonly th:field="*{id_detalle}"/>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="empresa">Plan: *</label>
+                                                    <input type="text" class="form-control" name="empresa" id="empresa"
+                                                           required="true" th:field="*{plan}"/>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="precio">Precio: *</label>
+                                                    <input type="number" class="form-control" name="precio" id="precio"
+                                                           required="true" th:field="*{precio}"/>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="meses">Meses: *</label>
+                                                    <input type="number" class="form-control" name="meses" id="meses"
+                                                           required="true" th:field="*{meses}"/>
+                                                </div>
+                                                <br>
+                                                <h2 class="fs-5" th:text="${error}" style="color: red;"></h2>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-3"></div>
+                                </div>
+                            </div>
+                            <br>
+
+                            <div class="card-footer">
+                                <div class="row">
+                                    <div class="col-8"></div>
+                                    <div class="col-2">
+                                        <a th:href="@{/admin/dash-planes/expand/}+${detalle.id_detalle}" class="btn btn-dark btn-block">
+                                            <i class="fas fa-arrow-left"></i> Regresar
+                                        </a>
+                                    </div>
+                                    <div class="col-2">
+                                        <button type="submit" class="btn btn-success btn-block">
+                                            <i class="fas fa-check"></i> Guardar
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!--SCRIPT SIDEBAR-->
+    <script th:replace="/layouts/script-sidebar :: script-sidebar"></script>
+
+</body>
+</html>

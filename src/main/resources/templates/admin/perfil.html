@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Mi Perfil Admin</title>
@@ -81,10 +82,6 @@
                                             <th>Email</th>
                                             <td th:text="${admin.email}"></td>
                                         </tr>
-                                        <tr>
-                                            <th>Contraseña</th>
-                                            <td th:text="${admin.password}"></td>
-                                        </tr>
 
                                     </table>
                                 </div>
@@ -111,11 +108,8 @@
                                             <form th:action="@{/admin/perfil/guardar-perfil}" th:object="${admin}"
                                                   method="POST" enctype="multipart/form-data" class="was-validated">
                                                 <div class="modal-body">
-                                                    <div class="form-group">
-                                                        <label for="id_admin">Id Administrador: </label>
-                                                        <input type="number" class="form-control" name="id_admin" id="id_admin"
-                                                               readonly th:value="${admin.id_usuario}"/>
-                                                    </div>
+
+                                                    <input type="hidden" name="id_usuario" th:value="${admin.id_usuario}"/>
 
                                                     <div class="form-group">
                                                         <label for="tipodocumento">Tipo de Documento: </label>
@@ -152,11 +146,9 @@
                                                         <input type="text" class="form-control" name="email" id="email"
                                                                th:value="${admin.email}">
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label for="password">Password: </label>
-                                                        <input type="text" class="form-control" name="password" id="password"
-                                                               th:value="${admin.password}">
-                                                    </div>
+
+                                                    <input type="hidden" name="password" th:value="${admin.password}">
+
 
                                                 </div>
 

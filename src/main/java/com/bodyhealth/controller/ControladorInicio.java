@@ -1,7 +1,6 @@
 package com.bodyhealth.controller;
 
-import com.bodyhealth.model.Cliente;
-import com.bodyhealth.model.Producto;
+import com.bodyhealth.model.*;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -9,12 +8,13 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
-import com.bodyhealth.service.ProductoService;
-import com.bodyhealth.service.UsuarioService;
+import com.bodyhealth.repository.*;
+import com.bodyhealth.service.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,12 +26,45 @@ import org.springframework.web.multipart.MultipartFile;
 @Slf4j
 public class ControladorInicio {
 
-
+    private BCryptPasswordEncoder encode = new BCryptPasswordEncoder();
     @Autowired
     private ProductoService productoService;
 
     @Autowired
     private UsuarioService usuarioService;
+
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private EntrenadorClienteRepository entrenadorClienteRepository;
+
+    @Autowired
+    private ClienteDetalleRepository clienteDetalleRepository;
+
+    private Util util = new Util();
+
+    @Autowired
+    private ControlClienteRepository controlClienteRepository;
+
+    @Autowired
+    private ClienteRutinaRepository clienteRutinaRepository;
+
+    @Autowired
+    private RutinaService rutinaService;
+
+    @Autowired
+    private ClienteRutinaEjercicioRepository clienteRutinaEjercicioRepository;
+
+    @Autowired
+    private ClienteRutinaEjercicioService clienteRutinaEjercicioService;
+
+    @Autowired
+    private RutinaEjercicioRepository rutinaEjercicioRepository;
+
+    @Autowired
+    private DetalleRepository detalleRepository;
+
 
     @GetMapping("/")
     public String index(){
@@ -42,66 +75,166 @@ public class ControladorInicio {
     public String productos(Model model){
         List<Producto> product = productoService.listarActivos();
         model.addAttribute("productos",product);
-        return "/cliente/productos";
+        return "cliente/productos";
     }
 
     @GetMapping("/planes")
-    public String planes(){
-        return "/cliente/planes";
+    public String planes(Model model){
+        List<Detalle> detalle = detalleRepository.listarActivos();
+        model.addAttribute("planes",detalle);
+        return "cliente/planes";
     }
     @GetMapping("/noticias")
     public String noticias(){
-        return "/cliente/noticias";
+        return "cliente/noticias";
     }
-    @GetMapping("/registro-cliente")
-    public String registroCliente(){
-        return "/cliente/registro-cliente";
-    }
-    @GetMapping("/login1")
-    public String login(){
-        return "login";
-    }
+
+
 
     //Prueba de nuevo regstro cliente plantilla
     @GetMapping("/registroCliente")
     public String registroClientePlantilla(){
-        return "/cliente/registroCliente";
+        return "cliente/registroCliente";
     }
 
-    @PostMapping("/dash-clientes/expand/guardar")
+    @PostMapping("/cliente/dash-clientes/expand/guardar")
     public String guardarClienteIndex(Cliente cliente, @RequestParam("file") MultipartFile imagen){
+
         Path directorioImagenes = Paths.get("src//main//resources//static/images");
         String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath();
-        try {
-            byte[] bytesImg = imagen.getBytes();
-            Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + imagen.getOriginalFilename());
-            Files.write(rutaCompleta, bytesImg);
-            cliente.setFoto(imagen.getOriginalFilename());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        if(!imagen.isEmpty()){
+            try {
+                byte[] bytesImg = imagen.getBytes();
+                Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + imagen.getOriginalFilename());
+                Files.write(rutaCompleta, bytesImg);
+                cliente.setFoto(imagen.getOriginalFilename());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
-        log.info("LLEGÓ: "+cliente.getDocumento());
+        cliente.setPassword(encode.encode(cliente.getPassword()));
+
         usuarioService.guardar(cliente);
 
-        return "login";
+        return "redirect:/login";
+    }
+
+    @PostMapping("/cliente/mi-perfil/guardar-edicion")
+    public String guardarEdicionCliente(Cliente cliente, @RequestParam("file") MultipartFile imagen){
+
+        Path directorioImagenes = Paths.get("src//main//resources//static/images");
+        String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath();
+        if(!imagen.isEmpty()){
+            try {
+                byte[] bytesImg = imagen.getBytes();
+                Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + imagen.getOriginalFilename());
+                Files.write(rutaCompleta, bytesImg);
+                cliente.setFoto(imagen.getOriginalFilename());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        usuarioService.guardar(cliente);
+
+        return "redirect:/mi-perfil";
     }
 
     @GetMapping("/administradores")
     public String administrador(){
         log.info("ENTRO A ADMINS");
-        return "/admin/dashboard";
+        return "admin/dashboard";
     }
 
     @GetMapping("/trainer")
     public String trainers(){
         log.info("ENTRO A TRAINER");
-        return "/trainer/dashboard";
+        return "trainer/dashboard";
     }
 
     @GetMapping("/errores/403")
     public String muestraAccesoDenegado(){
         log.info("ENTRO A errores");
-        return "/errores/403";
+        return "errores/403";
+    }
+
+    //M I P E R F I L - C L I E N T E
+    @GetMapping("/mi-perfil")
+    public String miPerfil(Model model, @AuthenticationPrincipal User user){
+
+        Cliente cnuevo = usuarioRepository.encontrarClienteEmail(user.getUsername());
+        model.addAttribute("cliente", cnuevo);
+
+        EntrenadorCliente entrenadorCliente = entrenadorClienteRepository.encontrarEntrenador(cnuevo.getId_usuario());
+
+        //ENTRENADOR DEL CLIENTE EN CASO DE TENER
+        if(entrenadorCliente!=null){
+            model.addAttribute("entrenadorcliente",entrenadorCliente);
+        }
+
+        //PLAN DE CLIENTE EN CASO DE TENER
+        ClienteDetalle clienteDetalle = clienteDetalleRepository.encontrarPlan(cnuevo.getId_usuario());
+
+        if(clienteDetalle!=null){
+            model.addAttribute("diferencia", util.obtenerDiferenciaDias(clienteDetalle.getFecha_fin()));
+
+            model.addAttribute("clientedetalle",clienteDetalle);
+        }
+
+        //PARA EL CONTROL DE PESO Y ESTATURA
+        ControlCliente control = controlClienteRepository.encontrarControlCliente(cnuevo.getId_usuario());
+        if(control != null){
+            model.addAttribute("control",control);
+        }
+
+        ClienteRutina clienteRutina = clienteRutinaRepository.encontrarRutina(cnuevo.getId_usuario());
+
+        List<Rutina> rutinas = rutinaService.listarRutina();
+        model.addAttribute("rutinas",rutinas);
+        if(clienteRutina != null){
+            log.info("IF ENVIO");
+            model.addAttribute("clienteRutina",clienteRutina);
+
+            //*GUARDA TODAS LOS EJERCICIOS DE LA RUTINA ESPECIFICADA EN LA TABLA CLIENTE_RUTINA_EJERCICIO
+            List<ClienteRutinaEjercicio>  rutinaconejercicios = clienteRutinaEjercicioRepository.encontrarRutinaCompletaCliente(clienteRutina.getId_clienterutina());
+
+            for (ClienteRutinaEjercicio rutinac: rutinaconejercicios) {
+                clienteRutinaEjercicioService.eliminar(rutinac);
+            }
+
+            rutinaconejercicios.removeAll(rutinaconejercicios);
+
+
+            if(rutinaconejercicios.size()==0){
+                List<RutinaEjercicio> rutinaEjercicio = rutinaEjercicioRepository.encontrarRutinaEjercicios(clienteRutina.getId_rutina().getId_rutina());
+                ClienteRutinaEjercicio clienteRutinaEjercicio;
+                int idActual = clienteRutinaEjercicioRepository.idActual();
+                for (int i = 1; i <= rutinaEjercicio.size(); i++) {
+
+                    clienteRutinaEjercicio=new ClienteRutinaEjercicio();
+                    clienteRutinaEjercicio.setId_cliente_rutina_ejercicio(idActual+i);
+                    clienteRutinaEjercicio.setId_cliente_rutina(clienteRutina);
+                    clienteRutinaEjercicio.setId_rutina_ejercicio(rutinaEjercicio.get(i-1));
+                    clienteRutinaEjercicioService.guardar(clienteRutinaEjercicio);
+
+                }
+                model.addAttribute("rutinaconejercicios",clienteRutinaEjercicioRepository.encontrarRutinaCompletaCliente(clienteRutina.getId_clienterutina()));
+            }
+        }
+
+        return "cliente/mi-perfil";
+    }
+
+    @PostMapping("/cliente/mi-perfil/enviar-comentario")
+    public String enviarComentario(Cliente cliente){
+
+        Cliente cl = (Cliente) usuarioService.encontrarUsuario(cliente);
+
+        cl.setComentario(cliente.getComentario());
+
+        usuarioService.guardar(cl);
+
+        return "redirect:/mi-perfil";
     }
     
 

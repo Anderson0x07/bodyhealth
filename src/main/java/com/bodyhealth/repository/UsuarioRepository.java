@@ -1,5 +1,6 @@
 package com.bodyhealth.repository;
 
+import com.bodyhealth.model.Administrador;
 import com.bodyhealth.model.Cliente;
 import com.bodyhealth.model.Entrenador;
 import com.bodyhealth.model.Usuario;
@@ -62,7 +63,22 @@ public interface UsuarioRepository extends JpaRepository<Usuario,Integer> {
     List<Entrenador> entrenadoresJornada(@Param("jornada") String jornada);
 
 
+    @Query(
+            value = "SELECT * from usuario u where u.rol = 'ADMIN' and u.email=:email",
+            nativeQuery = true
+    )
+    Administrador encontrarAdminEmail(@Param("email") String email);
 
+    @Query(
+            value = "SELECT * from usuario u where u.rol = 'TRAINER' and u.email=:email",
+            nativeQuery = true
+    )
+    Entrenador encontrarTrainerEmail(@Param("email") String email);
 
+    @Query(
+            value = "SELECT * from usuario u where u.rol = 'CLIENTE' and u.email=:email",
+            nativeQuery = true
+    )
+    Cliente encontrarClienteEmail(@Param("email") String email);
 
 }

@@ -30,7 +30,21 @@
 
                 <div class="card border-light">
                     <div class="card-header">
-                        <h3 class="card-title">Datos del cliente</h3>
+                        <div class="row">
+                            <div class="col-9">
+                                <h3 class="card-title">Datos del cliente</h3>
+                            </div>
+                            <div style="background: red" th:if="${clientedetalle!=null && diferencia<7}" class="col-3">
+                                <h3 style="text-align: end" class="card-title" th:text="${'Plan finaliza en '+diferencia+' días'}"></h3>
+                            </div>
+                            <div style="background: orange" th:if="${clientedetalle!=null && (diferencia>7 && diferencia<28)}" class="col-3">
+                                <h3 style="text-align: end" class="card-title" th:text="${'Plan finaliza en '+diferencia+' días'}"></h3>
+                            </div>
+                            <div style="background: green" th:if="${clientedetalle!=null && diferencia>28}" class="col-3"> <!-- METALE CSS -->
+                                <h3 style="text-align: end" class="card-title" th:text="${'Plan finaliza en '+diferencia+' días'}"></h3>
+                            </div>
+
+                        </div>
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -48,7 +62,7 @@
                                         </tr>
                                         <tr>
                                             <th>Documento</th>
-                                            <td th:text="${cliente.documentoC}"></td>
+                                            <td th:text="${cliente.documento}"></td>
                                         </tr>
                                         <tr>
                                             <th>Nombres</th>
@@ -64,30 +78,35 @@
                                         </tr>
                                         <tr>
                                             <th>Fecha de Nacimiento</th>
-                                            <td th:text="${#dates.format(cliente.fechaN, 'dd-MMM-yyyy')}"></td>
+                                            <td th:text="${#dates.format(cliente.fecha_nacimiento, 'dd-MMM-yyyy')}"></td>
                                         </tr>
                                         <tr>
                                             <th>Email</th>
                                             <td th:text="${cliente.email}"></td>
                                         </tr>
-                                        <tr>
-                                            <th>Contraseña</th>
-                                            <td th:text="${cliente.password}"></td>
-                                        </tr>
-                                        <tr>
-                                            <th>Foto</th>
-                                            <td th:text="${cliente.foto}"></td>
-                                        </tr>
+
                                         <tr>
                                             <th>Jornada</th>
                                             <td th:text="${cliente.jornada}"></td>
                                         </tr>
 
+                                        <tr th:if="${cliente.comentario!=null}">
+                                            <th>Comentario</th>
+                                            <td th:text="${cliente.comentario}"></td>
+                                        </tr>
+
                                         <tr>
                                             <th>Control</th>
-                                            <td  th:text="${'Peso: '+control.peso+' - Estatura: '+control.estatura}"></td>
-
+                                            <td th:if="${control!=null}" th:text="${'Peso: '+control.peso+' , Estatura: '+control.estatura}"></td>
+                                            <td th:if="${control==null}" th:text="${'Sin control'}"></td>
                                         </tr>
+
+                                        <tr>
+                                            <th>Plan</th>
+                                            <td th:if="${clientedetalle!=null}" th:text="${clientedetalle.id_detalle.plan+' por '+clientedetalle.id_detalle.meses+' Meses'}"></td>
+                                            <td th:if="${clientedetalle==null}" th:text="${'Sin asignar plan'}"></td>
+                                        </tr>
+
                                         <tr>
                                             <th>Rutina Asignada</th>
                                             <div th:if="${clienteRutina != null}">
@@ -96,10 +115,7 @@
                                             <div th:if="${clienteRutina == null}">
                                                 <td   th:text="${'Rutina: No Asignada'}"></td>
                                             </div>
-
                                         </tr>
-
-
 
 
                                     </table>
@@ -150,7 +166,7 @@
 
                                                     <div class="form-group">
                                                         <label for="id_cliente">Cliente: </label>
-                                                        <input readonly type="text" class="form-control" name="id_cliente" id="id_cliente" th:value="${cliente.id_cliente}">
+                                                        <input readonly type="text" class="form-control" name="id_cliente" id="id_cliente" th:value="${cliente.id_usuario}">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="id_rutina" class="form-label">Rutina: *</label>

@@ -37,7 +37,7 @@ public class ProductoController {
         model.addAttribute("productossDesactivados",desactivados);
         model.addAttribute("proveedores",proveedorService.listarProveedores());
 
-        return "/admin/productos/dash-productos";
+        return "admin/productos/dash-productos";
     }
 
     //Guarda nuevo producto
@@ -66,7 +66,7 @@ public class ProductoController {
 
         model.addAttribute("producto",producto);
 
-        return "/admin/productos/producto-expand";
+        return "admin/productos/producto-expand";
     }
 
     //Guarda edición de producto en el dashboard del admin
@@ -100,7 +100,7 @@ public class ProductoController {
         model.addAttribute("proveedores",proveedorService.listarProveedores());
 
 
-        return "/admin/productos/producto-editar";
+        return "admin/productos/producto-editar";
     }
 
     @GetMapping("/dash-productos/eliminar")

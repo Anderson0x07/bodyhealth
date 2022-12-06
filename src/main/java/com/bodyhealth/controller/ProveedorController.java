@@ -26,7 +26,7 @@ public class ProveedorController {
 
         model.addAttribute("proveedores",proveedores);
 
-        return "/admin/proveedores/dash-proveedores";
+        return "admin/proveedores/dash-proveedores";
     }
 
     //Guarda proveedor
@@ -45,7 +45,7 @@ public class ProveedorController {
 
         model.addAttribute("proveedor",proveedor);
 
-        return "/admin/proveedores/proveedor-expand";
+        return "admin/proveedores/proveedor-expand";
     }
 
     //Guarda edición proveedores en el dashboard del admin
@@ -65,7 +65,7 @@ public class ProveedorController {
 
         model.addAttribute("proveedor",proveedor);
 
-        return "/admin/proveedores/proveedor-editar";
+        return "admin/proveedores/proveedor-editar";
     }
 
     @GetMapping("/dash-proveedores/eliminar")

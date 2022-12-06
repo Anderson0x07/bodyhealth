@@ -3,6 +3,7 @@ package com.bodyhealth.controller;
 
 import com.bodyhealth.model.Administrador;
 import com.bodyhealth.model.Usuario;
+import com.bodyhealth.repository.UsuarioRepository;
 import com.bodyhealth.service.UsuarioService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +11,9 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
 
 @Controller
 @Slf4j
@@ -19,6 +21,10 @@ public class AdminController {
 
     @Autowired
     private UsuarioService usuarioService;
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
+
 
 
     @GetMapping("/admin/dashboard") //Para acceder al dashboard
@@ -36,17 +42,15 @@ public class AdminController {
     }
 
 
+
+
     //M I P E R F I L
     @GetMapping("/admin/perfil")
-    public String perfilAdmin(Model model){
+    public String perfilAdmin(Model model, @AuthenticationPrincipal User user){
 
-        //DE ACUERDO DE LOGIN
-        Usuario administrador = new Administrador();
-        administrador.setId_usuario(1);
+        log.info("USER LOGIN: "+user.getUsername());
 
-        administrador = usuarioService.encontrarUsuario(administrador);
-
-        model.addAttribute("admin",administrador);
+        model.addAttribute("admin",usuarioRepository.encontrarAdminEmail(user.getUsername()));
 
         return "admin/perfil";
     }
@@ -55,6 +59,7 @@ public class AdminController {
     @PostMapping("/admin/perfil/guardar-perfil")
     public String guardarEdicionPerfil(Administrador administrador){
 
+        log.info("ADMIN: "+administrador.getId_usuario() + " - "+administrador.toString());
         usuarioService.guardar(administrador);
 
         return "redirect:/admin/perfil";

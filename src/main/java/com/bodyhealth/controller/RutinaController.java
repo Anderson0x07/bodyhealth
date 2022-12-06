@@ -64,7 +64,7 @@ public class RutinaController {
 
 
 
-        return "/trainer/rutinas/dash-rutinas";
+        return "trainer/rutinas/dash-rutinas";
     }
 
     @PostMapping("/trainer/dash-rutinas/guardar-rutina")

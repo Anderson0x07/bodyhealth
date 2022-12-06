@@ -34,7 +34,7 @@ public class PedidoController {
 
         model.addAttribute("pedidos",pedidos);
 
-        return "/admin/fact-pedidos/dash-fact-productos";
+        return "admin/fact-pedidos/dash-fact-productos";
     }
 
     @GetMapping("/dash-fact-productos/expand/{id_pedido}")
@@ -44,7 +44,7 @@ public class PedidoController {
 
         model.addAttribute("pedido",pedido);
 
-        return "/admin/fact-pedidos/factura-producto-expand";
+        return "admin/fact-pedidos/factura-producto-expand";
     }
 
     //GENERAR PDF

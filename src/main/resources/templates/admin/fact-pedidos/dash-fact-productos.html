@@ -50,7 +50,7 @@
                         <tr th:each="pedido : ${pedidos}">
                             <td th:text="${pedido.id_pedido}"></td>
                             <td th:text="${#dates.format(pedido.compra.fecha_compra, 'dd-MMM-yyyy')}"></td>
-                            <td th:text="${pedido.compra.id_cliente.tipo_documento+' - '+pedido.compra.id_cliente.documentoC}"></td>
+                            <td th:text="${pedido.compra.id_cliente.tipo_documento+' - '+pedido.compra.id_cliente.documento}"></td>
                             <td th:text="${pedido.compra.id_cliente.nombre+' '+pedido.compra.id_cliente.apellido}"></td>
                             <td th:text="${pedido.producto.nombre}"></td>
                             <td th:text="${pedido.producto.precio}"></td>

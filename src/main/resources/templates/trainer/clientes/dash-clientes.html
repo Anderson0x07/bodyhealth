@@ -51,18 +51,18 @@
                         <tr th:each="ce : ${clientesAsignados}">
                             <div th:if="${ce.cliente.estado == true}">
 
-                                <td th:text="${ce.cliente.tipo_documento}+' - '+${ce.cliente.documentoC}"></td>
+                                <td th:text="${ce.cliente.tipo_documento}+' - '+${ce.cliente.documento}"></td>
                                 <td th:text="${ce.cliente.nombre}"></td>
                                 <td th:text="${ce.cliente.apellido}"></td>
                                 <td th:text="${ce.cliente.telefono}"></td>
-                                <td th:text="${#dates.format(ce.cliente.fechaN, 'dd-MMM-yyyy')}"></td>
+                                <td th:text="${#dates.format(ce.cliente.fecha_nacimiento, 'dd-MMM-yyyy')}"></td>
                                 <td th:text="${ce.cliente.email}"></td>
                                 <td th:text="${ce.cliente.foto}"></td>
                                 <td th:text="${ce.cliente.jornada}"></td>
 
                                 <td>
 
-                                    <a th:href="@{/trainer/dash-clientes/expand/} + ${ce.cliente.id_cliente}" style="text-decoration: none">
+                                    <a th:href="@{/trainer/dash-clientes/expand/} + ${ce.cliente.id_usuario}" style="text-decoration: none">
                                         <i class="fa-solid fa-arrow-up-right-from-square" style="color:black"></i>
                                     </a>
                                 </td>

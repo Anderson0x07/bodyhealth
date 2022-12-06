@@ -38,6 +38,19 @@
                     <li><a class="nav-link" th:href="@{/planes}"><i class="fa-sharp fa-solid fa-tag"></i> Planes</a></li>
                     <li><a class="nav-link" th:href="@{/noticias}"><i class="fa-solid fa-newspaper"></i> Noticias</a></li>
                     <li><a class="nav-link" th:href="@{/productos}"><i class="fa-sharp fa-solid fa-shop"></i> Productos</a></li>
+                    <div th:if="${#request.userPrincipal!=null}">
+                        <div th:if="${#request.userPrincipal.toString().contains('ADMIN')}">
+                            <li><a  class="nav-link" th:href="@{/admin/dashboard}"><i class="fa-solid fa-house-user"></i> Ir a Dashboard</a></li>
+                        </div>
+                    </div>
+
+                    <div th:if="${#request.userPrincipal!=null}">
+                        <div th:if="${#request.userPrincipal.toString().contains('TRAINER')}">
+                            <li><a  class="nav-link" th:href="@{/trainer/dashboard}"><i class="fa-solid fa-house-user"></i> Ir a Dashboard</a></li>
+                        </div>
+
+                    </div>
+
 
                 </ul>
 
@@ -45,30 +58,45 @@
             <div class="collapse navbar-collapse" id="navbarNavDropdown" style="justify-content:flex-end;">
                 <div class="dropdown-divider"></div>
 
-
                 <!--SI ESTA AUTENTICADO MUESTRA ESTO-->
-                <div>
-                    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img th:src="@{'/images/otro.png'}" class="img-fluid" width="50" height="50" />
+                <div sec:authorize="isAuthenticated()" th:if="${#request.userPrincipal!=null}">
 
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <li><a class="dropdown-item" th:href="@{/mi-perfil}"><i class="fa-solid fa-circle-user"></i> Mi Perfil</a></li>
-                                <div class="dropdown-divider"></div>
-                                <li><a class="dropdown-item" th:href="@{/login1}"><i class="fa-solid fa-circle-info fa-beat-fade" style="--fa-beat-fade-opacity: 0.67; --fa-beat-fade-scale: 1.075;" ></i> Iniciar sesión</a></li>
-                                <li><a class="dropdown-item" th:href=" @{/registroCliente}"><i class="fa-solid fa-circle-info fa-beat-fade" style="--fa-beat-fade-opacity: 0.67; --fa-beat-fade-scale: 1.075;" ></i>Registrarse</a></li>
-                            </ul>
-                        </li>
-                    </ul>
+                    <div>
+                        <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img th:src="@{'/images/otro.png'}" class="img-fluid" width="50" height="50" />
+                                    <span th:text="${#request.userPrincipal.name}"></span>
+                                </a>
+
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    <li th:if="${#request.userPrincipal.toString().contains('CLIENTE')}">
+                                        <a class="dropdown-item" th:href="@{/mi-perfil}">
+                                            <i class="fa-solid fa-circle-user"></i> Mi Perfil
+                                        </a>
+                                    </li>
+                                    <div th:if="${#request.userPrincipal.toString().contains('CLIENTE')}" class="dropdown-divider"></div>
+                                    <li>
+                                        <form method="POST" th:action="@{/logout}">
+                                            <a href="#" onclick="this.parentNode.submit();" class="nav-link">
+                                                <i class="fa-solid fa-circle-info fa-beat-fade" style="--fa-beat-fade-opacity: 0.67; --fa-beat-fade-scale: 1.075;" ></i> Cerrar sesión
+                                            </a>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
 
                 <!--SI NO ESTA AUTENTICADO MUESTRA ESTO-->
-                <ul class="navbar-nav mr-auto">
-                    <li><a class="nav-link" th:href="@{/login}"><i class="fa-solid fa-circle-user"></i> Login</a></li>
+                <div th:if="${#request.userPrincipal==null}">
+                    <ul class="navbar-nav mr-auto">
+                        <li><a class="nav-link" th:href="@{/login}"><i class="fa-solid fa-circle-user"></i> Login</a></li>
 
-                </ul>
+                    </ul>
+                </div>
+
 
 
 

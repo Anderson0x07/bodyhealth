@@ -61,7 +61,7 @@
                                         </tr>
                                         <tr>
                                             <th>Documento</th>
-                                            <td th:text="${trainer.documentoE}"></td>
+                                            <td th:text="${trainer.documento}"></td>
                                         </tr>
                                         <tr>
                                             <th>Nombres</th>
@@ -77,19 +77,27 @@
                                         </tr>
                                         <tr>
                                             <th>Fecha de Nacimiento</th>
-                                            <td th:text="${#dates.format(trainer.fechaN, 'dd-MMM-yyyy')}"></td>
+                                            <td th:text="${#dates.format(trainer.fecha_nacimiento, 'dd-MMM-yyyy')}"></td>
                                         </tr>
                                         <tr>
                                             <th>Email</th>
                                             <td th:text="${trainer.email}"></td>
                                         </tr>
                                         <tr>
-                                            <th>Contraseña</th>
-                                            <td th:text="${trainer.password}"></td>
-                                        </tr>
-                                        <tr>
                                             <th>Jornada</th>
                                             <td th:text="${trainer.jornada}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Experiencia</th>
+                                            <td th:text="${trainer.experiencia}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Hoja de Vida</th>
+                                            <td th:text="${trainer.hoja_vida}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Título Académico</th>
+                                            <td th:text="${trainer.titulo_academico}"></td>
                                         </tr>
 
 
@@ -114,16 +122,11 @@
                                                 <h1 class="modal-title fs-5" id="perfil">Editar Mi Perfil</h1>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
-                                            <form th:action="@{/trainer/perfil/guardar-perfil}" th:object="${entrenador}"
+                                            <form th:action="@{/trainer/perfil/guardar-perfil}" th:object="${trainer}"
                                                   method="POST" enctype="multipart/form-data" class="was-validated">
                                                 <div class="modal-body">
-                                                    <input type="hidden" name="id_admin" id="id_admin" th:value="${trainer.id_admin.id_admin}"/>
-                                                    <input type="hidden" name="id_rol" id="id_rol" th:value="${trainer.id_rol.id_rol}"/>
-                                                    <div class="form-group">
-                                                        <label for="id_entrenador">Id Entrenador: </label>
-                                                        <input type="number" class="form-control" name="id_entrenador" id="id_entrenador"
-                                                               readonly th:value="${trainer.id_entrenador}"/>
-                                                    </div>
+
+                                                    <input type="hidden" name="id_usuario" th:value="${trainer.id_usuario}"/>
 
                                                     <div class="form-group">
                                                         <label for="tipo_documento">Tipo de Documento: </label>
@@ -132,8 +135,8 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="documentoE">Documento: </label>
-                                                        <input type="number" class="form-control" name="documentoE" id="documentoE"
-                                                               readonly th:value="${trainer.documentoE}">
+                                                        <input type="number" class="form-control" name="documento" id="documentoE"
+                                                               readonly th:value="${trainer.documento}">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="nombre">Nombre: </label>
@@ -152,19 +155,17 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="fechaN">Fecha de Nacimiento: </label>
-                                                        <input type="date" class="form-control" name="fechaN" id="fechaN"
-                                                               th:field="${trainer.fechaN}">
+                                                        <input type="date" class="form-control" name="fecha_nacimiento" id="fechaN"
+                                                               readonly th:field="${trainer.fecha_nacimiento}">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="email">Email: </label>
                                                         <input type="text" class="form-control" name="email" id="email"
                                                                th:value="${trainer.email}">
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label for="password">Password: </label>
-                                                        <input type="text" class="form-control" name="password" id="password"
-                                                               th:value="${trainer.password}">
-                                                    </div>
+
+                                                    <input type="hidden" name="password" th:value="${trainer.password}">
+
                                                     <div class="form-group">
                                                         <label for="foto">Foto: </label>
                                                         <input type="file" class="form-control" name="file" id="foto"
@@ -173,17 +174,17 @@
                                                     <div class="form-group">
                                                         <label for="experiencia">Experiencia: </label>
                                                         <input type="number" class="form-control" name="experiencia" id="experiencia"
-                                                               th:value="${trainer.experiencia}">
+                                                               readonly th:value="${trainer.experiencia}">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="hoja_vida">Hoja de Vida: </label>
                                                         <input type="text" class="form-control" name="hoja_vida" id="hoja_vida"
-                                                               th:value="${trainer.hoja_vida}">
+                                                               readonly th:value="${trainer.hoja_vida}">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="titulo_academico">Titulo Académico: </label>
                                                         <input type="text" class="form-control" name="titulo_academico" id="titulo_academico"
-                                                               th:value="${trainer.titulo_academico}">
+                                                               readonly th:value="${trainer.titulo_academico}">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="jornada" class="form-label">Jornada: </label>
@@ -209,7 +210,7 @@
 
                             </div>
                             <div  class="col-2">
-                                <a th:href="@{/trainer/dash-trainer/ver-horario/} + ${trainer.id_entrenador}" class="btn btn-success btn-block">
+                                <a th:href="@{/trainer/dash-trainer/ver-horario/} + ${trainer.id_usuario}" class="btn btn-success btn-block">
                                     <i class="fa-solid fa-xmark"></i> Ver Horario
                                 </a>
 

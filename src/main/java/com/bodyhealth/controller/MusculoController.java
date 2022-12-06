@@ -25,7 +25,7 @@ public class MusculoController {
 
         model.addAttribute("musculos",musculos);
 
-        return "/trainer/rutinas/dash-rutinas";
+        return "trainer/rutinas/dash-rutinas";
     }
 
     public String guardarMusculo(Musculo musculo){
@@ -45,7 +45,7 @@ public class MusculoController {
         model.addAttribute("musculo",musculo);
 
 
-        return "/trainer/rutinas/dash-rutinas";
+        return "trainer/rutinas/dash-rutinas";
     }
 
     @GetMapping("/dash-maquinas/eliminar")

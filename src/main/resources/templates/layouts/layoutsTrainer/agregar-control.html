@@ -18,7 +18,7 @@
         <form th:action="@{/trainer/dash-clientes/guardar-control}" th:object="${controls}"
               method="POST" class="was-validated">
           <div class="modal-body">
-            <input type="hidden" class="form-control" name="id_cliente" id="id_cliente" th:value="${cliente.id_cliente}">
+            <input type="hidden" class="form-control" name="id_cliente" id="id_cliente" th:value="${cliente.id_usuario}">
 
 
             <div class="form-group">

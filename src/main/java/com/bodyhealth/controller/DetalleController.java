@@ -25,7 +25,7 @@ public class DetalleController {
         model.addAttribute("planesDeta",planesDeta);
         model.addAttribute("error",error);
         error="";
-        return "/admin/planes/dash-planes";
+        return "admin/planes/dash-planes";
     }
 
     //Guarda plan detallado
@@ -58,7 +58,7 @@ public class DetalleController {
         model.addAttribute("error",error);
         error="";
 
-        return "/admin/planes/plan-expand";
+        return "admin/planes/plan-expand";
     }
 
     //Guarda edición de plan en el dashboard del admin
@@ -91,7 +91,7 @@ public class DetalleController {
         model.addAttribute("error",error);
         error="";
 
-        return "/admin/planes/plan-editar";
+        return "admin/planes/plan-editar";
     }
 
     @GetMapping("/dash-planes/eliminar")

@@ -44,7 +44,7 @@ public class ClienteDetalleController {
 
         model.addAttribute("detalle",clienteDetalle);
 
-        return "/admin/fact-planes/factura-plan-expand";
+        return "admin/fact-planes/factura-plan-expand";
     }
 
     //GENERAR PDF

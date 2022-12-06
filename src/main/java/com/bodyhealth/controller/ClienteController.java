@@ -95,7 +95,7 @@ public class ClienteController {
         model.addAttribute("msj",msj);
         msj="";
 
-        return "/admin/clientes/dash-clientes";
+        return "admin/clientes/dash-clientes";
     }
 
     @GetMapping("/admin/dash-clientes/expand/{id_usuario}")
@@ -166,7 +166,7 @@ public class ClienteController {
 
 
 
-        return "/admin/clientes/cliente-expand";
+        return "admin/clientes/cliente-expand";
     }
 
     //Guarda clientes en el dashboard del admin
@@ -256,7 +256,6 @@ public class ClienteController {
     }
 
 
-
     //Editar clientes en el dashboard del admin
     @GetMapping("/admin/dash-clientes/expand/editar/{id_usuario}")
     public String editarCliente(Cliente cliente1, Model model){
@@ -289,7 +288,7 @@ public class ClienteController {
         model.addAttribute("msj",msj);
         msj="";
 
-        return "/admin/clientes/cliente-editar";
+        return "admin/clientes/cliente-editar";
     }
 
     @PostMapping("/admin/dash-clientes/expand/guardar-control")

@@ -50,7 +50,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-5">
-                                <img th:src="@{'/images/' + ${cliente.foto}}" width="500" height="450">
+                                <img th:src="@{'/images/' + ${cliente.foto}}" width="100%">
                             </div>
                             <div class="col-7">
 
@@ -96,6 +96,10 @@
                                         <tr>
                                             <th>Jornada</th>
                                             <td th:text="${cliente.jornada}"></td>
+                                        </tr>
+                                        <tr th:if="${cliente.comentario!=null}">
+                                            <th>Comentario</th>
+                                            <td th:text="${cliente.comentario}"></td>
                                         </tr>
                                         <tr>
                                             <th>Entrenador</th>

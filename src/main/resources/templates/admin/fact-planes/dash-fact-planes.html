@@ -56,7 +56,7 @@
                             <td th:text="'Por '+${factura.id_detalle.meses}+' Meses'"></td>
                             <td th:text="${#dates.format(factura.fecha_inicio, 'dd-MMM-yyyy')}"></td>
                             <td th:text="${#dates.format(factura.fecha_fin, 'dd-MMM-yyyy')}"></td>
-                            <td th:text="'$'+${factura.id_detalle.meses}"></td>
+                            <td th:text="'$'+${factura.id_detalle.precio}"></td>
                             <td th:text="${factura.id_metodopago.descripcion}"></td>
 
                             <td>

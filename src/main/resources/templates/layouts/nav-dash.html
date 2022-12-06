@@ -24,22 +24,20 @@
       </button>
 
       <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-        <ul class="navbar-nav mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Perfil</a>
-          </li>
-        </ul>
+
         <ul sec:authorize="isAuthenticated()" class="navbar-nav ml-auto">
           <li class="nav-item mr-3">
             <a href="#" class="nav-link">
               <i class="fas fa-user"></i>
-              <span sec:authentication="name">jaja</span>
+
+              <span th:text="${#request.userPrincipal.name}">
+              </span>
             </a>
           </li>
           <li class="nav-item">
             <form method="POST" th:action="@{/logout}">
               <a href="#" onclick="this.parentNode.submit();" class="nav-link">
-                <i class="fas fa-user-times"></i>
+                <i class="fas fa-user-times"></i> Cerrar sesión
               </a>
             </form>
           </li>

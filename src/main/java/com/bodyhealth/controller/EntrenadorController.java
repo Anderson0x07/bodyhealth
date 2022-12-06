@@ -5,6 +5,8 @@ import com.bodyhealth.repository.*;
 import com.bodyhealth.service.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,7 +28,6 @@ public class EntrenadorController {
     private BCryptPasswordEncoder encode = new BCryptPasswordEncoder();
     @Autowired
     private EntrenadorClienteRepository entrenadorClienteRepository;
-
 
     @Autowired
     private ControlClienteRepository controlClienteRepository;
@@ -52,6 +53,13 @@ public class EntrenadorController {
     @Autowired
     private UsuarioService usuarioService;
 
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private ClienteDetalleRepository clienteDetalleRepository;
+
+    private Util util = new Util();
     private String msj = "";
 
 
@@ -177,74 +185,76 @@ public class EntrenadorController {
 
     //ACCESO A TRAINER/RUTINAS
     @GetMapping("/trainer/dash-clientes")
-    public String listarClientesEntrenador(Model model){
+    public String listarClientesEntrenador(Model model, @AuthenticationPrincipal User user){
 
-        List<EntrenadorCliente> clientesAsignados = entrenadorClienteRepository.encontrarClientes(1);
+        Entrenador entrenador = usuarioRepository.encontrarTrainerEmail(user.getUsername());
+
+        List<EntrenadorCliente> clientesAsignados = entrenadorClienteRepository.encontrarClientes(entrenador.getId_usuario());
 
         model.addAttribute("clientesAsignados",clientesAsignados);
 
-        return "/trainer/clientes/dash-clientes";
+        return "trainer/clientes/dash-clientes";
     }
 
 
-    @GetMapping("/trainer/dash-clientes/expand/{id_cliente}")
+    @GetMapping("/trainer/dash-clientes/expand/{id_usuario}")
     public String mostrarCliente(Cliente cliente, Model model){
 
         Cliente cnuevo = (Cliente) usuarioService.encontrarUsuario(cliente);
-        ControlCliente control = controlClienteRepository.encontrarControlCliente(cnuevo.getId_usuario());
-        ClienteRutina clienteRutina = clienteRutinaRepository.encontrarRutina(cnuevo.getId_usuario());
-        List<Rutina> rutinas = rutinaService.listarRutina();
-
-
-        //PARA EL CONTROL DE PESO Y ESTATURA
-        ControlCliente controlNu = new ControlCliente();
-        controlNu.setId_controlcliente(cnuevo.getId_usuario());
-        controlNu.setPeso(-1);
-        controlNu.setEstatura(-1);
-
 
         model.addAttribute("cliente",cnuevo);
-        model.addAttribute("rutinas",rutinas);
 
-        if(control != null){
-            model.addAttribute("control",control);
-        } else if(control == null){
-            model.addAttribute("control",controlNu);
+
+        //PLAN DE CLIENTE EN CASO DE TENER
+        ClienteDetalle clienteDetalle = clienteDetalleRepository.encontrarPlan(cnuevo.getId_usuario());
+
+        if(clienteDetalle!=null){
+            model.addAttribute("diferencia", util.obtenerDiferenciaDias(clienteDetalle.getFecha_fin()));
+
+            model.addAttribute("clientedetalle",clienteDetalle);
         }
 
+        //PARA EL CONTROL DE PESO Y ESTATURA
+        ControlCliente control = controlClienteRepository.encontrarControlCliente(cnuevo.getId_usuario());
+        if(control != null){
+            model.addAttribute("control",control);
+        }
+
+
+        ClienteRutina clienteRutina = clienteRutinaRepository.encontrarRutina(cnuevo.getId_usuario());
+
+        List<Rutina> rutinas = rutinaService.listarRutina();
+        model.addAttribute("rutinas",rutinas);
         if(clienteRutina != null){
             log.info("IF ENVIO");
             model.addAttribute("clienteRutina",clienteRutina);
 
             //*GUARDA TODAS LOS EJERCICIOS DE LA RUTINA ESPECIFICADA EN LA TABLA CLIENTE_RUTINA_EJERCICIO
             List<ClienteRutinaEjercicio>  rutinaconejercicios = clienteRutinaEjercicioRepository.encontrarRutinaCompletaCliente(clienteRutina.getId_clienterutina());
-            model.addAttribute("rutinaconejercicios",rutinaconejercicios);
 
-            if(rutinaconejercicios.size()<=0){
+            for (ClienteRutinaEjercicio rutinac: rutinaconejercicios) {
+                clienteRutinaEjercicioService.eliminar(rutinac);
+            }
+
+            rutinaconejercicios.removeAll(rutinaconejercicios);
+
+
+            if(rutinaconejercicios.size()==0){
                 List<RutinaEjercicio> rutinaEjercicio = rutinaEjercicioRepository.encontrarRutinaEjercicios(clienteRutina.getId_rutina().getId_rutina());
                 ClienteRutinaEjercicio clienteRutinaEjercicio;
                 int idActual = clienteRutinaEjercicioRepository.idActual();
                 for (int i = 1; i <= rutinaEjercicio.size(); i++) {
-                    log.info("Ejecucion: "+i);
+
                     clienteRutinaEjercicio=new ClienteRutinaEjercicio();
                     clienteRutinaEjercicio.setId_cliente_rutina_ejercicio(idActual+i);
                     clienteRutinaEjercicio.setId_cliente_rutina(clienteRutina);
                     clienteRutinaEjercicio.setId_rutina_ejercicio(rutinaEjercicio.get(i-1));
                     clienteRutinaEjercicioService.guardar(clienteRutinaEjercicio);
-                    log.info("ID ACTUAL: "+idActual+i);
 
-                    log.info("Guardado: "+i);
                 }
-                //ACTUALIZADA
                 model.addAttribute("rutinaconejercicios",clienteRutinaEjercicioRepository.encontrarRutinaCompletaCliente(clienteRutina.getId_clienterutina()));
             }
-        } else if(clienteRutina == null){
-            log.info("NO ENVIO");
-            model.addAttribute("clienteRutina",clienteRutina);
         }
-
-
-
 
         return "trainer/clientes/cliente-expand";
     }
@@ -277,17 +287,16 @@ public class EntrenadorController {
 
     //M I P E R F I L
     @GetMapping("/trainer/perfil")
-    public String perfilTrainer(Model model, Entrenador entrenador){
+    public String perfilTrainer(Model model, @AuthenticationPrincipal User user){
 
-        entrenador.setId_usuario(1);
-        entrenador = (Entrenador) usuarioService.encontrarUsuario(entrenador);
+        Entrenador entrenador = usuarioRepository.encontrarTrainerEmail(user.getUsername());
 
         model.addAttribute("trainer",entrenador);
 
         return "trainer/perfil";
     }
 
-    @GetMapping("/trainer/dash-trainer/ver-horario/{id_entrenador}")
+    @GetMapping("/trainer/dash-trainer/ver-horario/{id_usuario}")
     public String horarioTrainer(Model model, Entrenador entrenador){
         String rta="";
 
@@ -304,7 +313,9 @@ public class EntrenadorController {
     }
 
     @PostMapping("/trainer/perfil/guardar-perfil")
-    public String guardarEdicionPerfil(Entrenador entrenador,@RequestParam("file") MultipartFile imagen){
+    public String guardarEdicionPerfil(Entrenador entrenador, @RequestParam("file") MultipartFile imagen){
+
+        log.info("ENTRENADOR: "+entrenador.getId_usuario());
 
         Path directorioImagenes = Paths.get("src//main//resources//static/images");
         String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath();

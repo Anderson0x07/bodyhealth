@@ -19,6 +19,6 @@ public interface ClienteRutinaEjercicioRepository extends JpaRepository<ClienteR
             value = "SELECT `AUTO_INCREMENT` FROM  INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'bodyhealth' AND  TABLE_NAME = 'cliente_rutina_ejercicio'",
             nativeQuery = true
     )
-    int idActual();
+    public abstract int idActual();
 
 }

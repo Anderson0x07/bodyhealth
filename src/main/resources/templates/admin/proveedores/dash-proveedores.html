@@ -19,11 +19,11 @@
 <body>
     <div class="main-container d-flex">
         <!--SIDEBAR-->
-        <div th:replace="/layouts/sidebar :: sidebar"></div>
+        <div th:replace="layouts/sidebar :: sidebar"></div>
 
         <div class="content">
             <!--NAV-DASH-->
-            <nav th:replace="/layouts/nav-dash :: nav-dash"></nav>
+            <nav th:replace="layouts/nav-dash :: nav-dash"></nav>
 
             <div class="dashboard-content px-3 pt-4">
 
@@ -35,7 +35,7 @@
                 </a>
 
 
-                <section th:replace="/layouts/agregar-proveedor :: agregar-proveedor"></section>
+                <section th:replace="layouts/agregar-proveedor :: agregar-proveedor"></section>
 
                 <br>
                 <div class="table-responsive">
@@ -76,10 +76,10 @@
     </div>
 
     <!--SCRIPT SIDEBAR-->
-    <script th:replace="/layouts/script-sidebar :: script-sidebar"></script>
+    <script th:replace="layouts/script-sidebar :: script-sidebar"></script>
 
     <!--SCRIPTS BOTONES-->
-    <div th:replace="/layouts/scripts :: scripts"></div>
+    <div th:replace="layouts/scripts :: scripts"></div>
 
     <!--SCRIPT DATATABLE-->
     <script type="text/javascript">

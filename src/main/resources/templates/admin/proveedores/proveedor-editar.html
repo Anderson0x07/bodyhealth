@@ -19,11 +19,11 @@
 <body>
     <div class="main-container d-flex">
         <!--SIDEBAR-->
-        <div th:replace="/layouts/sidebar :: sidebar"></div>
+        <div th:replace="layouts/sidebar :: sidebar"></div>
 
         <div class="content">
             <!--NAV-DASH-->
-            <nav th:replace="/layouts/nav-dash :: nav-dash"></nav>
+            <nav th:replace="layouts/nav-dash :: nav-dash"></nav>
 
             <div class="dashboard-content px-3 pt-4">
 
@@ -101,7 +101,7 @@
     </div>
 
     <!--SCRIPT SIDEBAR-->
-    <script th:replace="/layouts/script-sidebar :: script-sidebar"></script>
+    <script th:replace="layouts/script-sidebar :: script-sidebar"></script>
 
 </body>
 </html>

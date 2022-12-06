@@ -19,11 +19,11 @@
 <body>
     <div class="main-container d-flex">
         <!--SIDEBAR-->
-        <div th:replace="/layouts/sidebar :: sidebar"></div>
+        <div th:replace="layouts/sidebar :: sidebar"></div>
 
         <div class="content">
             <!--NAV-DASH-->
-            <nav th:replace="/layouts/nav-dash :: nav-dash"></nav>
+            <nav th:replace="layouts/nav-dash :: nav-dash"></nav>
 
             <div class="dashboard-content px-3 pt-4">
                 <h2 class="fs-3">Lista de Planes Detallados</h2> <br>
@@ -33,7 +33,7 @@
                     <i class="fas fa-plus"></i> Agregar Plan
                 </a>
 
-                <section th:replace="/layouts/agregar-plan :: agregar-plan"></section>
+                <section th:replace="layouts/agregar-plan :: agregar-plan"></section>
                 <br>
                 <h2 class="fs-5" th:text="${error}" style="color: red;"></h2>
                 <br>
@@ -74,10 +74,10 @@
     </div>
 
     <!--SCRIPT SIDEBAR-->
-    <script th:replace="/layouts/script-sidebar :: script-sidebar"></script>
+    <script th:replace="layouts/script-sidebar :: script-sidebar"></script>
 
     <!--SCRIPTS BOTONES-->
-    <div th:replace="/layouts/scripts :: scripts"></div>
+    <div th:replace="layouts/scripts :: scripts"></div>
 
     <!--SCRIPT DATATABLE-->
     <script type="text/javascript">

@@ -38,7 +38,7 @@ public class AdminController {
 
     @GetMapping("/admin/dash-horarios")
     public String listarHorarios(){
-        return "/admin/dash-horarios";
+        return "admin/dash-horarios";
     }
 
 

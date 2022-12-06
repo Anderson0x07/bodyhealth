@@ -34,7 +34,7 @@ public class ClienteDetalleController {
     public String listarFacturacionPlan(Model model){
         List<ClienteDetalle> clientesDetalle = clienteDetalleService.listarClientesDetalles();
         model.addAttribute("factPlan",clientesDetalle);
-        return "/admin/fact-planes/dash-fact-planes";
+        return "admin/fact-planes/dash-fact-planes";
     }
 
     @GetMapping("/dash-fact-planes/expand/{id_factura}")

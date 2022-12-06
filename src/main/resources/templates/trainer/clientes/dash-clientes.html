@@ -20,11 +20,11 @@
 <body>
     <div class="main-container d-flex">
         <!--SIDEBAR-->
-        <div th:replace="/layouts/sidebar-trainer :: sidebar-trainer"></div>
+        <div th:replace="layouts/sidebar-trainer :: sidebar-trainer"></div>
 
         <div class="content">
             <!--NAV-DASH-->
-            <nav th:replace="/layouts/nav-dash :: nav-dash"></nav>
+            <nav th:replace="layouts/nav-dash :: nav-dash"></nav>
 
             <div class="dashboard-content px-3 pt-4">
                 <h2 class="fs-3">Lista de Clientes Asignados</h2>
@@ -78,10 +78,10 @@
     </div>
 
     <!--SCRIPT SIDEBAR-->
-    <script th:replace="/layouts/script-sidebar :: script-sidebar"></script>
+    <script th:replace="layouts/script-sidebar :: script-sidebar"></script>
 
     <!--SCRIPTS BOTONES Y DATATABLE-->
-    <div th:replace="/layouts/scripts :: scripts"></div>
+    <div th:replace="layouts/scripts :: scripts"></div>
 
     <!--SCRIPT DATATABLE-->
     <script type="text/javascript">

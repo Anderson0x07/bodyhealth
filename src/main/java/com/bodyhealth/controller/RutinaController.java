@@ -40,7 +40,7 @@ public class RutinaController {
 
 
 
-        return "/admin/rutinas/dash-rutinas";
+        return "admin/rutinas/dash-rutinas";
     }
 
     public List<RutinaEjercicio> listarRutinaEjercicio(){

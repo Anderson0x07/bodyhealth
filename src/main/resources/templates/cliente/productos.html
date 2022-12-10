@@ -16,117 +16,125 @@
 
 </head>
 <body id="body-index">
-<!--barra navegacion-->
-<div id="navbar" class="row" style="margin-bottom: 10px">
-    <div class="col-1" ></div>
-    <div class="col-10">
+    <!--barra navegacion-->
+    <div id="navbar" class="row" style="margin-bottom: 10px">
+        <div class="col-1" ></div>
+        <div class="col-10">
 
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-
-            <a class="navbar-brand" th:href="@{/}">
-                <img src="/images/Logo-BodyHealth.jpeg" width="140" height="70">
-            </a>
-
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav mr-auto">
-                    <li><a class="nav-link"  th:href="@{/}"><i class="fa-sharp fa-solid fa-house"></i> Home</a></li>
-                    <li><a class="nav-link" th:href="@{/planes}"><i class="fa-sharp fa-solid fa-tag"></i> Planes</a></li>
-                    <li><a class="nav-link" th:href="@{/noticias}"><i class="fa-solid fa-newspaper"></i> Noticias</a></li>
-                    <li><a class="nav-link" th:href="@{/productos}"><i class="fa-sharp fa-solid fa-shop"></i> Productos</a></li>
-                    <div th:if="${#request.userPrincipal!=null}">
-                        <div th:if="${#request.userPrincipal.toString().contains('ADMIN')}">
-                            <li><a  class="nav-link" th:href="@{/admin/dashboard}"><i class="fa-solid fa-house-user"></i> Ir a Dashboard</a></li>
-                        </div>
-                    </div>
-
-                    <div th:if="${#request.userPrincipal!=null}">
-                        <div th:if="${#request.userPrincipal.toString().contains('TRAINER')}">
-                            <li><a  class="nav-link" th:href="@{/trainer/dashboard}"><i class="fa-solid fa-house-user"></i> Ir a Dashboard</a></li>
-                        </div>
-
-                    </div>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
 
-                </ul>
+                <a class="navbar-brand" th:href="@{/}">
+                    <img src="/images/Logo-BodyHealth.jpeg" width="140" height="70">
+                </a>
 
-            </div>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown" style="justify-content:flex-end;">
-                <div class="dropdown-divider"></div>
-
-                <!--SI ESTA AUTENTICADO MUESTRA ESTO-->
-                <div sec:authorize="isAuthenticated()" th:if="${#request.userPrincipal!=null}">
-
-                    <div>
-                        <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img th:src="@{'/images/otro.png'}" class="img-fluid" width="50" height="50" />
-                                    <span th:text="${#request.userPrincipal.name}"></span>
-                                </a>
-
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    <li th:if="${#request.userPrincipal.toString().contains('CLIENTE')}">
-                                        <a class="dropdown-item" th:href="@{/mi-perfil}">
-                                            <i class="fa-solid fa-circle-user"></i> Mi Perfil
-                                        </a>
-                                    </li>
-                                    <div th:if="${#request.userPrincipal.toString().contains('CLIENTE')}" class="dropdown-divider"></div>
-                                    <li>
-                                        <form method="POST" th:action="@{/logout}">
-                                            <a href="#" onclick="this.parentNode.submit();" class="nav-link">
-                                                <i class="fa-solid fa-circle-info fa-beat-fade" style="--fa-beat-fade-opacity: 0.67; --fa-beat-fade-scale: 1.075;" ></i> Cerrar sesión
-                                            </a>
-                                        </form>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!--SI NO ESTA AUTENTICADO MUESTRA ESTO-->
-                <div th:if="${#request.userPrincipal==null}">
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul class="navbar-nav mr-auto">
-                        <li><a class="nav-link" th:href="@{/login}"><i class="fa-solid fa-circle-user"></i> Login</a></li>
+                        <li><a class="nav-link"  th:href="@{/}"><i class="fa-sharp fa-solid fa-house"></i> Home</a></li>
+                        <li><a class="nav-link" th:href="@{/planes}"><i class="fa-sharp fa-solid fa-tag"></i> Planes</a></li>
+                        <li><a class="nav-link" th:href="@{/noticias}"><i class="fa-solid fa-newspaper"></i> Noticias</a></li>
+                        <li><a class="nav-link" th:href="@{/productos}"><i class="fa-sharp fa-solid fa-shop"></i> Productos</a></li>
+                        <div th:if="${#request.userPrincipal!=null}">
+                            <div th:if="${#request.userPrincipal.toString().contains('ADMIN')}">
+                                <li><a  class="nav-link" th:href="@{/admin/dashboard}"><i class="fa-solid fa-house-user"></i> Ir a Dashboard</a></li>
+                            </div>
+                        </div>
+
+                        <div th:if="${#request.userPrincipal!=null}">
+                            <div th:if="${#request.userPrincipal.toString().contains('TRAINER')}">
+                                <li><a  class="nav-link" th:href="@{/trainer/dashboard}"><i class="fa-solid fa-house-user"></i> Ir a Dashboard</a></li>
+                            </div>
+
+                        </div>
+
 
                     </ul>
+
                 </div>
+                <div class="collapse navbar-collapse" id="navbarNavDropdown" style="justify-content:flex-end;">
+                    <div class="dropdown-divider"></div>
 
+                    <!--SI ESTA AUTENTICADO MUESTRA ESTO-->
+                    <div sec:authorize="isAuthenticated()" th:if="${#request.userPrincipal!=null}">
 
+                        <div>
+                            <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <img th:src="@{'/images/otro.png'}" class="img-fluid" width="50" height="50" />
+                                        <span th:text="${#request.userPrincipal.name}"></span>
+                                    </a>
+
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                        <li th:if="${#request.userPrincipal.toString().contains('CLIENTE')}">
+                                            <a class="dropdown-item" th:href="@{/mi-perfil}">
+                                                <i class="fa-solid fa-circle-user"></i> Mi Perfil
+                                            </a>
+                                        </li>
+                                        <div th:if="${#request.userPrincipal.toString().contains('CLIENTE')}" class="dropdown-divider"></div>
+                                        <li>
+                                            <form method="POST" th:action="@{/logout}">
+                                                <a href="#" onclick="this.parentNode.submit();" class="nav-link">
+                                                    <i class="fa-solid fa-circle-info fa-beat-fade" style="--fa-beat-fade-opacity: 0.67; --fa-beat-fade-scale: 1.075;" ></i> Cerrar sesión
+                                                </a>
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!--SI NO ESTA AUTENTICADO MUESTRA ESTO-->
+                    <div th:if="${#request.userPrincipal==null}">
+                        <ul class="navbar-nav mr-auto">
+                            <li><a class="nav-link" th:href="@{/login}"><i class="fa-solid fa-circle-user"></i> Login</a></li>
+
+                        </ul>
+                    </div>
+
+                </div>
+            </nav>
+
+        </div>
+        <div class="col-1"></div>
+    </div><hr>
+    <br>
+
+    <div class="container">
+        <div class="row">
+
+            <div class="card" style="width: 20rem;" th:each="producto:${productos}">
+
+                <br><h1 class="card-title" th:text="${producto.getNombre()}"></h1>
+                <p style="font-size: medium" class="card-text" th:text="${producto.getStock()+' unidades'}"></p>
+                <img th:src="${'/images/'+producto.getFoto()}" class="card-img-top" width="350" height="300">
+
+                <p class="card-text" th:text="${'$'+producto.getPrecio()}"></p>
+
+                <form th:action="@{/addItem}" th:object="${producto}" method="POST" id="addItem">
+
+                    <input type="hidden" name="id_producto" th:value="${producto.id_producto}">
+                    <button class="btn btn-primary" type="submit" >Añadir...</button>
+
+                </form>
+                <br>
 
 
             </div>
-        </nav>
 
-    </div>
-    <div class="col-1"></div>
-</div><hr><br>
 
-<div class="container">
-    <div class="row">
 
-        <div class="card" style="width: 20rem;" th:each="producto:${productos}">
-            <br><h1 class="card-title" th:text="${producto.getNombre()}"></h1>
-            <p style="font-size: medium" class="card-text" th:text="${producto.getStock()+' unidades'}"></p>
-            <img th:src="${'/images/'+producto.getFoto()}" class="card-img-top" width="350" height="300">
-
-            <p class="card-text" th:text="${'$'+producto.getPrecio()}"></p>
-            <a id="boton" href="#">Añadir...</a><br>
         </div>
+    </div> <br><br>
 
-
-
+    <div id="footer">
+        <script> $("#footer").load("/src/main/webapp/components/footer.html");</script>
     </div>
-</div> <br><br>
-
-<div id="footer">
-    <script> $("#footer").load("/src/main/webapp/components/footer.html");</script>
-</div>
 
 </body>
 </html>

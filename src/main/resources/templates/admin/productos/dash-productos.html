@@ -75,11 +75,6 @@
             <div class="dashboard-content px-3 pt-4">
                 <h2 class="fs-3">Lista de Productos Desactivados</h2> <br>
 
-                <a href="#" class="btn btn-secondary"
-                   data-bs-toggle="modal" data-bs-target="#agregar-producto">
-                    <i class="fas fa-plus"></i> Agregar Producto
-                </a>
-
                 <section th:replace="/layouts/agregar-producto :: agregar-producto"></section> <br>
 
 
@@ -132,12 +127,13 @@
     <!--SCRIPT DATATABLE-->
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#tablaProductos').DataTable({
-                dom: 'Bfrtip',
-                buttons: [
-                    'excel', 'pdf'
-                ],
-            });
+            $('#tablaProductos').DataTable();
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#tablaProductosDesactivados').DataTable();
         });
     </script>
 

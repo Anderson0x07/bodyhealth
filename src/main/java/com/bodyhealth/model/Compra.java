@@ -19,11 +19,9 @@ public class Compra implements Serializable {
     @JoinColumn(name="id_cliente")
     private Cliente id_cliente;
 
-    @ManyToOne
-    @JoinColumn(name="id_metodopago")
-    private MetodoPago id_metodopago;
-
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fecha_compra;
+
+    private double total;
 }

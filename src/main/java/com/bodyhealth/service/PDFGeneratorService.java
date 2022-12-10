@@ -151,7 +151,7 @@ public class PDFGeneratorService {
         factura.addCell("$"+pedido.getCantidad()*pedido.getProducto().getPrecio());
 
         factura.addCell("Método de Pago");
-        factura.addCell(pedido.getCompra().getId_metodopago().getDescripcion());
+        factura.addCell("Efectivo");
 
 
         factura.setSpacingAfter(300);

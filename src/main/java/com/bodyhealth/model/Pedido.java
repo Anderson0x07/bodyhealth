@@ -17,10 +17,12 @@ public class Pedido implements Serializable {
     @JoinColumn(name = "id_producto")
     private Producto producto;
 
-    @ManyToOne
+    @ManyToOne //OneToOne
     @JoinColumn(name = "id_compra")
     private Compra compra;
 
     private int cantidad;
+
+    private double total;
 
 }

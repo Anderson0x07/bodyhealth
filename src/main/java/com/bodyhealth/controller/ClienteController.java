@@ -75,8 +75,15 @@ public class ClienteController {
     @Autowired
     private ClienteRutinaService clienteRutinaService;
 
+    @Autowired
+    private final EmailService emailService;
+
     private Util util = new Util();
     private String msj = "";
+
+    public ClienteController(EmailService emailService) {
+        this.emailService = emailService;
+    }
 
 
     //Lista clientes en el dashboard del admin
@@ -196,8 +203,8 @@ public class ClienteController {
             }
         }
         cliente.setPassword(encode.encode(cliente.getPassword()));
-
         usuarioService.guardar(cliente);
+        this.emailService.sendListEmail(cliente.getEmail());
         msj="Cliente registrado con exito.";
 
         return "redirect:/admin/dash-clientes";
@@ -354,6 +361,10 @@ public class ClienteController {
         return "redirect:/admin/dash-clientes";
     }
 
+    @GetMapping("/admin/cliente/email")
+    public void sendEmail(String email){
+        this.emailService.sendListEmail(email);
+    }
 
 
 

@@ -4,6 +4,9 @@ package com.bodyhealth.controller;
 import com.bodyhealth.model.Administrador;
 import com.bodyhealth.model.Usuario;
 import com.bodyhealth.repository.UsuarioRepository;
+import com.bodyhealth.service.EjercicioService;
+import com.bodyhealth.service.ProductoService;
+import com.bodyhealth.service.RutinaService;
 import com.bodyhealth.service.UsuarioService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +27,14 @@ public class AdminController {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
+    @Autowired
+    private ProductoService productoService;
+    @Autowired
+    private RutinaService rutinaService;
+
+    @Autowired
+    private EjercicioService ejercicioService;
+
 
 
 
@@ -32,6 +43,18 @@ public class AdminController {
 
         log.info("dashboard");
         model.addAttribute("admin", admin);
+
+        model.addAttribute("clientesactivos",usuarioService.listarActivos().size());
+        model.addAttribute("clientesdesactivados",usuarioService.listarDesactivados().size());
+
+        model.addAttribute("trainersactivos",usuarioService.listarEntrenadoresActivos().size());
+        model.addAttribute("trainersdesactivados",usuarioService.listarEntrenadoresDesactivados().size());
+
+        model.addAttribute("productosactivos",productoService.listarActivos().size());
+        model.addAttribute("productosdesactivados",productoService.listarDesactivados().size());
+
+        model.addAttribute("rutinas",rutinaService.listarRutina().size());
+        model.addAttribute("ejercicios",ejercicioService.listarEjercicios().size());
 
         return "admin/dashboard";
     }

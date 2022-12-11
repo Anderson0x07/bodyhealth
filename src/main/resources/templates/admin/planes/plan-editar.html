@@ -92,6 +92,12 @@
 
                         </form>
 
+                        <br>
+                        <div th:if="${msj.contains('Error')}">
+                            <div class="alert alert-danger" role="alert" th:text="${msj}"></div>
+                        </div>
+                        <br>
+
                     </div>
 
                 </div>

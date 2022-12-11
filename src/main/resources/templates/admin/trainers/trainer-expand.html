@@ -35,7 +35,10 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-5">
-                                <img th:src="@{'/images/' + ${trainer.foto}}" width="100%">
+                                <div class="text-center">
+                                    <img th:src="@{'/images/' + ${trainer.foto}}" width="70%">
+                                </div>
+
                             </div>
                             <div class="col-7">
 
@@ -69,14 +72,6 @@
                                         <tr>
                                             <th>Email</th>
                                             <td th:text="${trainer.email}"></td>
-                                        </tr>
-                                        <tr>
-                                            <th>Contraseña</th>
-                                            <td th:text="${trainer.password}"></td>
-                                        </tr>
-                                        <tr>
-                                            <th>Foto</th>
-                                            <td th:text="${trainer.foto}"></td>
                                         </tr>
                                         <tr>
                                             <th>Experiencia</th>

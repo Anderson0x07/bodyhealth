@@ -25,93 +25,12 @@
 
 </head>
 <body>
-    <div id="navbar" class="row" style="margin-bottom: 10px; font-size: x-large; font-family: Arial, Helvetica, sans-serif">
-        <div class="col-1" ></div>
-        <div class="col-10">
-
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-
-                <a class="navbar-brand" th:href="@{/}">
-                    <img src="/images/Logo-BodyHealth.jpeg" width="140" height="70">
-                </a>
-
-                <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                    <ul class="navbar-nav mr-auto">
-                        <li><a class="nav-link"  th:href="@{/}"><i class="fa-sharp fa-solid fa-house"></i> Home</a></li>
-                        <li><a class="nav-link" th:href="@{/planes}"><i class="fa-sharp fa-solid fa-tag"></i> Planes</a></li>
-                        <li><a class="nav-link" th:href="@{/noticias}"><i class="fa-solid fa-newspaper"></i> Noticias</a></li>
-                        <li><a class="nav-link" th:href="@{/productos}"><i class="fa-sharp fa-solid fa-shop"></i> Productos</a></li>
-                        <div th:if="${#request.userPrincipal!=null}">
-                            <div th:if="${#request.userPrincipal.toString().contains('ADMIN')}">
-                                <li><a  class="nav-link" th:href="@{/admin/dashboard}"><i class="fa-solid fa-house-user"></i> Ir a Dashboard</a></li>
-                            </div>
-                        </div>
-
-                        <div th:if="${#request.userPrincipal!=null}">
-                            <div th:if="${#request.userPrincipal.toString().contains('TRAINER')}">
-                                <li><a  class="nav-link" th:href="@{/trainer/dashboard}"><i class="fa-solid fa-house-user"></i> Ir a Dashboard</a></li>
-                            </div>
-
-                        </div>
-
-
-                    </ul>
-
-                </div>
-                <div class="collapse navbar-collapse" id="navbarNavDropdown" style="justify-content:flex-end;">
-                    <div class="dropdown-divider"></div>
-
-                    <!--SI ESTA AUTENTICADO MUESTRA ESTO-->
-                    <div sec:authorize="isAuthenticated()" th:if="${#request.userPrincipal!=null}">
-
-                        <div>
-                            <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <img th:src="@{'/images/otro.png'}" class="img-fluid" width="50" height="50" />
-                                        <span style="font-size: small" th:text="${#request.userPrincipal.name}"></span>
-                                    </a>
-
-                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                        <li th:if="${#request.userPrincipal.toString().contains('CLIENTE')}">
-                                            <a class="dropdown-item" th:href="@{/mi-perfil}">
-                                                <i class="fa-solid fa-circle-user"></i> Mi Perfil
-                                            </a>
-                                        </li>
-                                        <div th:if="${#request.userPrincipal.toString().contains('CLIENTE')}" class="dropdown-divider"></div>
-                                        <li>
-                                            <form method="POST" th:action="@{/logout}">
-                                                <a href="#" onclick="this.parentNode.submit();" class="nav-link">
-                                                    <i class="fa-solid fa-circle-info fa-beat-fade" style="--fa-beat-fade-opacity: 0.67; --fa-beat-fade-scale: 1.075;" ></i> Cerrar sesión
-                                                </a>
-                                            </form>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <!--SI NO ESTA AUTENTICADO MUESTRA ESTO-->
-                    <div th:if="${#request.userPrincipal==null}">
-                        <ul class="navbar-nav mr-auto">
-                            <li><a class="nav-link" th:href="@{/login}"><i class="fa-solid fa-circle-user"></i> Login</a></li>
-
-                        </ul>
-                    </div>
-
-
-                </div>
-            </nav>
-
-        </div>
-        <div class="col-1"></div>
+    <!--<div id="navbar" class="row" style="margin-bottom: 10px; font-size: x-large; font-family: Arial, Helvetica, sans-serif">-->
+    <!--barra navegacion-->
+    <div style="margin-bottom: 10px; font-size: x-large; font-family: Arial, Helvetica, sans-serif" class="text-center">
+        <div th:replace="cliente/layouts/navbar :: navbar" ></div>
     </div>
+
 
 
     <div class="main-container ">
@@ -123,27 +42,22 @@
                 <div class="col-8">
                     <div class="card border-light">
                         <div class="card-header">
-                            <div class="row">
-                                <div class="col-9">
-                                    <h3 class="card-title">Datos del cliente</h3>
+                            <nav class="navbar bg-light">
+                                <div class="container-fluid">
+                                    <h3 class="card-title ">Información personal</h3>
+                                    <h3 th:if="${clienteDetalle!=null && diferencia<7}"  th:text="${'Plan finaliza en '+diferencia+' días'}" class="card-title alert alert-danger d-flex " role="alert"></h3>
+                                    <h3 th:if="${clienteDetalle!=null && (diferencia>7 && diferencia<28)}" th:text="${'Plan finaliza en '+diferencia+' días'}" class="card-title alert alert-warning d-flex " role="alert" ></h3>
+                                    <h3 th:if="${clienteDetalle!=null && diferencia>28}" th:text="${'Plan finaliza en '+diferencia+' días'}" class="card-title alert alert-success d-flex " role="alert"></h3>
                                 </div>
-                                <div style="background: red" th:if="${clientedetalle!=null && diferencia<7}" class="col-3">
-                                    <h3 style="text-align: end" class="card-title" th:text="${'Plan finaliza en '+diferencia+' días'}"></h3>
-                                </div>
-                                <div style="background: orange" th:if="${clientedetalle!=null && (diferencia>7 && diferencia<28)}" class="col-3">
-                                    <h3 style="text-align: end" class="card-title" th:text="${'Plan finaliza en '+diferencia+' días'}"></h3>
-                                </div>
-                                <div style="background: green" th:if="${clientedetalle!=null && diferencia>28}" class="col-3"> <!-- METALE CSS -->
-                                    <h3 style="text-align: end" class="card-title" th:text="${'Plan finaliza en '+diferencia+' días'}"></h3>
-                                </div>
-
-                            </div>
+                            </nav>
 
                         </div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-5">
-                                    <img th:src="@{'/images/' + ${cliente.foto}}" width="50%">
+                                    <div class="text-center">
+                                        <img th:src="@{'/images/' + ${cliente.foto}}" width="80%">
+                                    </div>
                                 </div>
                                 <div class="col-7">
 
@@ -193,8 +107,8 @@
                                             </tr>
                                             <tr>
                                                 <th>Plan</th>
-                                                <td th:if="${clientedetalle!=null}" th:text="${clientedetalle.id_detalle.plan+' por '+clientedetalle.id_detalle.meses+' Meses'}"></td>
-                                                <td th:if="${clientedetalle==null}" th:text="${'Sin asignar plan'}"></td>
+                                                <td th:if="${clienteDetalle!=null}" th:text="${clienteDetalle.id_detalle.plan+' por '+clienteDetalle.id_detalle.meses+' Meses'}"></td>
+                                                <td th:if="${clienteDetalle==null}" th:text="${'Sin asignar plan'}"></td>
                                             </tr>
                                             <tr>
                                                 <th>Control</th>
@@ -204,7 +118,7 @@
                                             <tr>
                                                 <th>Rutina Asignada</th>
                                                 <div th:if="${clienteRutina != null}">
-                                                    <td th:text="${'Rutina: '+clienteRutina.id_rutina.nombre_rutina}"></td>
+                                                    <td th:text="${clienteRutina.id_rutina.nombre_rutina}"></td>
                                                 </div>
                                                 <div th:if="${clienteRutina == null}">
                                                     <td   th:text="${'Rutina: No Asignada'}"></td>
@@ -252,7 +166,7 @@
                         <table class="table table-bordered table-striped">
 
                             <tr>
-                                <th colspan="5" style="text-align: center; font-size: xx-large" th:text="${'Rutina '+clienteRutina.id_rutina.nombre_rutina}"></th>
+                                <th colspan="5" style="text-align: center; font-size: xx-large" th:text="${clienteRutina.id_rutina.nombre_rutina}"></th>
 
                             </tr>
                             <tr>
@@ -336,6 +250,7 @@
                             <input type="file" class="form-control" name="file" id="foto" >
                         </div>
 
+                        <input type="hidden" name="jornada" th:value="${cliente.jornada}">
                         <input type="hidden" name="password" th:value="${cliente.password}">
 
 
@@ -387,4 +302,5 @@
 
 
 </body>
+<footer th:replace="cliente/layouts/footer :: footer"></footer>
 </html>

@@ -4,7 +4,7 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Productos | GymPlus</title>
+    <title>Productos</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='../css/main.css'>
 
@@ -17,92 +17,8 @@
 </head>
 <body id="body-index">
     <!--barra navegacion-->
-    <div id="navbar" class="row" style="margin-bottom: 10px">
-        <div class="col-1" ></div>
-        <div class="col-10">
-
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-
-                <a class="navbar-brand" th:href="@{/}">
-                    <img src="/images/Logo-BodyHealth.jpeg" width="140" height="70">
-                </a>
-
-                <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                    <ul class="navbar-nav mr-auto">
-                        <li><a class="nav-link"  th:href="@{/}"><i class="fa-sharp fa-solid fa-house"></i> Home</a></li>
-                        <li><a class="nav-link" th:href="@{/planes}"><i class="fa-sharp fa-solid fa-tag"></i> Planes</a></li>
-                        <li><a class="nav-link" th:href="@{/noticias}"><i class="fa-solid fa-newspaper"></i> Noticias</a></li>
-                        <li><a class="nav-link" th:href="@{/productos}"><i class="fa-sharp fa-solid fa-shop"></i> Productos</a></li>
-                        <div th:if="${#request.userPrincipal!=null}">
-                            <div th:if="${#request.userPrincipal.toString().contains('ADMIN')}">
-                                <li><a  class="nav-link" th:href="@{/admin/dashboard}"><i class="fa-solid fa-house-user"></i> Ir a Dashboard</a></li>
-                            </div>
-                        </div>
-
-                        <div th:if="${#request.userPrincipal!=null}">
-                            <div th:if="${#request.userPrincipal.toString().contains('TRAINER')}">
-                                <li><a  class="nav-link" th:href="@{/trainer/dashboard}"><i class="fa-solid fa-house-user"></i> Ir a Dashboard</a></li>
-                            </div>
-
-                        </div>
-
-
-                    </ul>
-
-                </div>
-                <div class="collapse navbar-collapse" id="navbarNavDropdown" style="justify-content:flex-end;">
-                    <div class="dropdown-divider"></div>
-
-                    <!--SI ESTA AUTENTICADO MUESTRA ESTO-->
-                    <div sec:authorize="isAuthenticated()" th:if="${#request.userPrincipal!=null}">
-
-                        <div>
-                            <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <img th:src="@{'/images/otro.png'}" class="img-fluid" width="50" height="50" />
-                                        <span th:text="${#request.userPrincipal.name}"></span>
-                                    </a>
-
-                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                        <li th:if="${#request.userPrincipal.toString().contains('CLIENTE')}">
-                                            <a class="dropdown-item" th:href="@{/mi-perfil}">
-                                                <i class="fa-solid fa-circle-user"></i> Mi Perfil
-                                            </a>
-                                        </li>
-                                        <div th:if="${#request.userPrincipal.toString().contains('CLIENTE')}" class="dropdown-divider"></div>
-                                        <li>
-                                            <form method="POST" th:action="@{/logout}">
-                                                <a href="#" onclick="this.parentNode.submit();" class="nav-link">
-                                                    <i class="fa-solid fa-circle-info fa-beat-fade" style="--fa-beat-fade-opacity: 0.67; --fa-beat-fade-scale: 1.075;" ></i> Cerrar sesión
-                                                </a>
-                                            </form>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <!--SI NO ESTA AUTENTICADO MUESTRA ESTO-->
-                    <div th:if="${#request.userPrincipal==null}">
-                        <ul class="navbar-nav mr-auto">
-                            <li><a class="nav-link" th:href="@{/login}"><i class="fa-solid fa-circle-user"></i> Login</a></li>
-
-                        </ul>
-                    </div>
-
-                </div>
-            </nav>
-
-        </div>
-        <div class="col-1"></div>
-    </div><hr>
+    <div th:replace="cliente/layouts/navbar :: navbar"></div>
+    <hr>
     <br>
 
     <div class="container">
@@ -119,7 +35,35 @@
                 <form th:action="@{/addItem}" th:object="${producto}" method="POST" id="addItem">
 
                     <input type="hidden" name="id_producto" th:value="${producto.id_producto}">
-                    <button class="btn btn-primary" type="submit" >Añadir...</button>
+
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-dark" data-bs-toggle="modal" th:data-bs-target="${'#exampleModal-'+producto.id_producto}">
+                        Añadir...
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" th:id="${'exampleModal-'+producto.id_producto}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Cantidad</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+
+                                    <div class="form-group">
+                                        <input type="number" id="cantidad" name="cantidad" class="form-control"
+                                               autocomplete="off" min="1" th:max="${producto.stock}" value="1">
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                    <button class="btn btn-dark" type="submit" >Añadir...</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                 </form>
                 <br>
@@ -129,12 +73,12 @@
 
 
 
+
+
         </div>
     </div> <br><br>
 
-    <div id="footer">
-        <script> $("#footer").load("/src/main/webapp/components/footer.html");</script>
-    </div>
 
 </body>
+<footer th:replace="cliente/layouts/footer :: footer"></footer>
 </html>

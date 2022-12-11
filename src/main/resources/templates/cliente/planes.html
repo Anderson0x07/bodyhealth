@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Planes | GymPlus</title>
+    <title>Planes</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='../css/main.css'>
 
@@ -18,114 +18,94 @@
 </head>
 <body id="body-index">
 
-<!--barra navegacion-->
-    <div id="navbar" class="row" style="margin-bottom: 10px">
-        <div class="col-1" ></div>
-        <div class="col-10">
+    <!--barra navegacion-->
+    <div th:replace="cliente/layouts/navbar :: navbar"></div>
+    <hr><br>
 
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-
-                <a class="navbar-brand" th:href="@{/}">
-                    <img src="/images/Logo-BodyHealth.jpeg" width="140" height="70">
-                </a>
-
-                <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                    <ul class="navbar-nav mr-auto">
-                        <li><a class="nav-link"  th:href="@{/}"><i class="fa-sharp fa-solid fa-house"></i> Home</a></li>
-                        <li><a class="nav-link" th:href="@{/planes}"><i class="fa-sharp fa-solid fa-tag"></i> Planes</a></li>
-                        <li><a class="nav-link" th:href="@{/noticias}"><i class="fa-solid fa-newspaper"></i> Noticias</a></li>
-                        <li><a class="nav-link" th:href="@{/productos}"><i class="fa-sharp fa-solid fa-shop"></i> Productos</a></li>
-                        <div th:if="${#request.userPrincipal!=null}">
-                            <div th:if="${#request.userPrincipal.toString().contains('ADMIN')}">
-                                <li><a  class="nav-link" th:href="@{/admin/dashboard}"><i class="fa-solid fa-house-user"></i> Ir a Dashboard</a></li>
-                            </div>
-                        </div>
-
-                        <div th:if="${#request.userPrincipal!=null}">
-                            <div th:if="${#request.userPrincipal.toString().contains('TRAINER')}">
-                                <li><a  class="nav-link" th:href="@{/trainer/dashboard}"><i class="fa-solid fa-house-user"></i> Ir a Dashboard</a></li>
-                            </div>
-
-                        </div>
-
-
-                    </ul>
-
-                </div>
-                <div class="collapse navbar-collapse" id="navbarNavDropdown" style="justify-content:flex-end;">
-                    <div class="dropdown-divider"></div>
-
-                    <!--SI ESTA AUTENTICADO MUESTRA ESTO-->
-                    <div sec:authorize="isAuthenticated()" th:if="${#request.userPrincipal!=null}">
-
-                        <div>
-                            <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <img th:src="@{'/images/otro.png'}" class="img-fluid" width="50" height="50" />
-                                        <span th:text="${#request.userPrincipal.name}"></span>
-                                    </a>
-
-                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                        <li th:if="${#request.userPrincipal.toString().contains('CLIENTE')}">
-                                            <a class="dropdown-item" th:href="@{/mi-perfil}">
-                                                <i class="fa-solid fa-circle-user"></i> Mi Perfil
-                                            </a>
-                                        </li>
-                                        <div th:if="${#request.userPrincipal.toString().contains('CLIENTE')}" class="dropdown-divider"></div>
-                                        <li>
-                                            <form method="POST" th:action="@{/logout}">
-                                                <a href="#" onclick="this.parentNode.submit();" class="nav-link">
-                                                    <i class="fa-solid fa-circle-info fa-beat-fade" style="--fa-beat-fade-opacity: 0.67; --fa-beat-fade-scale: 1.075;" ></i> Cerrar sesión
-                                                </a>
-                                            </form>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <!--SI NO ESTA AUTENTICADO MUESTRA ESTO-->
-                    <div th:if="${#request.userPrincipal==null}">
-                        <ul class="navbar-nav mr-auto">
-                            <li><a class="nav-link" th:href="@{/login}"><i class="fa-solid fa-circle-user"></i> Login</a></li>
-
-                        </ul>
-                    </div>
-
-
-
-
-                </div>
-            </nav>
-
-        </div>
-        <div class="col-1"></div>
-    </div><hr><br>
-
-    <h1>PLANES DE BODYHEALTH</h1>
 
     <div class="container">
-        <div class="row">
 
+        <div th:if="${clienteDetalle==null}" class="row">
+
+            <h1>PLANES DE BODYHEALTH</h1>
             <div class="card" style="width: 20rem;margin: 55px 25px 30px 55px" th:each="plan:${planes}">
                 <br><h1 class="card-title" th:text="${plan.getPlan()}"></h1>
                 <p style="font-size: medium" class="card-text" th:text="${plan.getMeses()+' Meses'}"></p>
                 <img th:src="${'/images/alimentacionsana.webp'}" class="card-img-top" width="350" height="300">
 
                 <p class="card-text" th:text="${'$'+plan.getPrecio()}"></p>
-                <a id="boton" href="#">Adquirir...</a><br>
+
+                <form th:action="@{/addPlan}" th:object="${clienteDetalle}" method="POST" >
+
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-dark" data-bs-toggle="modal" th:data-bs-target="${'#exampleModal-'+plan.id_detalle}">
+                        Añadir...
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" th:id="${'exampleModal-'+plan.id_detalle}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Adquirir plan</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+
+                                    <input type="hidden" name="id_detalle" th:value="${plan.id_detalle}">
+
+                                    <label for="id_metodopago" class="form-label">Metodo de pago: </label>
+                                    <select name="id_metodopago" id="id_metodopago" required class="form-control ">
+
+                                        <div th:each="metoPago : ${metodos}"> <!--Metodos de pago disponibles-->
+                                            <option th:value="${metoPago.id_metodopago}" th:text="${metoPago.descripcion}"></option>
+                                        </div>
+                                    </select>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                    <button class="btn btn-dark" type="submit" >Adquirir...</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+                <br>
+
             </div>
+        </div>
+
+        <div th:if="${clienteDetalle!= null}" class="text-center">
+
+            <div class="card border-success mb-3" >
+                <div class="card-header" th:text="${'Enhorabuena, ya cuentas con el '+clienteDetalle.id_detalle.plan+' por '+clienteDetalle.id_detalle.meses+' Meses'}">Header</div>
+                <div class="card-body text-success">
+                    <div class="row">
+                        <div class="col">
+                            <h4 class="card-title">Fecha Inicio</h4>
+                            <p class="card-text" th:text="${clienteDetalle.fecha_inicio}"></p> <br>
+                        </div>
+                        <div class="col">
+                            <h4 class="card-title">Fecha Fin</h4>
+                            <p class="card-text" th:text="${clienteDetalle.fecha_fin}"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 th:if="${clienteDetalle!=null && diferencia<7}"  th:text="${'Plan finaliza en '+diferencia+' días'}" class="card-title alert alert-danger " role="alert"></h3>
+            <h3 th:if="${clienteDetalle!=null && (diferencia>7 && diferencia<28)}" th:text="${'Plan finaliza en '+diferencia+' días'}" class="card-title alert alert-warning " role="alert" ></h3>
+            <h3 th:if="${clienteDetalle!=null && diferencia>28}" th:text="${'Plan finaliza en '+diferencia+' días'}" class="card-title alert alert-success " role="alert"></h3>
+
+
+
 
 
 
         </div>
+
     </div> <br><br>
 
     <!--CARRUSEL-->
@@ -149,11 +129,9 @@
         </div>
         <div class="col-2"></div>
     </div>
-    <br><br>
-    <div id="footer">
-        <script> $("#footer").load("/src/main/webapp/components/footer.html");</script>
-    </div>
+    <br>
 
 </body>
+<footer th:replace="cliente/layouts/footer :: footer"></footer>
 
 </html>

@@ -1,9 +1,6 @@
 package com.bodyhealth.controller;
 
-import com.bodyhealth.model.Entrenador;
-import com.bodyhealth.model.Maquina;
-import com.bodyhealth.model.Producto;
-import com.bodyhealth.model.Proveedor;
+import com.bodyhealth.model.*;
 import com.bodyhealth.service.MaquinaService;
 import com.bodyhealth.service.ProductoService;
 import com.bodyhealth.service.ProveedorService;
@@ -75,16 +72,23 @@ public class ProductoController {
 
         Path directorioImagenes = Paths.get("src//main//resources//static/images");
         String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath();
-        try {
-            byte[] bytesImg = imagen.getBytes();
-            Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + imagen.getOriginalFilename());
-            //Path rutaCompleta1 = Paths.get(rutaAbsoluta + "//" + "Anime5.jpg");
-            //Files.delete(rutaCompleta1);
-            Files.write(rutaCompleta, bytesImg);
-            producto.setFoto(imagen.getOriginalFilename());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        if(!imagen.isEmpty()){
+            try {
+                byte[] bytesImg = imagen.getBytes();
+                Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + imagen.getOriginalFilename());
+                //Path rutaCompleta1 = Paths.get(rutaAbsoluta + "//" + "Anime5.jpg");
+                //Files.delete(rutaCompleta1);
+                Files.write(rutaCompleta, bytesImg);
+                producto.setFoto(imagen.getOriginalFilename());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }else{
+            Producto panterior = productoService.encontrarProducto(producto);
+
+            producto.setFoto(panterior.getFoto());
         }
+
         productoService.guardar(producto);
 
         return "redirect:/admin/dash-productos/expand/"+producto.getId_producto();

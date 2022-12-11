@@ -30,27 +30,23 @@
 
                 <div class="card border-light">
                     <div class="card-header">
-                        <div class="row">
-                            <div class="col-9">
-                                <h3 class="card-title">Datos del cliente</h3>
+                        <nav class="navbar bg-light">
+                            <div class="container-fluid">
+                                <h3 class="card-title ">Editar cliente</h3>
+                                <h3 th:if="${clienteDetalle!=null && diferencia<7}"  th:text="${'Plan finaliza en '+diferencia+' días'}" class="card-title alert alert-danger d-flex " role="alert"></h3>
+                                <h3 th:if="${clienteDetalle!=null && (diferencia>7 && diferencia<28)}" th:text="${'Plan finaliza en '+diferencia+' días'}" class="card-title alert alert-warning d-flex " role="alert" ></h3>
+                                <h3 th:if="${clienteDetalle!=null && diferencia>28}" th:text="${'Plan finaliza en '+diferencia+' días'}" class="card-title alert alert-success d-flex " role="alert"></h3>
                             </div>
-                            <div style="background: red" th:if="${clientedetalle!=null && diferencia<7}" class="col-3">
-                                <h3 style="text-align: end" class="card-title" th:text="${'Plan finaliza en '+diferencia+' días'}"></h3>
-                            </div>
-                            <div style="background: orange" th:if="${clientedetalle!=null && (diferencia>7 && diferencia<28)}" class="col-3">
-                                <h3 style="text-align: end" class="card-title" th:text="${'Plan finaliza en '+diferencia+' días'}"></h3>
-                            </div>
-                            <div style="background: green" th:if="${clientedetalle!=null && diferencia>28}" class="col-3"> <!-- METALE CSS -->
-                                <h3 style="text-align: end" class="card-title" th:text="${'Plan finaliza en '+diferencia+' días'}"></h3>
-                            </div>
-
-                        </div>
+                        </nav>
 
                     </div>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-5">
-                                <img th:src="@{'/images/' + ${cliente.foto}}" width="100%">
+                                <div class="text-center">
+                                    <img th:src="@{'/images/' + ${cliente.foto}}" width="80%">
+                                </div>
+
                             </div>
                             <div class="col-7">
 
@@ -86,14 +82,6 @@
                                             <td th:text="${cliente.email}"></td>
                                         </tr>
                                         <tr>
-                                            <th>Contraseña</th>
-                                            <td th:text="${cliente.password}"></td>
-                                        </tr>
-                                        <tr>
-                                            <th>Foto</th>
-                                            <td th:text="${cliente.foto}"></td>
-                                        </tr>
-                                        <tr>
                                             <th>Jornada</th>
                                             <td th:text="${cliente.jornada}"></td>
                                         </tr>
@@ -119,7 +107,7 @@
                                         <tr>
                                             <th>Rutina Asignada</th>
                                             <div th:if="${clienteRutina != null}">
-                                                <td th:text="${'Rutina: '+clienteRutina.id_rutina.nombre_rutina}"></td>
+                                                <td th:text="${clienteRutina.id_rutina.nombre_rutina}"></td>
                                             </div>
                                             <div th:if="${clienteRutina == null}">
                                                 <td   th:text="${'Rutina: No Asignada'}"></td>
@@ -174,7 +162,7 @@
                     <table class="table table-bordered table-striped">
 
                         <tr>
-                            <th colspan="5" style="text-align: center; font-size: xx-large" th:text="${'Rutina '+clienteRutina.id_rutina.nombre_rutina}"></th>
+                            <th colspan="5" style="text-align: center; font-size: xx-large" th:text="${clienteRutina.id_rutina.nombre_rutina}"></th>
 
                         </tr>
                         <tr>
@@ -254,10 +242,7 @@
                     <div class="modal-body">
 
                         <div th:if="${clienteRutina!=null}" >
-                            <div class="form-group">
-                                <label for="id_clienterutina">Id Rutina asignada: </label>
-                                <input readonly type="text" class="form-control" name="id_clienterutina" id="id_clienterutina" th:value="${clienteRutina.id_clienterutina}">
-                            </div>
+                            <input type="hidden" class="form-control" name="id_clienterutina" id="id_clienterutina" th:value="${clienteRutina.id_clienterutina}">
                         </div>
 
                         <div class="form-group">

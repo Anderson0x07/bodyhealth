@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import com.bodyhealth.repository.*;
@@ -37,6 +39,12 @@ public class ControladorInicio {
     private UsuarioRepository usuarioRepository;
 
     @Autowired
+    private DetalleService detalleService;
+
+    @Autowired
+    private ClienteDetalleService clienteDetalleService;
+
+    @Autowired
     private EntrenadorClienteRepository entrenadorClienteRepository;
 
     @Autowired
@@ -66,15 +74,23 @@ public class ControladorInicio {
     private DetalleRepository detalleRepository;
 
     @Autowired
+    private MetodoPagoService metodoPagoService;
+
+    @Autowired
     private final EmailService emailService;
 
     public ControladorInicio(EmailService emailService) {
         this.emailService = emailService;
     }
 
+    String msj="";
 
     @GetMapping("/")
-    public String index(){
+    public String index(Model model){
+
+        model.addAttribute("msj",msj);
+        msj="";
+
         return "index";
     }
 
@@ -86,9 +102,25 @@ public class ControladorInicio {
     }
 
     @GetMapping("/planes")
-    public String planes(Model model){
+    public String planes(Model model, @AuthenticationPrincipal User user){
         List<Detalle> detalle = detalleRepository.listarActivos();
         model.addAttribute("planes",detalle);
+        model.addAttribute("metodos",metodoPagoService.listarMetodosPagos());
+
+            //PLAN DE CLIENTE EN CASO DE TENER
+            Cliente cnuevo = null;
+            cnuevo = usuarioRepository.encontrarClienteEmail(user.getUsername());
+            if(cnuevo != null){
+                ClienteDetalle clienteDetalle = clienteDetalleRepository.encontrarPlan(cnuevo.getId_usuario());
+
+                if(clienteDetalle!=null){
+                    model.addAttribute("diferencia", util.obtenerDiferenciaDias(clienteDetalle.getFecha_fin()));
+
+                    model.addAttribute("clienteDetalle",clienteDetalle);
+                }
+            }
+
+
         return "cliente/planes";
     }
     @GetMapping("/noticias")
@@ -141,6 +173,10 @@ public class ControladorInicio {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+        } else {
+            Cliente canterior = (Cliente) usuarioService.encontrarUsuario(cliente);
+
+            cliente.setFoto(canterior.getFoto());
         }
 
         usuarioService.guardar(cliente);
@@ -186,7 +222,7 @@ public class ControladorInicio {
         if(clienteDetalle!=null){
             model.addAttribute("diferencia", util.obtenerDiferenciaDias(clienteDetalle.getFecha_fin()));
 
-            model.addAttribute("clientedetalle",clienteDetalle);
+            model.addAttribute("clienteDetalle",clienteDetalle);
         }
 
         //PARA EL CONTROL DE PESO Y ESTATURA
@@ -216,7 +252,7 @@ public class ControladorInicio {
             if(rutinaconejercicios.size()==0){
                 List<RutinaEjercicio> rutinaEjercicio = rutinaEjercicioRepository.encontrarRutinaEjercicios(clienteRutina.getId_rutina().getId_rutina());
                 ClienteRutinaEjercicio clienteRutinaEjercicio;
-                int idActual = clienteRutinaEjercicioRepository.idActual();
+                int idActual = rutinaEjercicio.get(rutinaEjercicio.size()-1).getId_rutina_ejercicio();
                 for (int i = 1; i <= rutinaEjercicio.size(); i++) {
 
                     clienteRutinaEjercicio=new ClienteRutinaEjercicio();
@@ -243,6 +279,35 @@ public class ControladorInicio {
         usuarioService.guardar(cl);
 
         return "redirect:/mi-perfil";
+    }
+
+    @PostMapping("/addPlan")
+    public String addPlan(Model model, ClienteDetalle clienteDetalle, @AuthenticationPrincipal User user){
+
+        Cliente cliente = usuarioRepository.encontrarClienteEmail(user.getUsername());
+
+        Detalle detalle = detalleService.encontrarDetalle(clienteDetalle.getId_detalle());
+
+        Date fecha = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setLenient(false);
+
+        calendar.setTime(fecha); // Configuramos la fecha que se recibe
+        calendar.add(calendar.MONTH, detalle.getMeses());  // numero de meses a añadir
+
+        clienteDetalle.setFecha_inicio(fecha);
+        clienteDetalle.setFecha_fin(calendar.getTime());
+        clienteDetalle.setId_detalle(detalle);
+        cliente.setEstado(true);
+        clienteDetalle.setId_cliente(cliente);
+
+
+        clienteDetalleService.guardar(clienteDetalle);
+
+        msj = "Plan adquirido con exito";
+
+        return "redirect:/";
+
     }
     
 

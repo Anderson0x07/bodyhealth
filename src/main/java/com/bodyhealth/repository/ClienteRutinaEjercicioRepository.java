@@ -15,10 +15,10 @@ public interface ClienteRutinaEjercicioRepository extends JpaRepository<ClienteR
     )
     List<ClienteRutinaEjercicio> encontrarRutinaCompletaCliente(@Param("id_cliente_rutina") int id_cliente_rutina);
 
-    @Query(
+    /*@Query(
             value = "SELECT `AUTO_INCREMENT` FROM  INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'bodyhealth' AND  TABLE_NAME = 'cliente_rutina_ejercicio'",
             nativeQuery = true
     )
-    public abstract int idActual();
+    public abstract int idActual();*/
 
 }

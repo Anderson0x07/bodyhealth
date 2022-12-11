@@ -10,7 +10,7 @@
     <meta name="keywords" content="Colorlib Templates">
 
     <!-- Title Page-->
-    <title>Au Register Forms by Colorlib</title>
+    <title>Registro</title>
 
     <!-- Icons font CSS-->
     <link href="/registro-tools/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
@@ -24,132 +24,137 @@
 
     <!-- Main CSS-->
     <link href="/registro-tools/css/main.css" rel="stylesheet" media="all">
+
 </head>
 
 <body>
-<div class="page-wrapper bg-gra-03 p-t-45 p-b-50">
-    <div class="wrapper wrapper--w790">
-        <div class="card card-5">
-            <div class="card-heading">
-                <h2 class="title">Registro</h2>
-            </div>
-            <div class="card-body">
-                <form th:action="@{/cliente/dash-clientes/expand/guardar}" th:object="${cliente}"
-                      method="POST" enctype="multipart/form-data"  class="signup-form">
-                    <div class="form-row m-b-55">
-                        <div class="name">Name</div>
-                        <div class="value">
-                            <div class="row row-space">
-                                <div class="col-2">
-                                    <div class="input-group-desc">
-                                        <input type="text" class="input--style-5" name="nombre" id="nombre" required="true" placeholder="Tú nombre">
-                                        <label class="label--desc">Nombre</label>
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="input-group-desc">
-                                        <input type="text" class="input--style-5" name="apellido" id="apellido" required="true" placeholder="Tú apellido">
-                                        <label class="label--desc">Apellido</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-row m-b-55">
-                        <div class="name">Documento</div>
-                        <div class="value">
-                            <div class="row row-space">
-                                <div class="col-2">
-                                    <div class="input-group-desc">
-                                        <input type="text" class="input--style-5" name="tipo_documento" id="tipo_documento" required="true" placeholder="Tipo de documento">
-                                        <label class="label--desc">Tipo documento</label>
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="input-group-desc">
-                                        <input type="text" class="input--style-5" name="documento" id="documentoC" required="true" placeholder="Tú documento">
-                                        <label class="label--desc">Documento</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="name">Correo</div>
-                        <div class="value">
-                            <div class="input-group">
-                                <input type="email" class="input--style-5" name="email" id="email" required="true" placeholder="Correo">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="name">Contraseña</div>
-                        <div class="value">
-                            <div class="input-group">
-                                <input type="text" class="input--style-5" name="password" id="password" required="true" placeholder="Contraseña">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="name">Telefono</div>
-                        <div class="value">
-                            <div class="input-group">
-                                <input type="text" class="input--style-5" name="telefono" id="telefono" required="true" placeholder="Tú telefono">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="name">Fecha de nacimiento</div>
-                        <div class="value">
-                            <div class="input-group">
-                                <input type="date" class="input--style-5" name="fecha_nacimiento" id="fechaN" required="true" placeholder="Fecha de nacimiento">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="name">Foto</div>
-                        <div class="value">
-                            <div class="input-group">
-                                <input type="file" class="input--style-5" name="file" id="foto" >
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="name">Jornada</div>
-                        <div class="form-group">
-                            <label for="jornada" class="input--style-5">Jornada: </label>
-                            <select name="jornada" id="jornada" required class="input--style-5 ">
+    <div class="page-wrapper bg-gra-03 p-t-45 p-b-50">
+        <div class="wrapper wrapper--w790">
+            <div class="card card-5">
+                <div class="card-heading">
+                    <h2 class="title">Registro</h2>
+                </div>
+                <div class="card-body">
+                    <form th:action="@{/cliente/dash-clientes/expand/guardar}" th:object="${cliente}"
+                          method="POST" enctype="multipart/form-data"  class="signup-form">
+                        <div class="form-row m-b-55">
+                            <div class="name">Nombre</div>
+                            <div class="value">
+                                <div class="row row-space">
+                                    <div class="col-2">
+                                        <div class="input-group-desc">
+                                            <input type="text" class="input--style-5" name="nombre" id="nombre" required="true" placeholder="Tú nombre">
 
-                                <option th:value="${'Mañana'}" th:text="${'Mañana'}"></option>
-                                <option th:value="${'Tarde'}" th:text="${'Tarde'}"></option>
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="input-group-desc">
+                                            <input type="text" class="input--style-5" name="apellido" id="apellido" required="true" placeholder="Tú apellido">
 
-                            </select> <br>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div>
-                        <button class="btn btn--radius-2 btn--red" type="submit">Register</button>
-                    </div>
-                    <div style="padding-top: 10px">
-                        <p class="loginhere">
-                            ¿ Ya tienes una cuenta ? <a href="/login" class="loginhere-link">Inicia sesión aquí</a>
-                        </p>
-                    </div>
+                        <div class="form-row m-b-55">
+                            <div class="name">Documento</div>
+                            <div class="value">
+                                <div class="row row-space">
+                                    <div class="col-2">
+                                        <div class="input-group-desc">
+                                            <input type="text" class="input--style-5" name="tipo_documento" id="tipo_documento" required="true" placeholder="Tipo de documento">
 
-                </form>
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="input-group-desc">
+                                            <input type="text" class="input--style-5" name="documento" id="documentoC" required="true" placeholder="Tú documento">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="name">Correo</div>
+                            <div class="value">
+                                <div class="input-group">
+                                    <input type="email" class="input--style-5" name="email" id="email" required="true" placeholder="Correo Electrónico">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="name">Contraseña</div>
+                            <div class="value">
+                                <div class="input-group">
+                                    <input type="text" class="input--style-5" name="password" id="password" required="true" placeholder="Contraseña">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="name">Telefono</div>
+                            <div class="value">
+                                <div class="input-group">
+                                    <input type="text" class="input--style-5" name="telefono" id="telefono" required="true" placeholder="Tú telefono">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="name">Fecha de nacimiento</div>
+                            <div class="value">
+                                <div class="input-group">
+                                    <input type="date" class="input--style-5" name="fecha_nacimiento" id="fechaN" required="true" placeholder="Fecha de nacimiento">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="name">Foto de Perfil</div>
+                            <div class="value">
+                                <div class="input-group">
+                                    <input type="file" class="input--style-5" name="file" id="foto" >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+
+                            <div class="name">Jornada</div>
+                            <div class="value">
+                                <div class="input-group input--style-5">
+                                    <select name="jornada" id="jornada" required class="input--style-5">
+
+                                        <option th:value="${'Mañana'}" th:text="${'Mañana'}"></option>
+                                        <option th:value="${'Tarde'}" th:text="${'Tarde'}"></option>
+
+                                    </select>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div>
+                            <button class="btn btn--radius-2 btn--red" type="submit">Register</button>
+                        </div>
+                        <div style="padding-top: 10px">
+                            <p class="loginhere">
+                                ¿ Ya tienes una cuenta ? <a href="/login" class="loginhere-link">Inicia sesión aquí</a>
+                            </p>
+                        </div>
+
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- Jquery JS-->
-<script src="/registro-tools/vendor/jquery/jquery.min.js"></script>
-<!-- Vendor JS-->
-<script src="/registro-tools/vendor/select2/select2.min.js"></script>
-<script src="/registro-tools/vendor/datepicker/moment.min.js"></script>
-<script src="/registro-tools/vendor/datepicker/daterangepicker.js"></script>
+    <!-- Jquery JS-->
+    <script src="/registro-tools/vendor/jquery/jquery.min.js"></script>
+    <!-- Vendor JS-->
+    <script src="/registro-tools/vendor/select2/select2.min.js"></script>
+    <script src="/registro-tools/vendor/datepicker/moment.min.js"></script>
+    <script src="/registro-tools/vendor/datepicker/daterangepicker.js"></script>
 
-<!-- Main JS-->
-<script src="/registro-tools/js/global.js"></script>
+    <!-- Main JS-->
+    <script src="/registro-tools/js/global.js"></script>
 
 </body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 

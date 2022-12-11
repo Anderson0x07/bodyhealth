@@ -41,6 +41,9 @@ public class ClienteController {
     private ClienteDetalleRepository clienteDetalleRepository;
 
     @Autowired
+    private DetalleService detalleService;
+
+    @Autowired
     private DetalleRepository detalleRepository;
 
     @Autowired
@@ -125,7 +128,7 @@ public class ClienteController {
         if(clienteDetalle!=null){
             model.addAttribute("diferencia", util.obtenerDiferenciaDias(clienteDetalle.getFecha_fin()));
 
-            model.addAttribute("clientedetalle",clienteDetalle);
+            model.addAttribute("clienteDetalle",clienteDetalle);
         }
 
         //PARA EL CONTROL DE PESO Y ESTATURA
@@ -155,7 +158,7 @@ public class ClienteController {
             if(rutinaconejercicios.size()==0){
                 List<RutinaEjercicio> rutinaEjercicio = rutinaEjercicioRepository.encontrarRutinaEjercicios(clienteRutina.getId_rutina().getId_rutina());
                 ClienteRutinaEjercicio clienteRutinaEjercicio;
-                int idActual = clienteRutinaEjercicioRepository.idActual();
+                int idActual = rutinaEjercicio.get(rutinaEjercicio.size()-1).getId_rutina_ejercicio();
                 for (int i = 1; i <= rutinaEjercicio.size(); i++) {
 
                     clienteRutinaEjercicio=new ClienteRutinaEjercicio();
@@ -168,10 +171,6 @@ public class ClienteController {
                 model.addAttribute("rutinaconejercicios",clienteRutinaEjercicioRepository.encontrarRutinaCompletaCliente(clienteRutina.getId_clienterutina()));
             }
         }
-
-
-
-
 
         return "admin/clientes/cliente-expand";
     }
@@ -223,7 +222,12 @@ public class ClienteController {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+        } else{
+            Cliente canterior = (Cliente) usuarioService.encontrarUsuario(cliente);
+
+            cliente.setFoto(canterior.getFoto());
         }
+
 
         usuarioService.guardar(cliente);
         msj="Cliente editado con exito.";
@@ -250,11 +254,22 @@ public class ClienteController {
     @PostMapping("/admin/dash-clientes/expand/guardarPlan")
     public String guardarPlan(ClienteDetalle clienteDetalle, Model model){
 
-        log.info("ADD de plan: "+clienteDetalle.toString());
-
         int id_cliente = clienteDetalle.getId_cliente().getId_usuario();
-
         clienteDetalle.getId_cliente().setEstado(true);
+
+        Detalle detalle = detalleService.encontrarDetalle(clienteDetalle.getId_detalle());
+
+        Date fecha = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setLenient(false);
+
+        calendar.setTime(fecha); // Configuramos la fecha que se recibe
+        calendar.add(calendar.MONTH, detalle.getMeses());  // numero de meses a añadir
+
+        clienteDetalle.setFecha_inicio(fecha);
+        clienteDetalle.setFecha_fin(calendar.getTime());
+        clienteDetalle.setId_detalle(detalle);
+
         clienteDetalleService.guardar(clienteDetalle);
 
         model.addAttribute("clienteDetalle",clienteDetalleRepository.encontrarPlan(clienteDetalle.getId_cliente().getId_usuario()));
@@ -289,7 +304,7 @@ public class ClienteController {
             model.addAttribute("clienteDetalle",clienteDetalle);
         }
         //PARA MOSTRAR TODOS LOS PLANES PARA SELECCIONAR
-        model.addAttribute("planesdetallados",detalleRepository.findAll());
+        model.addAttribute("planesDetallados",detalleRepository.findAll());
         //PARA MOSTRAR TODOS LOS METODOS DE PAGO DISPONIBLES
         model.addAttribute("metodos",metodoPagoRepository.findAll());
         model.addAttribute("msj",msj);

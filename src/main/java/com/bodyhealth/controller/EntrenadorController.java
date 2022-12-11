@@ -41,6 +41,9 @@ public class EntrenadorController {
     private RutinaService rutinaService;
 
     @Autowired
+    private EjercicioService ejercicioService;
+
+    @Autowired
     private ClienteRutinaService clienteRutinaService;
 
     @Autowired
@@ -146,6 +149,10 @@ public class EntrenadorController {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+        } else {
+            Entrenador eanterior = (Entrenador) usuarioService.encontrarUsuario(entrenador);
+
+            entrenador.setFoto(eanterior.getFoto());
         }
 
         usuarioService.guardar(entrenador);
@@ -242,7 +249,7 @@ public class EntrenadorController {
             if(rutinaconejercicios.size()==0){
                 List<RutinaEjercicio> rutinaEjercicio = rutinaEjercicioRepository.encontrarRutinaEjercicios(clienteRutina.getId_rutina().getId_rutina());
                 ClienteRutinaEjercicio clienteRutinaEjercicio;
-                int idActual = clienteRutinaEjercicioRepository.idActual();
+                int idActual = rutinaEjercicio.get(rutinaEjercicio.size()-1).getId_rutina_ejercicio();
                 for (int i = 1; i <= rutinaEjercicio.size(); i++) {
 
                     clienteRutinaEjercicio=new ClienteRutinaEjercicio();
@@ -280,7 +287,14 @@ public class EntrenadorController {
     }
 
     @GetMapping("/trainer/dashboard")
-    public String irDashboard(){
+    public String irDashboard(Model model, @AuthenticationPrincipal User user){
+
+        Entrenador trainer = usuarioRepository.encontrarTrainerEmail(user.getUsername());
+
+        model.addAttribute("clientesasignados",entrenadorClienteRepository.encontrarClientes(trainer.getId_usuario()).size());
+
+        model.addAttribute("rutinas",rutinaService.listarRutina().size());
+        model.addAttribute("ejercicios",ejercicioService.listarEjercicios().size());
 
         return "trainer/dashboard";
     }
@@ -328,6 +342,10 @@ public class EntrenadorController {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+        } else {
+            Entrenador canterior = (Entrenador) usuarioService.encontrarUsuario(entrenador);
+
+            entrenador.setFoto(canterior.getFoto());
         }
 
 

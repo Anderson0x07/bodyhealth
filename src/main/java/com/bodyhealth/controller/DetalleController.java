@@ -1,7 +1,11 @@
 package com.bodyhealth.controller;
 
+import com.bodyhealth.model.ClienteDetalle;
+import com.bodyhealth.model.ClienteRutina;
 import com.bodyhealth.model.Detalle;
 import com.bodyhealth.model.Proveedor;
+import com.bodyhealth.repository.ClienteDetalleRepository;
+import com.bodyhealth.service.ClienteDetalleService;
 import com.bodyhealth.service.DetalleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,14 +21,21 @@ import java.util.List;
 public class DetalleController {
     @Autowired
     private DetalleService detalleService;
-    private String error = "";
+
+    @Autowired
+    private ClienteDetalleService clienteDetalleService;
+
+    @Autowired
+    private ClienteDetalleRepository clienteDetalleRepository;
+
+    private String msj = "";
 
     @GetMapping("/dash-planes")
     public String listarPlanesDetallados(Model model){
         List<Detalle> planesDeta = detalleService.listarDetalles();
         model.addAttribute("planesDeta",planesDeta);
-        model.addAttribute("error",error);
-        error="";
+        model.addAttribute("msj",msj);
+        msj="";
         return "admin/planes/dash-planes";
     }
 
@@ -37,14 +48,14 @@ public class DetalleController {
         if(planes.size()>0){
             for (Detalle plan: planes) {
                 if(detalle.getPlan().equalsIgnoreCase(plan.getPlan()) && detalle.getMeses()==plan.getMeses()){
-                    error = "Error al guardar plan, ya existe";
+                    msj = "Error al guardar plan, ya existe";
                     return "redirect:/admin/dash-planes";
                 }
             }
         }
 
         detalleService.guardar(detalle);
-        error="";
+        msj="Plan registrado con exito";
 
         return "redirect:/admin/dash-planes";
     }
@@ -55,8 +66,8 @@ public class DetalleController {
         detalle = detalleService.encontrarDetalle(detalle);
 
         model.addAttribute("detalle",detalle);
-        model.addAttribute("error",error);
-        error="";
+        model.addAttribute("msj",msj);
+        msj="";
 
         return "admin/planes/plan-expand";
     }
@@ -70,14 +81,14 @@ public class DetalleController {
         if(planes.size()>0){
             for (Detalle plan: planes) {
                 if(detalle.getPlan().equalsIgnoreCase(plan.getPlan()) && detalle.getMeses()==plan.getMeses()){
-                    error = "Error al guardar el plan, ya existe";
+                    msj = "Error al guardar el plan, ya existe";
                     return "redirect:/admin/dash-planes/expand/editar/"+detalle.getId_detalle();
                 }
             }
         }
 
         detalleService.guardar(detalle);
-        error="";
+        msj="Plan editado con exito";
 
         return "redirect:/admin/dash-planes/expand/"+detalle.getId_detalle();
     }
@@ -88,15 +99,26 @@ public class DetalleController {
         detalle = detalleService.encontrarDetalle(detalle);
 
         model.addAttribute("detalle",detalle);
-        model.addAttribute("error",error);
-        error="";
+        model.addAttribute("msj",msj);
+        msj="";
 
         return "admin/planes/plan-editar";
     }
 
-    @GetMapping("/dash-planes/eliminar")
+    @GetMapping("/dash-planes/eliminar/{id_detalle}")
+    public String eliminarPlanRevision(Model model, Detalle detalle){
+        msj="";
+
+        List<ClienteDetalle> clientesDetalle = clienteDetalleRepository.encontrarClientePlan(detalle.getId_detalle());
+
+        model.addAttribute("clientesDetalle", clientesDetalle);
+
+        return "admin/planes/eliminar-plan";
+    }
+
+    @GetMapping("/dash-planes/eliminar-plan/{id_detalle}")
     public String eliminarPlan(Detalle detalle){
-        error="";
+
         detalleService.eliminar(detalle);
         return "redirect:/admin/dash-planes";
     }

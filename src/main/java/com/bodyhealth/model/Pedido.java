@@ -7,7 +7,6 @@ import java.io.Serializable;
 @Entity
 @Data
 @Table(name = "pedido")
-//@IdClass(PedidoPK.class)
 public class Pedido implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

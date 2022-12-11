@@ -20,4 +20,10 @@ public interface ClienteDetalleRepository extends JpaRepository<ClienteDetalle,I
             nativeQuery=true
     )
     List<ClienteDetalle> encontrarPlanes();
+
+    @Query(
+            value = "SELECT * from cliente_detalle cd where cd.id_detalle = :id_plan ",
+            nativeQuery=true
+    )
+    List<ClienteDetalle> encontrarClientePlan(@Param("id_plan") int id_plan);
 }

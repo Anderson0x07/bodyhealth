@@ -49,7 +49,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-5">
-                                <img th:src="@{'/images/' + ${cliente.foto}}" width="500" height="450">
+                                <img th:src="@{'/images/' + ${cliente.foto}}" width="80%" >
                             </div>
                             <div class="col-7">
 
@@ -201,7 +201,7 @@
                     <table class="table table-bordered table-striped">
 
                         <tr>
-                            <th colspan="5" style="text-align: center; font-size: xx-large" th:text="${'Rutina '+clienteRutina.id_rutina.nombre_rutina}"></th>
+                            <th colspan="5" style="text-align: center; font-size: xx-large" th:text="${clienteRutina.id_rutina.nombre_rutina}"></th>
 
                         </tr>
                         <tr>

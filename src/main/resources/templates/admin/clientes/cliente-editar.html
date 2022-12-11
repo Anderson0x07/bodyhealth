@@ -98,11 +98,6 @@
                                                            readonly th:value="${cliente.email}"/>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="password">Contraseña: </label>
-                                                    <input type="password" class="form-control" name="password" id="password"
-                                                           readonly th:value="${cliente.password}"/>
-                                                </div>
-                                                <div class="form-group">
                                                     <label for="foto">Foto: </label>
                                                     <input type="file" class="form-control" name="file" id="foto"
                                                            th:value="${cliente.foto}"/>
@@ -113,6 +108,7 @@
                                                            required="true" th:value="${cliente.jornada}"/>
                                                 </div>
 
+                                                <input type="hidden" class="form-control" name="password" id="password" th:value="${cliente.password}"/>
                                                 <input type="hidden" class="form-control" name="estado" id="estado" th:value="${cliente.estado}"/>
 
                                                 <div class="form-group">
@@ -201,18 +197,15 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="perfil">Asignacion de Entrenador</h1>
+                    <h1 class="modal-title fs-5" id="perfil">Entrenadores Disponibles</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form th:action="@{/admin/dash-clientes/expand/guardartrainer}" th:object="${entrenador_cliente}"
                       method="POST" class="was-validated">
                     <div class="modal-body">
 
+                        <input type="hidden" id="id_cliente" name="cliente" th:value="${cliente.id_usuario}"/>
 
-                        <div class="form-group">
-                            <label for="id_cliente">Id Cliente: </label>
-                            <input type="text" class="form-control" readonly id="id_cliente" name="cliente" th:value="${cliente.id_usuario}"/>
-                        </div>
                         <div class="form-group">
                             <label for="entrenador" class="form-label">Entrenador: </label>
                             <select name="entrenador" id="entrenador" required class="form-control ">
@@ -248,15 +241,12 @@
 
                     <div class="modal-body">
 
-                        <div th:if="${trainer!=null}" class="form-group">
-                            <label for="id_asignacion2">Id Asignacion: </label>
-                            <input type="text" class="form-control" readonly id="id_asignacion2" name="id_asignacion" th:value="${trainer.id_asignacion}"/>
+                        <div th:if="${trainer!=null}">
+                            <input type="hidden" name="id_asignacion" th:value="${trainer.id_asignacion}"/>
                         </div>
 
-                        <div class="form-group">
-                            <label for="cliente">Id Cliente: </label>
-                            <input type="text" class="form-control" readonly id="cliente" name="cliente" th:value="${cliente.id_usuario}"/>
-                        </div>
+                        <input type="hidden"  name="cliente" th:value="${cliente.id_usuario}"/>
+
 
                         <div class="form-group">
                             <label for="entrenador2" class="form-label">Entrenador: </label>
@@ -280,7 +270,7 @@
     </div>
 
     <!--Modales asginacion de plan-->
-    <div th:if="${metodos!=null && planesdetallados!=null}" class="modal fade" id="asignar-plan" tabindex="-1" aria-labelledby="aplan" aria-hidden="true">
+    <div th:if="${metodos!=null && planesDetallados!=null}" class="modal fade" id="asignar-plan" tabindex="-1" aria-labelledby="aplan" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -300,19 +290,10 @@
                             <label for="planA" class="form-label">Plan: </label>
                             <select name="id_detalle" id="planA" required class="form-control ">
 
-                                <div th:each="plan : ${planesdetallados}"> <!--Planes disponibles-->
+                                <div th:each="plan : ${planesDetallados}"> <!--Planes disponibles-->
                                     <option th:value="${plan.id_detalle}" th:text="${plan.id_detalle+' - '+plan.plan+' '+plan.precio+' '+plan.meses+' Meses'}"></option>
                                 </div>
                             </select> <br>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="fecha_inicioap">Fecha inicio: </label>
-                            <input type="date" class="form-control" id="fecha_inicioap" name="fecha_inicio" required/>
-                        </div>
-                        <div class="form-group">
-                            <label for="fecha_finap">Fecha fin: </label>
-                            <input type="date" class="form-control" id="fecha_finap" name="fecha_fin" required/>
                         </div>
 
                         <div class="form-group">

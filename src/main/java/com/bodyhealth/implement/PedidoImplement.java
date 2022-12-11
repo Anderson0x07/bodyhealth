@@ -15,7 +15,7 @@ public class PedidoImplement implements PedidoService {
 
     @Override
     public List<Pedido> listarPedidos() {
-        return (List<Pedido>) pedidoRepository.findAll();
+        return pedidoRepository.findAll();
     }
 
     @Override

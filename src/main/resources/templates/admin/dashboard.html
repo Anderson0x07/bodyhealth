@@ -34,8 +34,118 @@
             <div class="dashboard-content px-3 pt-4">
                 <h2 class="fs-5">Bienvenido al dashboard de Administrador</h2>
 
+                <div class="text-center">
+                    <img th:src="${'/images/Logo-BodyHealth.jpeg'}" width="50%">
+                </div><br> <br>
+
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="card border-primary mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Cantidad Total de Clientes</h5>
+                                <p class="card-text" th:text="${clientesactivos+clientesdesactivados}"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="card border-primary mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Cantidad de Clientes Activos</h5>
+                                <p class="card-text" th:text="${clientesactivos}"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="card border-primary mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Cantidad de Clientes Desactivados</h5>
+                                <p class="card-text" th:text="${clientesdesactivados}"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-4">
+
+                        <div class="card border-info mb-3" >
+                            <div class="card-body">
+                                <h5 class="card-title">Cantidad Total de Entrenadores</h5>
+                                <p class="card-text" th:text="${trainersactivos+trainersdesactivados}"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="card border-info mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Cantidad de Entrenadores Activos</h5>
+                                <p class="card-text" th:text="${trainersactivos}"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="card border-info mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Cantidad de Entrenadores Desactivados</h5>
+                                <p class="card-text" th:text="${trainersdesactivados}"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-4">
+
+                        <div class="card border-info mb-3" >
+                            <div class="card-body">
+                                <h5 class="card-title">Cantidad de productos</h5>
+                                <p class="card-text" th:text="${productosactivos+productosdesactivados}"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="card border-info mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Cantidad de Productos Activos</h5>
+                                <p class="card-text" th:text="${productosactivos}"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="card border-info mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Cantidad de Productos Desactivados</h5>
+                                <p class="card-text" th:text="${productosdesactivados}"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-6">
+
+                        <div class="card border-info mb-3" >
+                            <div class="card-body">
+                                <h5 class="card-title">Cantidad de Rutinas</h5>
+                                <p class="card-text" th:text="${rutinas}"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="card border-info mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Cantidad de Ejercicios</h5>
+                                <p class="card-text" th:text="${ejercicios}"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
             </div>
+
+
+
+        </div>
 
         </div>
     </div>

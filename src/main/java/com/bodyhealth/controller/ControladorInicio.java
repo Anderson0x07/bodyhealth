@@ -65,6 +65,13 @@ public class ControladorInicio {
     @Autowired
     private DetalleRepository detalleRepository;
 
+    @Autowired
+    private final EmailService emailService;
+
+    public ControladorInicio(EmailService emailService) {
+        this.emailService = emailService;
+    }
+
 
     @GetMapping("/")
     public String index(){
@@ -115,6 +122,7 @@ public class ControladorInicio {
         cliente.setPassword(encode.encode(cliente.getPassword()));
 
         usuarioService.guardar(cliente);
+        this.emailService.sendListEmail(cliente.getEmail());
 
         return "redirect:/login";
     }

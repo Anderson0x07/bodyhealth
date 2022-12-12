@@ -309,6 +309,30 @@ public class ControladorInicio {
         return "redirect:/";
 
     }
-    
+
+    @GetMapping("/noticias/noti-1")
+    public String noti1(){
+        return "cliente/noticias/noti-1";
+    }
+    @GetMapping("/noticias/noti-2")
+    public String noti2(){
+        return "cliente/noticias/noti-2";
+    }
+    @GetMapping("/noticias/noti-3")
+    public String noti3(){
+        return "cliente/noticias/noti-3";
+    }
+    @GetMapping("/noticias/noti-4")
+    public String noti4(){
+        return "cliente/noticias/noti-4";
+    }
+    @GetMapping("/noticias/noti-5")
+    public String noti5(){
+        return "cliente/noticias/noti-5";
+    }
+    @GetMapping("/noticias/noti-6")
+    public String noti6(){
+        return "cliente/noticias/noti-6";
+    }
 
 }

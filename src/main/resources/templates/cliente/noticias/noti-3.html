@@ -3,189 +3,83 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Noticias | GymPlus</title>
+    <title>Noticias</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='../../css/main.css'>
+
+    <link rel='stylesheet' type='text/css' media='screen' href='/css/main.css'>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <script src='../../js/main.js'></script>
+    <script src="https://kit.fontawesome.com/1193c03dcb.js" crossorigin="anonymous"></script>
+
 </head>
 <body id="body-index">
 
     <!--barra navegacion-->
-    <div class="row">
-        <div class="col-2"></div>
-        <div class="col-8">
-            
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="container-fluid">
-                    <a class="navbar-brand" href="../../index.jsp">
-                        <img src="../../img/gym-plus.png" alt="Gym Plus">
-                    </a>
-                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                  </button>
-                  <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                    <ul class="navbar-nav">
-                        <a class="nav-link"  href="../../index.jsp">Inicio</a>
-                        <a class="nav-link" href="../planes.jsp">Planes</a>
-                        <a class="nav-link" href="../noticias.html">Noticias</a>
-                        <a class="nav-link" href="../productos.jsp">Productos</a>
-                    </ul>
-                    
-                  </div>
-                </div>
-            </nav>
-
-        </div>
-        <div class="col-2"></div>
-    </div><hr>
+    <div th:replace="cliente/layouts/navbar :: navbar"></div>
+    <hr>
     
     <div class="row">
-    <div class="col-2"></div>
-        <div class="col-8">
-            <h1>RUTINAS EXPRESS<b> GYMPLUS - PIERNAS Y GLÚTEOS</b></h1>
-            <img src="https://media.glamour.mx/photos/61cce6347d4c19a8978ab604/16:9/w_2560%2Cc_limit/rutina-para-glu%25CC%2581teos.jpeg" alt="pierna" width="100%">
-            
-            <br> <br>
-            <div id="left">
-                <p>Sabemos que uno de los recursos más valiosos que tienes es el tiempo. Por eso este año queremos que te rinda al máximo y le saques el mayor provecho a tus entrenamientos en el gym. </p>
-                <p>Hemos diseñado algunas rutinas de entrenamiento express, de media hora, que “aceleran tu metabolismo, tonifican los músculos, aumentan la resistencia cardiovascular y mejoran la postura”.</p>
-                <p>Otro de los beneficios de los entrenamiento express está relacionado con la eficiencia en el uso de las grasas. Esto quiere decir que el cuerpo utiliza mejor las grasas como fuente de energía y las quema más rápido. </p>
-                <p>La de hoy es una rutina express para piernas y glúteos, dos zonas grandes del cuerpo que incorporan varios músculos y que por ende promueven mayor quema de grasa. </p>
-                <p>Puedes hacer esta rutina cada tercer día, alternando con entrenamientos enfocados en otras zonas del cuerpo.</p>
-                <p>La rutina está dirigida para personas con un nivel intermedio de entrenamiento y que no tengan lesiones o enfermedades articulares en la columna o las rodillas. </p>
-                <p>Hacer esta rutina como propone la experta, es decir cada tres días, aumenta la fuerza y el tono muscular de las piernas y glúteos mientras mejora la estabilidad de las rodillas y caderas. </p>
-                <p>¿Estás listo? Pues adelante…</p>
+        <div class="col-2"></div>
+            <div class="col-8">
+                <h1><b>6 ACTIVIDADES DIARIAS QUE PRODUCEN FELICIDAD</b></h1>
+                <img src="https://t2.fr.ltmcdn.com/es/posts/3/0/0/frases_cortas_para_amigos_y_amigas_3_orig.jpg" alt="press" width="100%">
+
+                <br> <br>
+                <div id="left">
+                <p>El día mundial de la felicidad fue creado por la Organización de las Naciones Unidas para conmemorar  la importancia que tiene este estado de ánimo como parte del desarrollo y bienestar de todas las personas en el mundo.</p>
+                <p>Se celebra el 20 de marzo desde el año 2014 y en GYMPLUS nos unimos a esta celebración compartiendo estrategias sencillas y gratuitas que elevan a diario el estado de ánimo, liberando endorfinas, serotonina, dopamina y oxitocina también conocidas como las hormonas de la felicidada y el placer.</p>
+                <p>En la base de nuestra pirámide se encuentra por supuesto la actividad física. Le damos esta posición en la pirámide porque al hacer ejercicio: </p>
+
+                <ul>
+                    <li>Te mantienes activo</li>
+                    <li>Reduces el riesgo de padecer enfermedades y lesiones </li>
+                    <li>Tienes buena autoestima </li>
+                    <li>Te ves bien</li>
+                    <li>Te sientes fuerte y lleno de energía física y mental </li>
+                    <li>Elevas tus defensas</li>
+                </ul>
+
+                <div id="center">
+                    <img src="https://blog.athleticgym.com.co/wp-content/uploads/2022/03/pexels-sabel-blanco-1480520-1.jpg">
+                </div>
+                <br>
+                <p>En el segundo lugar de la pirámide se encuentra la conexión social. Hacer planes con la familia, con la pareja o con los amigos como cocinar, ir al cine o salir a bailar, entre otros te ayuda a mantenerte alegre y compartir momentos inolvidables. </p>
+                <p>Avanzamos hacia la tercera actividad que aunque no lo creas influye en un gran porcentaje en tu estado de ánimo, en tus niveles de energía y en tu productividad diarios. Se trata del sueño. </p>
+                <p>Para tener una buena rutina de sueño lo más recomendable es descansar entre 6 y 8 horas diarias. Para lograrlo te recomendamos: </p>
+                <ul>
+                    <li>Eliminar la luz blanca (pantallas, celulares) </li>
+                    <li>Meditar</li>
+                    <li>Tener la habitación a una temperatura de unos 18 grados </li>
+                    <li>Evitar el café y el alcohol por lo menos 2 horas antes de dormir </li>
+                    <li>Usar luz cálida </li>
+                    <li>Tomar una ducha tibia</li>
+                </ul>
+
+                <p>La cuarta actividad puede que te cueste pero al hacerlo conseguirás liberar tu mente, eliminar el estrés y reducir el ruido y la contaminación. </p>
+                <p>La <b>desconexión digital</b> es necesaria sobre todo porque en el día recibimos muchos mensajes con cargas políticas, enfrentamientos, discusiones, propaganda, malas noticias que entrar a nuestra mente y la congestionan. </p>
+                <p>Te sugerimos cambiar: </p>
+                <ul>
+                    <li>Ver fotos de tus amigos en Instagram por una llamada a un amigo </li>
+                    <li>Una serie de Netflix por un buen libro </li>
+                    <li>Ver videos en Facebook por cocinar una cena saludable</li>
+                </ul>
+                <p>Continuamos con una actividad que produce felicidad y conexión con el planeta. El contacto con la naturaleza te ayuda a reducir los dolores, mejora tu estado de ánimo y estimula el sistema nervioso disminuyendo el estrés.</p>
+
+                <div id="center">
+                    <img src="https://blog.athleticgym.com.co/wp-content/uploads/2022/03/pexels-pixabay-219998.jpg">
+                </div>
+                <br>
+                <p>En la punta de la pirámide aparece el rey de los astros, el sol. Encargado de proveer luz, calor y energía a todos los seres vivos. No se trata de exponerse a él y a sus radiaciones sin límite, con 10 minutos que disfrutes su energía ya sea caminando o sentado en un parque será suficiente. </p>
+                <p>Ya lo ves, hay una alternativa diaria, gratis que puede hacerte más feliz. No te quedes con esta información, compártela con tus amigos y construyamos juntos un mundo más feliz con todo el estilo GYMPLUS. </p>
+                <p><b>¡FELIZ DIA!</b></p>
+
+                </div>
+                <br>
 
             </div>
-            
-            <div class="table-responsive">
-                <table class="table table-bordered" id="table">
-                    <tr>
-                        <th>Ejercicio </th>
-                        <th>Series y Repeticiones</th>
-                    </tr>
-                    <tr>
-                        <td>Sentadilla saltos laterales</td>
-                        <td>4 series x 12 repeticiones</td>
-                    </tr>
-                    <tr>
-                        <td>Estocada con elevación de rodilla en Smith</td>
-                        <td>3 series x 10 repeticiones</td>
-                    </tr>
-                    <tr>
-                        <td>Sentadilla Hacka</td>
-                        <td>4 series x 10 repeticiones</td>
-                    </tr>
-                    <tr>
-                        <td>Hip thrust sobre balón </td>
-                        <td>4 series x 12 repeticiones</td>
-                    </tr>
-                </table>
-            </div> <br>
-
-            <div id="left">
-                <ol>
-                    <li>
-                        <p>Sentadilla saltos laterales</p> 
-                        <div id="center">
-                            <img src="https://blog.athleticgym.com.co/wp-content/uploads/2022/01/01.jpg" width="1000">
-                        </div>
-                    </li>
-                    <li>
-                        <p>Estocada con elevación de rodilla en Smith</p> 
-                        <div id="center">
-                            <img src="https://blog.athleticgym.com.co/wp-content/uploads/2022/01/02.jpg" width="1000">
-                        </div>
-                    </li>
-                    <li>
-                        <p>Sentadilla Hacka</p> 
-                        <div id="center">
-                            <img src="https://blog.athleticgym.com.co/wp-content/uploads/2022/01/03.jpg" width="1000">
-                        </div>
-                    </li>
-                    <li>
-                        <p>Hip thrust sobre balón</p> 
-                        <div id="center">
-                            <img src="https://blog.athleticgym.com.co/wp-content/uploads/2022/01/04.jpg" width="1000">
-                        </div>
-                    </li>
-                </ol>
-            </div>
-            
-            
-        </div>
-    <div class="col-2"></div>
+        <div class="col-2"></div>
     </div>
-    <br>
     
 </body>
-<footer id="footer">
-    <br><br><hr>
-
-    <div class="row">
-        <div class="col-2"></div>
-        <div class="col-8">
-            
-            <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark" id="nav-footer">
-                <div class="container-fluid">
-                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                  </button>
-                  <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                    <ul class="navbar-nav">
-                        <a class="nav-link"  href="../../index.jsp">Inicio</a>
-                        <a class="nav-link" href="../planes.jsp">Planes</a>
-                        <a class="nav-link" href="../noticias.html">Noticias</a>
-                        <a class="nav-link" href="../productos.jsp">Productos</a>
-                    </ul>
-                    
-                  </div>
-                </div>
-            </nav> 
-
-        </div>
-        <div class="col-2"></div>
-    </div> <hr> <br>
-
-
-
-    <div class="row">
-        <div class="col-6">
-            <div style="font-size: 11pt;">
-                <p>Envíanos un mensaje a Whatsapp o escríbenos un correo</p>
-
-                <a href="https://api.whatsapp.com/send?phone=573219238493&text=Hola%20gymplus%2C%20quisiera%20saber%20que%20precios%20manejan%20de%20los%20planes%20%3F" target="_blank" style="text-decoration: none; color: white;">
-                    <img src="https://assets.stickpng.com/images/580b57fcd9996e24bc43c543.png" alt="logo_whatsapp" width="4%">
-                    +57 3219238493
-                </a> <br>
-                <a href="mailto:gymplus.co@gmail.com" target="_blank" style="text-decoration: none; color: white;">
-                    <img src="https://www.aliarango.com/wp-content/uploads/2018/12/email.png" alt="logo_gmail" width="5%">
-                    gymplus@gmail.com
-                </a>
-            </div>
-
-        </div>
-        <div class="col-6">
-            <div style="font-size: 11pt;">
-                <p>Siguenos en nuestras redes sociales</p>
-                <a href="https://www.facebook.com/Gym-plus-106609758773964/" target="_blank" style="text-decoration: none;">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="logo-facebook" width="5%">
-                </a>
-                <a href="https://www.instagram.com/gymplus.co/?hl=es" target="_blank" style="text-decoration: none;">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/2048px-Instagram_logo_2016.svg.png" alt="logo-instagram" width="5%">
-                </a>
-                <a href="https://twitter.com/Gymplus_" target="_blank" style="text-decoration: none;">
-                    <img src="https://cdn.computerhoy.com/sites/navi.axelspringer.es/public/styles/1200/public/media/image/2013/08/17981-logo-twitter.png?itok=Ba6ST1-S" alt="logo-twitter" width="5%">
-                </a>
-            </div>
-        </div>
-    </div>  
-
-
-    <br><br>
-    <h6>Copyright ©2022 © Gimnasio GymPlus - Cucuta - Norte de Santander - Colombia</h6>
-    <br><br>
-</footer>
+<footer th:replace="cliente/layouts/footer :: footer"></footer>
 </html>

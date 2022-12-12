@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 06-12-2022 a las 07:21:51
+-- Tiempo de generación: 12-12-2022 a las 00:27:19
 -- Versión del servidor: 8.0.17
 -- Versión de PHP: 7.3.10
 
@@ -42,11 +42,10 @@ CREATE TABLE `cliente_detalle` (
 --
 
 INSERT INTO `cliente_detalle` (`id_factura`, `fecha_fin`, `fecha_inicio`, `id_cliente`, `id_detalle`, `id_metodopago`) VALUES
-(8, '2022-12-04', '2022-12-04', 1, 1, 1),
-(9, '2022-12-04', '2022-12-04', 1, 1, 1),
-(10, '2022-12-04', '2022-12-04', 1, 1, 1),
-(12, '2022-12-05', '2022-12-06', 21, 5, 1),
-(13, '2022-12-27', '2022-12-06', 31, 5, 1);
+(30, '2023-03-11', '2022-12-11', 34, 14, 2),
+(31, '2022-12-10', '2022-12-11', 31, 14, 2),
+(33, '2022-12-10', '2022-12-11', 35, 5, 1),
+(34, '2023-01-11', '2022-12-11', 35, 12, 1);
 
 -- --------------------------------------------------------
 
@@ -65,9 +64,8 @@ CREATE TABLE `cliente_rutina` (
 --
 
 INSERT INTO `cliente_rutina` (`id_clienterutina`, `id_cliente`, `id_rutina`) VALUES
-(1, 1, 2),
-(5, 21, 2),
-(6, 31, 2);
+(6, 31, 3),
+(7, 35, 3);
 
 -- --------------------------------------------------------
 
@@ -86,12 +84,8 @@ CREATE TABLE `cliente_rutina_ejercicio` (
 --
 
 INSERT INTO `cliente_rutina_ejercicio` (`id_cliente_rutina_ejercicio`, `id_cliente_rutina`, `id_rutina_ejercicio`) VALUES
-(193, 1, 2),
-(194, 1, 3),
-(270, 5, 2),
-(271, 5, 3),
-(286, 6, 2),
-(287, 6, 3);
+(628, 7, 4),
+(633, 6, 4);
 
 -- --------------------------------------------------------
 
@@ -101,18 +95,27 @@ INSERT INTO `cliente_rutina_ejercicio` (`id_cliente_rutina_ejercicio`, `id_clien
 
 CREATE TABLE `compra` (
   `id_compra` int(11) NOT NULL,
-  `fecha_compra` date DEFAULT NULL,
+  `fecha_compra` date NOT NULL,
   `id_cliente` int(11) DEFAULT NULL,
-  `id_metodopago` int(11) DEFAULT NULL
+  `id_metodopago` int(11) DEFAULT NULL,
+  `total` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Volcado de datos para la tabla `compra`
 --
 
-INSERT INTO `compra` (`id_compra`, `fecha_compra`, `id_cliente`, `id_metodopago`) VALUES
-(1, '2022-12-06', 1, 1),
-(2, '2022-12-06', 17, 3);
+INSERT INTO `compra` (`id_compra`, `fecha_compra`, `id_cliente`, `id_metodopago`, `total`) VALUES
+(4, '2022-12-11', 34, 2, 80000),
+(6, '2022-12-11', 34, 3, 240000),
+(7, '2022-12-11', 34, 3, 80000),
+(9, '2022-12-11', 34, 1, 80000),
+(10, '2022-12-11', 34, 1, 80000),
+(12, '2022-12-11', 34, 1, 80000),
+(21, '2022-12-11', 34, 2, 160000),
+(22, '2022-12-11', 34, 2, 160000),
+(23, '2022-12-11', 35, 1, 0),
+(24, '2022-12-11', 35, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -133,9 +136,8 @@ CREATE TABLE `control_fisico` (
 --
 
 INSERT INTO `control_fisico` (`id_controlcliente`, `estatura`, `fecha`, `peso`, `id_cliente`) VALUES
-(4, 12, '2022-12-15', 12, 1),
-(8, 180, '2022-12-06', 80, 21),
-(9, 180, '2022-12-06', 80, 31);
+(9, 180, '2022-12-06', 80, 31),
+(10, 190, '2022-12-11', 90, 31);
 
 -- --------------------------------------------------------
 
@@ -155,9 +157,10 @@ CREATE TABLE `detalle` (
 --
 
 INSERT INTO `detalle` (`id_detalle`, `meses`, `plan`, `precio`) VALUES
-(1, 3, 'Plan Intermedio', 80000),
-(5, 1, 'Plan Basico', 80000),
-(6, 3, 'Plan Avanzado', 80000);
+(5, 1, 'Plan Avanzado', 80000),
+(12, 1, 'Plan Basico', 50000),
+(13, 1, 'Plan Intermedio', 65000),
+(14, 3, 'Plan Novato', 150000);
 
 -- --------------------------------------------------------
 
@@ -199,8 +202,6 @@ CREATE TABLE `entrenador_cliente` (
 --
 
 INSERT INTO `entrenador_cliente` (`id_asignacion`, `id_cliente`, `id_entrenador`) VALUES
-(1, 1, 2),
-(3, 21, 13),
 (4, 31, 13);
 
 -- --------------------------------------------------------
@@ -276,16 +277,25 @@ CREATE TABLE `pedido` (
   `id_pedido` int(11) NOT NULL,
   `cantidad` int(11) NOT NULL,
   `id_compra` int(11) DEFAULT NULL,
-  `id_producto` int(11) DEFAULT NULL
+  `id_producto` int(11) DEFAULT NULL,
+  `total` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Volcado de datos para la tabla `pedido`
 --
 
-INSERT INTO `pedido` (`id_pedido`, `cantidad`, `id_compra`, `id_producto`) VALUES
-(99, 5, 1, 1),
-(100, 2, 2, 1);
+INSERT INTO `pedido` (`id_pedido`, `cantidad`, `id_compra`, `id_producto`, `total`) VALUES
+(101, 1, 4, 2, 80000),
+(102, 1, 6, 1, 80000),
+(103, 1, 6, 2, 80000),
+(104, 1, 6, 3, 80000),
+(105, 1, 7, 2, 80000),
+(107, 1, 9, 1, 80000),
+(108, 1, 10, 1, 80000),
+(109, 1, 12, 1, 80000),
+(114, 2, 21, 3, 160000),
+(115, 2, 22, 3, 160000);
 
 -- --------------------------------------------------------
 
@@ -308,7 +318,9 @@ CREATE TABLE `producto` (
 --
 
 INSERT INTO `producto` (`id_producto`, `estado`, `foto`, `nombre`, `precio`, `stock`, `id_proveedor`) VALUES
-(1, b'1', '1647534352-41Tp711NJeL._SL500_.jpg', 'Creatina XL', 80000, 10, 1);
+(1, b'1', '1647534352-41Tp711NJeL._SL500_.jpg', 'Creatina XL', 80000, 20, 1),
+(2, b'1', 'megaplex-8087-7616511-1-product.jpg', 'Proteina BiPro', 80000, 18, 1),
+(3, b'1', '1647534457-41UoQGPKAL._SL500_.jpg', 'Anderson', 80000, 50, 1);
 
 -- --------------------------------------------------------
 
@@ -328,7 +340,8 @@ CREATE TABLE `proveedor` (
 --
 
 INSERT INTO `proveedor` (`id_proveedor`, `direccion`, `nombre_empresa`, `telefono`) VALUES
-(1, 'Calle 1 #4-49 Carlos Ramirez Paris', 'UFPS', '3219238493');
+(1, 'Calle 1 #4-49 Carlos Ramirez Paris', 'UFPS', '3219238493'),
+(2, 'Calle 10A #14-56 Aniversario I', 'Maquinaria Gym', '3225125254');
 
 -- --------------------------------------------------------
 
@@ -338,7 +351,7 @@ INSERT INTO `proveedor` (`id_proveedor`, `direccion`, `nombre_empresa`, `telefon
 
 CREATE TABLE `rutina` (
   `id_rutina` int(11) NOT NULL,
-  `descripcion` varchar(100) DEFAULT NULL,
+  `descripcion` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `nombre_rutina` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -347,7 +360,7 @@ CREATE TABLE `rutina` (
 --
 
 INSERT INTO `rutina` (`id_rutina`, `descripcion`, `nombre_rutina`) VALUES
-(1, 'Basicaa', 'Rutina 1'),
+(1, 'Basicaaasdd dBasicaaas dddBa sicaaasdddBa sicaaasdddBa sicaaasd ddBasica aasdddBasic aaasd ddBa sicaaas dddB asicaaasd ddBasic aaasddd', 'Rutina 1'),
 (2, 'EEE', 'Rutina 2'),
 (3, 'ads', 'Hola');
 
@@ -370,7 +383,8 @@ CREATE TABLE `rutina_ejercicio` (
 INSERT INTO `rutina_ejercicio` (`id_rutina_ejercicio`, `id_ejercicio`, `id_rutina`) VALUES
 (1, 1, 1),
 (2, 1, 2),
-(3, 2, 2);
+(3, 2, 2),
+(4, 1, 3);
 
 -- --------------------------------------------------------
 
@@ -403,15 +417,14 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`rol`, `id_usuario`, `apellido`, `documento`, `email`, `fecha_nacimiento`, `nombre`, `password`, `telefono`, `tipo_documento`, `comentario`, `estado`, `foto`, `jornada`, `experiencia`, `hoja_vida`, `titulo_academico`) VALUES
-('CLIENTE', 1, 'Uno', 1111, 'cliente@prueba.com', '2022-12-05', 'Cliente', '$2a$10$9pyggOgJfou1NSCl3keG0OsBFfJ6D9Pl5kc0PIrUABwl1sThRbHce', '3219238493', 'CC', NULL, b'0', '261278641_626726082271096_3891881707494189074_n.jpg', 'Tarde', NULL, NULL, NULL),
-('TRAINER', 2, 'Uno', 333, 'trainer@prueba.com', '2022-12-04', 'Entrenador', '$2a$10$FC25fMHsKRR4mR.uhJ80UujYWYvZvy/DJKRFkcV1iAjA/9aTO4Yqm', '3152545654', 'CC', NULL, b'0', 'perfil-ovallos.png', 'Mañana', '', 'Hoja de vida trainer', ''),
-('ADMIN', 3, 'Uno', 1004926016, 'admin@prueba.com', '2022-12-04', 'Admin1', '$2a$10$eCQOUdeftLm/4PmI4b0dXO.4tK2iwr7dzRKa.H4MvklGG7vw81zK2', '3212546565', 'CC', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('TRAINER', 13, 'Orozco', 98562, 'anderson07rolon4@gmail.com', '2022-12-06', 'Anderson', '$2a$10$PZMLFwam.FKdjl5pZHJrUeuon3tufj0qDDJ9niGhyc2KMKGIalKyi', '3219238493', 'CC', NULL, b'1', 'PERFIL.jpeg', 'Mañana', '1', 'Hoja de Vida', 'Entrenador Profesional'),
-('CLIENTE', 17, 'Orozco', 1004, 'andersn@gmail.com', '2022-12-04', 'Anderson', '$2a$10$SrttWO1Zxj1x6W7Qax4g/OcygG0LBHpvtrJVlWs6GgVqhO0f7zsHS', '3219238493', 'CC', NULL, b'0', 'PERFIL.jpeg', 'Mañana', NULL, NULL, NULL),
+('TRAINER', 2, 'Uno', 333, 'trainer@prueba.com', '2022-12-04', 'Entrenador', '$2a$10$FC25fMHsKRR4mR.uhJ80UujYWYvZvy/DJKRFkcV1iAjA/9aTO4Yqm', '3152545654', 'CC', NULL, b'1', 'gym.jpg', 'Mañana', '2', 'Hoja de vida trainer', 'Entrenador profesional'),
+('ADMIN', 3, 'Uno', 1004926016, 'admin@prueba.com', '2022-12-04', 'Admin', '$2a$10$eCQOUdeftLm/4PmI4b0dXO.4tK2iwr7dzRKa.H4MvklGG7vw81zK2', '3212546565', 'CC', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+('TRAINER', 13, 'Orozco', 98562, 'anderson07rolon4@gmail.com', '2022-12-06', 'Anderson', '$2a$10$PZMLFwam.FKdjl5pZHJrUeuon3tufj0qDDJ9niGhyc2KMKGIalKyi', '3219238493', 'CC', NULL, b'0', 'PERFIL.jpeg', 'Mañana', '1', 'Hoja de Vida', 'Entrenador Profesional'),
 ('TRAINER', 19, 'Orozco2', 1111222, 'aedede@gmail.com', '2022-12-04', 'Anderson2', '$2a$10$snyEZ.GzmGpMrM5zZnABPOwPfsDC8NAnLKngX15RC4P9wxiP.nncW', '3219238493', 'CC', NULL, b'0', 'PERFIL.jpeg', 'Mañana', '1', 'Hoja de Vida', 'Entrenador Profesional'),
 ('TRAINER', 20, 'Orozco', 3232, 'awewe@gmail.com', '2022-11-29', 'Adriancho2', '$2a$10$RGc1vawubdQtVAUThyEzXe.XLohciIrq58m42DA1dzXG/cGx0z0VS', '3219238493', 'CC', NULL, b'0', 'ovallos-trainer.jfif', 'Mañana', '1', 'Hoja de Vida', 'Entrenador Profesional'),
-('CLIENTE', 21, 'Registro', 58462, 'pruebaregistro@gmail.com', '2022-12-05', 'Prueba', '$2a$10$zTodg7pzTNvZe8C9MG0iNOnXn5w2gh/mJpKCcbYvRiqwTf/lf7oyG', '25154', 'CC', 'Muy maloss', b'0', 'PERFIL.jpeg', 'Mañana', NULL, NULL, NULL),
-('CLIENTE', 31, 'Definitiva', 95846251, 'pruebadefi@gmail.com', '2022-12-07', 'Prueba', '$2a$10$TKLlMVwgVuRZvE9jW7XLRuG.QJdoaDV.Z57/2CewC66fdghPPkWXS', '3215465', 'CC', 'muy malos entrenadores', b'1', 'ovallos-trainer.jfif', 'Mañana', NULL, NULL, NULL);
+('CLIENTE', 31, 'Definitiva', 95846251, 'pruebadefi@gmail.com', '2022-12-07', 'Prueba', '$2a$10$TKLlMVwgVuRZvE9jW7XLRuG.QJdoaDV.Z57/2CewC66fdghPPkWXS', '3215465', 'CC', NULL, b'0', 'PERFIL.jpeg', 'Mañana', NULL, NULL, NULL),
+('CLIENTE', 34, 'Orozco', 526265847, 'anderson07rolon@gmail.com', '2003-07-07', 'Anderson', '$2a$10$KJZjcMmEBpJmQLjBxlygVeGttBdAIFg.dnKHNWpqYk3/EAT93yKz6', '3219238493', 'CC', NULL, b'1', 'perfil-ruben.png', 'Mañana', NULL, NULL, NULL),
+('CLIENTE', 35, 'Orozco', 121212, 'anderson@gmail.com', '2022-12-11', 'Anderson', '$2a$10$.h1sHqQyv7xvbzwbmB8HS.SZV4Qfw2.gqPUTEGfSYWwHaxEECsgna', '3219238497', 'CC', NULL, b'1', 'PERFIL.jpeg', 'Mañana', NULL, NULL, NULL);
 
 --
 -- Índices para tablas volcadas
@@ -548,37 +561,37 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `cliente_detalle`
 --
 ALTER TABLE `cliente_detalle`
-  MODIFY `id_factura` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_factura` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT de la tabla `cliente_rutina`
 --
 ALTER TABLE `cliente_rutina`
-  MODIFY `id_clienterutina` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_clienterutina` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `cliente_rutina_ejercicio`
 --
 ALTER TABLE `cliente_rutina_ejercicio`
-  MODIFY `id_cliente_rutina_ejercicio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=288;
+  MODIFY `id_cliente_rutina_ejercicio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=634;
 
 --
 -- AUTO_INCREMENT de la tabla `compra`
 --
 ALTER TABLE `compra`
-  MODIFY `id_compra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_compra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT de la tabla `control_fisico`
 --
 ALTER TABLE `control_fisico`
-  MODIFY `id_controlcliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_controlcliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle`
 --
 ALTER TABLE `detalle`
-  MODIFY `id_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `ejercicio`
@@ -614,19 +627,19 @@ ALTER TABLE `musculo`
 -- AUTO_INCREMENT de la tabla `pedido`
 --
 ALTER TABLE `pedido`
-  MODIFY `id_pedido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
+  MODIFY `id_pedido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=116;
 
 --
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `proveedor`
 --
 ALTER TABLE `proveedor`
-  MODIFY `id_proveedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_proveedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `rutina`
@@ -638,13 +651,13 @@ ALTER TABLE `rutina`
 -- AUTO_INCREMENT de la tabla `rutina_ejercicio`
 --
 ALTER TABLE `rutina_ejercicio`
-  MODIFY `id_rutina_ejercicio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_rutina_ejercicio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- Restricciones para tablas volcadas

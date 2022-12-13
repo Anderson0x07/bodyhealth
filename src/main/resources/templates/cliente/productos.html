@@ -37,10 +37,15 @@
 
                     <input type="hidden" name="id_producto" th:value="${producto.id_producto}">
 
+                    <div th:if="${#request.userPrincipal!=null}">
+                        <div th:if="${#request.userPrincipal.toString().contains('CLIENTE')}">
+                            <button type="button" class="btn btn-dark" data-bs-toggle="modal" th:data-bs-target="${'#exampleModal-'+producto.id_producto}">
+                                Añadir...
+                            </button>
+                        </div>
+                    </div>
                     <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-dark" data-bs-toggle="modal" th:data-bs-target="${'#exampleModal-'+producto.id_producto}">
-                        Añadir...
-                    </button>
+
 
                     <!-- Modal -->
                     <div class="modal fade" th:id="${'exampleModal-'+producto.id_producto}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

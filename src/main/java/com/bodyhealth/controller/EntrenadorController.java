@@ -320,17 +320,10 @@ public class EntrenadorController {
 
         log.info("ENTRENADOR: "+entrenador.getId_usuario());
 
-        Path directorioImagenes = Paths.get("src//main//resources//static/images");
-        String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath();
+
         if(!imagen.isEmpty()){
-            try {
-                byte[] bytesImg = imagen.getBytes();
-                Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + imagen.getOriginalFilename());
-                Files.write(rutaCompleta, bytesImg);
-                entrenador.setFoto(imagen.getOriginalFilename());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            service.uploadFile(imagen);
+            entrenador.setFoto(imagen.getOriginalFilename());
         } else {
             Entrenador canterior = (Entrenador) usuarioService.encontrarUsuario(entrenador);
 

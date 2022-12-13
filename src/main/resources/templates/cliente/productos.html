@@ -29,7 +29,7 @@
 
                 <br><h1 class="card-title" th:text="${producto.getNombre()}"></h1>
                 <p style="font-size: medium" class="card-text" th:text="${producto.getStock()+' unidades'}"></p>
-                <img th:src="${'/images/'+producto.getFoto()}" class="card-img-top" width="200" height="350">
+                <img th:src="${'https://elasticbeanstalk-us-east-1-785490149956.s3.amazonaws.com/images/'+producto.getFoto()}" class="card-img-top" width="200" height="350">
 
                 <p class="card-text" th:text="${'$'+producto.getPrecio()}"></p>
 

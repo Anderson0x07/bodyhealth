@@ -29,6 +29,9 @@ import org.springframework.web.multipart.MultipartFile;
 public class ControladorInicio {
 
     private BCryptPasswordEncoder encode = new BCryptPasswordEncoder();
+
+    @Autowired
+    private StorageService service;
     @Autowired
     private ProductoService productoService;
 
@@ -139,17 +142,10 @@ public class ControladorInicio {
     @PostMapping("/cliente/dash-clientes/expand/guardar")
     public String guardarClienteIndex(Cliente cliente, @RequestParam("file") MultipartFile imagen){
 
-        Path directorioImagenes = Paths.get("src//main//resources//static/images");
-        String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath();
+
         if(!imagen.isEmpty()){
-            try {
-                byte[] bytesImg = imagen.getBytes();
-                Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + imagen.getOriginalFilename());
-                Files.write(rutaCompleta, bytesImg);
-                cliente.setFoto(imagen.getOriginalFilename());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            service.uploadFile(imagen);
+            cliente.setFoto(imagen.getOriginalFilename());
         }
         cliente.setPassword(encode.encode(cliente.getPassword()));
 
@@ -162,17 +158,10 @@ public class ControladorInicio {
     @PostMapping("/cliente/mi-perfil/guardar-edicion")
     public String guardarEdicionCliente(Cliente cliente, @RequestParam("file") MultipartFile imagen){
 
-        Path directorioImagenes = Paths.get("src//main//resources//static/images");
-        String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath();
+
         if(!imagen.isEmpty()){
-            try {
-                byte[] bytesImg = imagen.getBytes();
-                Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + imagen.getOriginalFilename());
-                Files.write(rutaCompleta, bytesImg);
-                cliente.setFoto(imagen.getOriginalFilename());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            service.uploadFile(imagen);
+            cliente.setFoto(imagen.getOriginalFilename());
         } else {
             Cliente canterior = (Cliente) usuarioService.encontrarUsuario(cliente);
 

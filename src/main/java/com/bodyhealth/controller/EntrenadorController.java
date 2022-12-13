@@ -26,6 +26,9 @@ import java.util.List;
 public class EntrenadorController {
 
     private BCryptPasswordEncoder encode = new BCryptPasswordEncoder();
+
+    @Autowired
+    private StorageService service;
     @Autowired
     private EntrenadorClienteRepository entrenadorClienteRepository;
 
@@ -116,17 +119,10 @@ public class EntrenadorController {
             }
         }
 
-        Path directorioImagenes = Paths.get("src//main//resources//static/images");
-        String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath();
+
         if(!imagen.isEmpty()) {
-            try {
-                byte[] bytesImg = imagen.getBytes();
-                Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + imagen.getOriginalFilename());
-                Files.write(rutaCompleta, bytesImg);
-                entrenador.setFoto(imagen.getOriginalFilename());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            service.uploadFile(imagen);
+            entrenador.setFoto(imagen.getOriginalFilename());
         }
         entrenador.setPassword(encode.encode(entrenador.getPassword()));
 
@@ -138,17 +134,10 @@ public class EntrenadorController {
     @PostMapping("/admin/dash-trainers/expand/guardar-entrenador")
     public String guardarEdicionEntrenador(Entrenador entrenador,@RequestParam("file") MultipartFile imagen){
 
-        Path directorioImagenes = Paths.get("src//main//resources//static/images");
-        String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath();
+
         if(!imagen.isEmpty()) {
-            try {
-                byte[] bytesImg = imagen.getBytes();
-                Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + imagen.getOriginalFilename());
-                Files.write(rutaCompleta, bytesImg);
-                entrenador.setFoto(imagen.getOriginalFilename());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            service.uploadFile(imagen);
+            entrenador.setFoto(imagen.getOriginalFilename());
         } else {
             Entrenador eanterior = (Entrenador) usuarioService.encontrarUsuario(entrenador);
 

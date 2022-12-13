@@ -29,6 +29,9 @@ public class ClienteController {
 
 
     private BCryptPasswordEncoder encode = new BCryptPasswordEncoder();
+
+    @Autowired
+    private StorageService service;
     @Autowired
     private UsuarioService usuarioService;
 
@@ -189,17 +192,9 @@ public class ClienteController {
 
         }
 
-        Path directorioImagenes = Paths.get("src//main//resources//static/images");
-        String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath();
         if(!imagen.isEmpty()){
-            try {
-                byte[] bytesImg = imagen.getBytes();
-                Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + imagen.getOriginalFilename());
-                Files.write(rutaCompleta, bytesImg);
-                cliente.setFoto(imagen.getOriginalFilename());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            service.uploadFile(imagen);
+            cliente.setFoto(imagen.getOriginalFilename());
         }
         cliente.setPassword(encode.encode(cliente.getPassword()));
         usuarioService.guardar(cliente);
@@ -211,17 +206,10 @@ public class ClienteController {
     @PostMapping("/admin/dash-clientes/expand/guardar-edicion")
     public String guardarEdicionCliente(Cliente cliente, @RequestParam("file") MultipartFile imagen){
 
-        Path directorioImagenes = Paths.get("src//main//resources//static/images");
-        String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath();
+
         if(!imagen.isEmpty()){
-            try {
-                byte[] bytesImg = imagen.getBytes();
-                Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + imagen.getOriginalFilename());
-                Files.write(rutaCompleta, bytesImg);
-                cliente.setFoto(imagen.getOriginalFilename());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            service.uploadFile(imagen);
+            cliente.setFoto(imagen.getOriginalFilename());
         } else{
             Cliente canterior = (Cliente) usuarioService.encontrarUsuario(cliente);
 

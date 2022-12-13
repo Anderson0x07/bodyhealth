@@ -4,6 +4,7 @@ import com.bodyhealth.model.*;
 import com.bodyhealth.service.MaquinaService;
 import com.bodyhealth.service.ProductoService;
 import com.bodyhealth.service.ProveedorService;
+import com.bodyhealth.service.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +20,9 @@ import java.util.List;
 @Controller
 @RequestMapping("/admin")
 public class ProductoController {
+
+    @Autowired
+    private StorageService service;
     @Autowired
     private ProductoService productoService;
     @Autowired
@@ -40,16 +44,9 @@ public class ProductoController {
     //Guarda nuevo producto
     @PostMapping("/dash-productos/guardar")
     public String guardarNuevoProducto(Producto producto,@RequestParam("file") MultipartFile imagen){
-        Path directorioImagenes = Paths.get("src//main//resources//static/images");
-        String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath();
-        try {
-            byte[] bytesImg = imagen.getBytes();
-            Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + imagen.getOriginalFilename());
-            Files.write(rutaCompleta, bytesImg);
-            producto.setFoto(imagen.getOriginalFilename());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+
+        service.uploadFile(imagen);
+        producto.setFoto(imagen.getOriginalFilename());
 
         productoService.guardar(producto);
 
@@ -70,19 +67,10 @@ public class ProductoController {
     @PostMapping("/dash-productos/expand/guardar")
     public String guardarEdicionProducto(Producto producto,@RequestParam("file") MultipartFile imagen){
 
-        Path directorioImagenes = Paths.get("src//main//resources//static/images");
-        String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath();
+
         if(!imagen.isEmpty()){
-            try {
-                byte[] bytesImg = imagen.getBytes();
-                Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + imagen.getOriginalFilename());
-                //Path rutaCompleta1 = Paths.get(rutaAbsoluta + "//" + "Anime5.jpg");
-                //Files.delete(rutaCompleta1);
-                Files.write(rutaCompleta, bytesImg);
-                producto.setFoto(imagen.getOriginalFilename());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            service.uploadFile(imagen);
+            producto.setFoto(imagen.getOriginalFilename());
         }else{
             Producto panterior = productoService.encontrarProducto(producto);
 

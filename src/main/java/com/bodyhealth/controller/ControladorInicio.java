@@ -135,13 +135,26 @@ public class ControladorInicio {
 
     //Prueba de nuevo regstro cliente plantilla
     @GetMapping("/registroCliente")
-    public String registroClientePlantilla(){
+    public String registroClientePlantilla(Model model){
+
+        model.addAttribute("msj",msj);
+        msj="";
+
         return "cliente/registroCliente";
     }
 
     @PostMapping("/cliente/dash-clientes/expand/guardar")
     public String guardarClienteIndex(Cliente cliente, @RequestParam("file") MultipartFile imagen){
 
+        List<Usuario> usuarios = usuarioService.listarUsuarios();
+
+        for (Usuario maq : usuarios) {
+            if (cliente.getDocumento()==maq.getDocumento() || cliente.getEmail().equalsIgnoreCase(maq.getEmail())) {
+                msj = "Error al realizar el registro, documento o email ya existe";
+                return "redirect:/registroCliente";
+            }
+
+        }
 
         if(!imagen.isEmpty()){
             service.uploadFile(imagen);
@@ -151,6 +164,8 @@ public class ControladorInicio {
 
         usuarioService.guardar(cliente);
         this.emailService.sendListEmail(cliente.getEmail());
+
+        msj="Cliente registrado con exito.";
 
         return "redirect:/login";
     }

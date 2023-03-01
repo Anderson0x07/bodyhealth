@@ -28,6 +28,8 @@ public class ProductoController {
     @Autowired
     private ProveedorService proveedorService;
 
+    private String msj="";
+
     @GetMapping("/dash-productos")
     public String listarProductos(Model model){
         List<Producto> productos = productoService.listarProductos();
@@ -37,6 +39,8 @@ public class ProductoController {
         model.addAttribute("productos",activos);
         model.addAttribute("productossDesactivados",desactivados);
         model.addAttribute("proveedores",proveedorService.listarProveedores());
+        model.addAttribute("msj",msj);
+        msj="";
 
         return "admin/productos/dash-productos";
     }
@@ -48,7 +52,20 @@ public class ProductoController {
         service.uploadFile(imagen);
         producto.setFoto(imagen.getOriginalFilename());
 
+        List<Producto> productos = productoService.listarProductos();
+
+        if(productos.size()>0){
+            for (Producto pro: productos) {
+                if(producto.getNombre().equalsIgnoreCase(pro.getNombre())){
+                    msj = "Error al guardar el producto, ya existe";
+                    return "redirect:/admin/dash-productos";
+                }
+            }
+        }
+
         productoService.guardar(producto);
+
+        msj="Producto registrado con exito";
 
         return "redirect:/admin/dash-productos";
     }
@@ -77,7 +94,20 @@ public class ProductoController {
             producto.setFoto(panterior.getFoto());
         }
 
+        List<Producto> productos = productoService.listarProductos();
+
+        if(productos.size()>0){
+            for (Producto pro: productos) {
+                if(producto.getNombre().equalsIgnoreCase(pro.getNombre())){
+                    msj = "Error al editar el producto, ya existe";
+                    return "redirect:/admin/dash-productos/expand/"+producto.getId_producto();
+                }
+            }
+        }
+
         productoService.guardar(producto);
+
+        msj="Producto editado con exito";
 
         return "redirect:/admin/dash-productos/expand/"+producto.getId_producto();
     }
@@ -90,6 +120,8 @@ public class ProductoController {
 
         model.addAttribute("producto",producto);
         model.addAttribute("proveedores",proveedorService.listarProveedores());
+        model.addAttribute("msj",msj);
+        msj="";
 
 
         return "admin/productos/producto-editar";
@@ -98,6 +130,7 @@ public class ProductoController {
     @GetMapping("/dash-productos/eliminar")
     public String eliminarProducto(Producto producto){
         productoService.eliminar(producto);
+        msj="Producto eliminado con exito";
         return "redirect:/admin/dash-productos";
     }
 
@@ -109,6 +142,8 @@ public class ProductoController {
         producto.setEstado(false);
 
         productoService.guardar(producto);
+
+        msj="Producto desactivado con exito";
 
 
         return "redirect:/admin/dash-productos";
@@ -123,6 +158,8 @@ public class ProductoController {
         producto.setEstado(true);
 
         productoService.guardar(producto);
+
+        msj="Producto activado con exito";
 
 
         return "redirect:/admin/dash-productos";

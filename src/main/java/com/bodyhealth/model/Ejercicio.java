@@ -12,7 +12,7 @@ public class Ejercicio implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_ejercicio;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "id_musculo")
     private Musculo id_musculo;
 

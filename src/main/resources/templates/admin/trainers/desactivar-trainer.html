@@ -32,8 +32,8 @@
                     <div class="col-3"></div>
                     <div class="col-6">
 
-                        <div th:if="${clientesRutina.size() > 0}">
-                            <h2 class="fs-3">Está seguro que quiere eliminar la rutina, esta se le borrara a clientes como: </h2>
+                        <div th:if="${clientesEntrenador.size() > 0}">
+                            <h2 class="fs-3">Está seguro que quiere desactivar el entrenador, este se le quitara a clientes como: </h2>
                             <table class="table table-bordered">
                                 <thead>
                                 <tr>
@@ -43,31 +43,31 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="clientes : ${clientesRutina}">
-                                    <td th:text="${clientes.id_cliente.documento}"></td>
-                                    <td th:text="${clientes.id_cliente.nombre}"></td>
-                                    <td th:text="${clientes.id_cliente.apellido}"></td>
+                                <tr th:each="cliente : ${clientesEntrenador}">
+                                    <td th:text="${cliente.cliente.documento}"></td>
+                                    <td th:text="${cliente.cliente.nombre}"></td>
+                                    <td th:text="${cliente.cliente.apellido}"></td>
                                 </tr>
                                 </tbody>
 
                             </table>
 
                         </div>
-                        <div th:if="${clientesRutina.size() == 0}">
-                            <h2 class="fs-3">Está seguro que quiere eliminar la rutina </h2>
+                        <div th:if="${clientesEntrenador.size() == 0}">
+                            <h2 class="fs-3">Está seguro que quiere desactivar el entrenador </h2>
                         </div>
                         <br>
                         <!--BOTONES-->
                         <div class="row">
                             <div class="col-3"></div>
                             <div class="col-3">
-                                <a th:href="@{/admin/dash-rutinas}" class="btn btn-dark btn-block">
+                                <a th:href="@{/admin/dash-trainers}" class="btn btn-dark btn-block">
                                     <i class="fas fa-arrow-left"></i> Regresar
                                 </a>
                             </div>
                             <div class="col-3">
-                                <a th:href="@{/admin/dash-rutinas/eliminar-rutina/}+${rutina.id_rutina}" class="btn btn-secondary">
-                                    <i class="fa-solid fa-trash"></i>Eliminar rutina
+                                <a th:href="@{/admin/dash-trainers/desactivar-trainer/}+${trainer.id_usuario}" class="btn btn-secondary">
+                                    <i class="fa-solid fa-trash"></i> Desactivar Entrenador
                                 </a>
                             </div>
                             <div class="col-3"></div>

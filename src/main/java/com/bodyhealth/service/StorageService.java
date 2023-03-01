@@ -20,7 +20,7 @@ import java.io.IOException;
 @Slf4j
 public class StorageService {
 
-    @Value("${application.bucket.name}/images")
+    @Value("elasticbeanstalk-us-east-1-416927159758/images")
     private String bucketName;
 
     @Autowired

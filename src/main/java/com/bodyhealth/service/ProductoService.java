@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 @Service
 public interface ProductoService {
+
     public List<Producto> listarProductos();
 
     public void guardar(Producto producto);

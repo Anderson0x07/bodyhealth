@@ -20,7 +20,7 @@
 <body>
     <div class="main-container d-flex">
         <!--SIDEBAR-->
-        <div th:replace="layouts/sidebar :: sidebar"></div>
+        <div th:replace="layouts/sidebar-trainer :: sidebar-trainer"></div>
 
         <div class="content">
             <!--NAV-DASH-->
@@ -33,7 +33,7 @@
                     <div class="col-6">
 
                         <div th:if="${clientesRutina.size() > 0}">
-                            <h2 class="fs-3">Está seguro que quiere eliminar la rutina, esta se le borrara a clientes como: </h2>
+                            <h2 class="fs-3">Está seguro que quiere eliminar la rutina, ésta se le borrara a clientes como: </h2>
                             <table class="table table-bordered">
                                 <thead>
                                 <tr>
@@ -61,12 +61,12 @@
                         <div class="row">
                             <div class="col-3"></div>
                             <div class="col-3">
-                                <a th:href="@{/admin/dash-rutinas}" class="btn btn-dark btn-block">
+                                <a th:href="@{/trainer/dash-rutinas}" class="btn btn-dark btn-block">
                                     <i class="fas fa-arrow-left"></i> Regresar
                                 </a>
                             </div>
                             <div class="col-3">
-                                <a th:href="@{/admin/dash-rutinas/eliminar-rutina/}+${rutina.id_rutina}" class="btn btn-secondary">
+                                <a th:href="@{/trainer/dash-rutinas/eliminar-rutina/}+${rutina.id_rutina}" class="btn btn-secondary">
                                     <i class="fa-solid fa-trash"></i>Eliminar rutina
                                 </a>
                             </div>

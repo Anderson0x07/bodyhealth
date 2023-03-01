@@ -28,7 +28,7 @@ public class Producto implements Serializable{
 
     private boolean estado;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "id_proveedor")
     private Proveedor id_proveedor;
 }

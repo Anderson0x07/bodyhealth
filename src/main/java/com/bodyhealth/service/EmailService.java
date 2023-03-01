@@ -100,7 +100,7 @@ public class EmailService {
             "      <td valign=\"top\" style=\"padding:0;Margin:0\">\n" +
             "       <table cellpadding=\"0\" cellspacing=\"0\" class=\"es-content\" align=\"center\" style=\"mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%\">\n" +
             "         <tr style=\"border-collapse:collapse\">\n" +
-            "          <td align=\"center\" bgcolor=\"#0b0b0c\" style=\"padding:0;Margin:0;background-color:#0b0b0c\">\n" +
+            "          <td align=\"center\" bgcolor=\"#07095e\" style=\"padding:0;Margin:0;background-color:#07095e\">\n" +
             "           <table bgcolor=\"transparent\" class=\"es-content-body\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" style=\"mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:transparent;width:600px\">\n" +
             "             <tr style=\"border-collapse:collapse\">\n" +
             "              <td align=\"left\" style=\"Margin:0;padding-left:10px;padding-right:10px;padding-bottom:15px;padding-top:20px\"><!--[if mso]><table style=\"width:580px\"><tr><td style=\"width:280px\" valign=\"top\"><![endif]-->\n" +
@@ -133,13 +133,13 @@ public class EmailService {
             "          <td align=\"center\" bgcolor=\"#eeeded\" style=\"padding:0;Margin:0;background-color:#eeeded\">\n" +
             "           <table bgcolor=\"transparent\" class=\"es-content-body\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" style=\"mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:transparent;width:600px\">\n" +
             "             <tr style=\"border-collapse:collapse\">\n" +
-            "              <td align=\"left\" bgcolor=\"#0b0b0c\" style=\"padding:0;Margin:0;padding-top:20px;padding-left:20px;padding-right:20px;background-color:#0b0b0c\">\n" +
+            "              <td align=\"left\" bgcolor=\"#000000\" style=\"padding:0;Margin:0;padding-top:20px;padding-left:20px;padding-right:20px;background-color:#000000\">\n" +
             "               <table cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px\">\n" +
             "                 <tr style=\"border-collapse:collapse\">\n" +
             "                  <td align=\"left\" style=\"padding:0;Margin:0;width:560px\">\n" +
             "                   <table cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" role=\"presentation\" style=\"mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px\">\n" +
             "                     <tr style=\"border-collapse:collapse\">\n" +
-            "                      <td align=\"center\" style=\"padding:0;Margin:0;font-size:0px\"><a target=\"_blank\" href=\"https://viewstripo.email\" style=\"-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#2CB543;font-size:15px\"><img src=\"https://raw.githubusercontent.com/Anderson0x07/personal-page/main/img/logo.png\" alt style=\"display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic\" width=\"194\"></a></td>\n" +
+            "                      <td align=\"center\" style=\"padding:0;Margin:0;font-size:0px\"><a target=\"_blank\" href=\"https://viewstripo.email\" style=\"-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#2CB543;font-size:15px\"><img src=\"https://elasticbeanstalk-us-east-1-332396321235.s3.amazonaws.com/images/logo.jpeg\" alt style=\"display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic\" width=\"339\"></a></td>\n" +
             "                     </tr>\n" +
             "                   </table></td>\n" +
             "                 </tr>\n" +
@@ -152,7 +152,7 @@ public class EmailService {
             "                  <td align=\"center\" valign=\"top\" style=\"padding:0;Margin:0;width:600px\">\n" +
             "                   <table cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" role=\"presentation\" style=\"mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px\">\n" +
             "                     <tr style=\"border-collapse:collapse\">\n" +
-            "                      <td align=\"center\" style=\"padding:0;Margin:0;font-size:0px\"><img class=\"adapt-img\" src=\"https://i.blogs.es/410bab/danielle-cerullo-cqfnt66ttzm-unsplash/450_1000.webp\" alt style=\"display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic\" width=\"600\"></td>\n" +
+            "                      <td align=\"center\" style=\"padding:0;Margin:0;font-size:0px\"><img class=\"adapt-img\" src=\"https://media.admagazine.com/photos/618a5d11532cae908aaf27ab/master/w_1600%2Cc_limit/96644.jpg\" alt style=\"display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic\" width=\"600\"></td>\n" +
             "                     </tr>\n" +
             "                   </table></td>\n" +
             "                 </tr>\n" +
@@ -171,7 +171,7 @@ public class EmailService {
             "                      <td align=\"center\" style=\"padding:0;Margin:0;padding-bottom:5px\"><h2 style=\"Margin:0;line-height:34px;mso-line-height-rule:exactly;font-family:Poppins, sans-serif;font-size:28px;font-style:normal;font-weight:bold;color:#00413f\">¡Gracias por registrarte!</h2></td>\n" +
             "                     </tr>\n" +
             "                     <tr style=\"border-collapse:collapse\">\n" +
-            "                      <td align=\"center\" style=\"Margin:0;padding-left:5px;padding-right:5px;padding-top:10px;padding-bottom:10px\"><p style=\"Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:tahoma, verdana, segoe, sans-serif;line-height:23px;color:#333333;font-size:15px\">Bienvenido a la comunidad de BodyHealth.&nbsp;<br>ACTITUD POSITIVA \uD83D\uDC4A\uD83C\uDFFB\uD83D\uDCAA\uD83C\uDFFB VEN Y ENTRENA CON NOSOTROS \uD83D\uDD25\uD83E\uDD8D</p></td>\n" +
+            "                      <td align=\"center\" style=\"Margin:0;padding-left:5px;padding-right:5px;padding-top:10px;padding-bottom:10px\"><p style=\"Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:tahoma, verdana, segoe, sans-serif;line-height:23px;color:#333333;font-size:15px\">¡Bienvenido a la familia de MultiRestorante!.&nbsp;<br>Ahora puedes disfrutar de muchos beneficios, ingresa con tus credenciales y empieza a navegar por nuestro gran catálogo de restaurantes.</p></td>\n" +
             "                     </tr>\n" +
             "                   </table></td>\n" +
             "                 </tr>\n" +
@@ -182,7 +182,7 @@ public class EmailService {
             "       </table>\n" +
             "       <table cellpadding=\"0\" cellspacing=\"0\" class=\"es-footer\" align=\"center\" style=\"mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%;background-color:transparent;background-repeat:repeat;background-position:center top\">\n" +
             "         <tr style=\"border-collapse:collapse\">\n" +
-            "          <td align=\"center\" bgcolor=\"#0b0b0c\" style=\"padding:0;Margin:0;background-color:#0b0b0c\">\n" +
+            "          <td align=\"center\" bgcolor=\"#07095e\" style=\"padding:0;Margin:0;background-color:#07095e\">\n" +
             "           <table bgcolor=\"#ffffff\" class=\"es-footer-body\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" style=\"mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:#C1272C;width:600px\">\n" +
             "             <tr style=\"border-collapse:collapse\">\n" +
             "              <td align=\"left\" bgcolor=\"#020202\" style=\"Margin:0;padding-top:10px;padding-bottom:10px;padding-left:20px;padding-right:20px;background-color:#020202\"><!--[if mso]><table style=\"width:560px\" cellpadding=\"0\" cellspacing=\"0\"><tr><td style=\"width:270px\" valign=\"top\"><![endif]-->\n" +
@@ -191,7 +191,7 @@ public class EmailService {
             "                  <td valign=\"top\" align=\"center\" style=\"padding:0;Margin:0;width:270px\">\n" +
             "                   <table style=\"mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-position:center top\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" role=\"presentation\">\n" +
             "                     <tr style=\"border-collapse:collapse\">\n" +
-            "                      <td class=\"es-m-txt-c\" align=\"left\" style=\"padding:0;Margin:0;padding-bottom:10px;padding-top:15px\"><p style=\"Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:tahoma, verdana, segoe, sans-serif;line-height:18px;color:#FFFFFF;font-size:12px\">BodyHealth</p></td>\n" +
+            "                      <td class=\"es-m-txt-c\" align=\"left\" style=\"padding:0;Margin:0;padding-bottom:10px;padding-top:15px\"><p style=\"Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:tahoma, verdana, segoe, sans-serif;line-height:18px;color:#FFFFFF;font-size:12px\">MultiRestorante</p></td>\n" +
             "                     </tr>\n" +
             "                   </table></td>\n" +
             "                 </tr>\n" +
@@ -217,7 +217,7 @@ public class EmailService {
             "       </table>\n" +
             "       <table cellpadding=\"0\" cellspacing=\"0\" class=\"es-content\" align=\"center\" style=\"mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%\">\n" +
             "         <tr style=\"border-collapse:collapse\">\n" +
-            "          <td align=\"center\" bgcolor=\"#0b0b0c\" style=\"padding:0;Margin:0;background-color:#0b0b0c\">\n" +
+            "          <td align=\"center\" bgcolor=\"#07095e\" style=\"padding:0;Margin:0;background-color:#07095e\">\n" +
             "           <table bgcolor=\"transparent\" class=\"es-content-body\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" style=\"mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:transparent;width:600px\">\n" +
             "             <tr style=\"border-collapse:collapse\">\n" +
             "              <td align=\"left\" style=\"Margin:0;padding-left:20px;padding-right:20px;padding-top:30px;padding-bottom:30px\">\n" +
@@ -226,7 +226,7 @@ public class EmailService {
             "                  <td valign=\"top\" align=\"center\" style=\"padding:0;Margin:0;width:560px\">\n" +
             "                   <table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" role=\"presentation\" style=\"mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px\">\n" +
             "                     <tr style=\"border-collapse:collapse\">\n" +
-            "                      <td class=\"es-infoblock made_with\" align=\"center\" style=\"padding:0;Margin:0;line-height:0px;font-size:0px;color:#CCCCCC\"><img src=\"https://raw.githubusercontent.com/Anderson0x07/personal-page/main/img/logo.png\" alt style=\"display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic\" width=\"250\"></td>\n" +
+            "                      <td align=\"left\" style=\"padding:0;Margin:0\"><p style=\"Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:tahoma, verdana, segoe, sans-serif;line-height:23px;color:#333333;font-size:15px\">Texto</p></td>\n" +
             "                     </tr>\n" +
             "                   </table></td>\n" +
             "                 </tr>\n" +

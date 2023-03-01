@@ -57,7 +57,6 @@
                             <th>Telefono</th>
                             <th>Fecha Nacimiento</th>
                             <th>Email</th>
-                            <th>Foto</th>
                             <th>Jornada</th>
                             <th>Plan</th>
                             <th>Acciones</th>
@@ -72,12 +71,10 @@
                             <td th:text="${cliente.id_cliente.telefono}"></td>
                             <td th:text="${#dates.format(cliente.id_cliente.fecha_nacimiento, 'dd-MMM-yyyy')}"></td>
                             <td th:text="${cliente.id_cliente.email}"></td>
-                            <td th:text="${cliente.id_cliente.foto}"></td>
                             <td th:text="${cliente.id_cliente.jornada}"></td>
                             <td th:text="${cliente.id_detalle.plan+' por '+cliente.id_detalle.meses+' meses'}"></td>
 
                             <td>
-
                                 <a th:href="@{/admin/dash-clientes/expand/} + ${cliente.id_cliente.id_usuario}" style="text-decoration: none">
                                     <i class="fa-solid fa-arrow-up-right-from-square" style="color:black"></i>
                                 </a>
@@ -102,7 +99,6 @@
                                 <th>Telefono</th>
                                 <th>Fecha Nacimiento</th>
                                 <th>Email</th>
-                                <th>Foto</th>
                                 <th>Jornada</th>
                                 <th>Acciones</th>
 
@@ -116,11 +112,9 @@
                                 <td th:text="${cliente.telefono}"></td>
                                 <td th:text="${#dates.format(cliente.fecha_nacimiento, 'dd-MMM-yyyy')}"></td>
                                 <td th:text="${cliente.email}"></td>
-                                <td th:text="${cliente.foto}"></td>
                                 <td th:text="${cliente.jornada}"></td>
 
                                 <td>
-
                                     <a th:href="@{/admin/dash-clientes/expand/} + ${cliente.id_usuario}" style="text-decoration: none">
                                         <i class="fa-solid fa-arrow-up-right-from-square" style="color:black"></i>
                                     </a>

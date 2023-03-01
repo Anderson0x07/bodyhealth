@@ -35,9 +35,15 @@
                 </a>
 
                 <section th:replace="layouts/agregar-maquina :: agregar-maquina"></section>
-                <br>
-                <h2 class="fs-5" style="color: red" th:text="${error}"></h2>
-                <br>
+
+                <br><br>
+                <div th:if="${msj.contains('Error')}">
+                    <div class="alert alert-danger" role="alert" th:text="${msj}"></div>
+                </div>
+                <div th:if="${msj.contains('exito')}">
+                    <div class="alert alert-success" role="alert" th:text="${msj}"></div>
+                </div>
+                <br> <br>
 
 
                 <div class="table-responsive">

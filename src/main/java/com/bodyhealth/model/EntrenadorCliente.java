@@ -14,11 +14,11 @@ public class EntrenadorCliente implements Serializable {
     private int id_asignacion;
 
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "id_entrenador")
     private Entrenador entrenador;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "id_cliente")
     private Cliente cliente;
 

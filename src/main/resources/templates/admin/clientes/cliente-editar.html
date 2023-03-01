@@ -211,6 +211,9 @@
                             <label for="entrenador" class="form-label">Entrenador: </label>
                             <select name="entrenador" id="entrenador" required class="form-control ">
 
+                                <!--<div th:if="${trainers.size()==0}">
+                                    <option value="">No hay entrenadores disponibles</option>
+                                </div>-->
                                 <div th:each="entrenador : ${trainers}"> <!--Trainers disponibles jornada-->
                                     <option th:value="${entrenador.id_usuario}" th:text="${entrenador.documento+' - '+entrenador.nombre+' '+entrenador.apellido}"></option>
                                 </div>

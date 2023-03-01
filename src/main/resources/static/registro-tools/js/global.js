@@ -68,3 +68,39 @@
     
 
 })(jQuery);
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("formulario").addEventListener('submit', validarFormulario);
+});
+
+function validarFormulario(evento) {
+    evento.preventDefault();
+
+    var fecha = document.getElementById('fechaN').value;
+
+    if(calcularEdad(fecha) == false){
+        alert('Debes tener mas de 15 años para realizar el registro!!');
+        return;
+    }
+
+    this.submit();
+}
+
+function calcularEdad(fecha_nacimiento) {
+    var hoy = new Date();
+    var cumpleanos = new Date(fecha_nacimiento);
+    var edad = hoy.getFullYear() - cumpleanos.getFullYear();
+    var m = hoy.getMonth() - cumpleanos.getMonth();
+    if (m < 0 || (m === 0 && hoy.getDate() < cumpleanos.getDate())) {
+        edad--;
+    }
+
+    let rta =false;
+
+    if(edad >= 15){
+        rta=true;
+    }
+
+    return rta;
+}

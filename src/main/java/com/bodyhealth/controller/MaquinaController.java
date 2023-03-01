@@ -22,15 +22,15 @@ public class MaquinaController {
     private MaquinaService maquinaService;
     @Autowired
     private ProveedorService proveedorService;
-    private String error = "";
+    private String msj = "";
     @GetMapping("/admin/dash-maquinas")
     public String listarMaquinas(Model model){
         List<Maquina> maquinas = maquinaService.listarMaquinas();
 
         model.addAttribute("maquinas",maquinas);
         model.addAttribute("proveedores",proveedorService.listarProveedores());
-        model.addAttribute("error",error);
-        error = "";
+        model.addAttribute("msj",msj);
+        msj = "";
 
         return "admin/maquinas/dash-maquinas";
     }
@@ -43,14 +43,14 @@ public class MaquinaController {
         if(maquinas.size()>0) {
             for (Maquina maq : maquinas) {
                 if (maquina.getId_maquina() == maq.getId_maquina()) {
-                    error = "Error al guardar la maquina, ya existe";
+                    msj = "Error al guardar la maquina, ya existe";
                     return "redirect:/admin/dash-maquinas";
                 }
             }
         }
         maquinaService.guardar(maquina);
 
-        error = "";
+        msj = "Maquina guardada con exito";
         return "redirect:/admin/dash-maquinas";
     }
 
@@ -75,7 +75,7 @@ public class MaquinaController {
         if(maquinas.size()>0) {
             for (Maquina maq : maquinas) {
                 if (maquina.getId_maquina() == maq.getId_maquina()) {
-                    error = "Error al guardar la maquina, ya existe";
+                    msj = "Error al editar la maquina, ya existe";
                     return "redirect:/admin/dash-maquinas/expand/editar/" + maquina.getId();
                 }
 
@@ -84,7 +84,7 @@ public class MaquinaController {
 
         maquinaService.guardar(maquina);
 
-        error = "";
+        msj = "Maquina editada con exito";
         return "redirect:/admin/dash-maquinas/expand/"+maquina.getId();
     }
 
@@ -96,15 +96,15 @@ public class MaquinaController {
 
         model.addAttribute("maquina",maquina);
         model.addAttribute("proveedores",proveedorService.listarProveedores());
-        model.addAttribute("error",error);
-        error="";
+        model.addAttribute("msj",msj);
+        msj="";
 
         return "admin/maquinas/maquina-editar";
     }
 
     @GetMapping("/admin/dash-maquinas/eliminar")
     public String eliminarMaquina(Maquina maquina){
-        error = "";
+        msj = "Maquina eliminada con exito";
         maquinaService.eliminar(maquina);
         return "redirect:/admin/dash-maquinas";
     }

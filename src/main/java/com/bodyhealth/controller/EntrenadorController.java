@@ -45,6 +45,9 @@ public class EntrenadorController {
 
     @Autowired
     private EjercicioService ejercicioService;
+    
+    @Autowired
+    private RutinaEjercicioService rutinaEjercicioService;
 
     @Autowired
     private ClienteRutinaService clienteRutinaService;
@@ -152,7 +155,20 @@ public class EntrenadorController {
 
     //Desactiva entrenadores en el dashboard del admin
     @GetMapping("/admin/dash-trainers/expand/desactivar/{id_usuario}")
-    public String desactivarEntrenador(Entrenador entrenador){
+    public String desactivarEntrenador(Model model ,Entrenador entrenador){
+
+
+        List<EntrenadorCliente> clientesEntrenador = entrenadorClienteRepository.encontrarClientes(entrenador.getId_usuario());
+
+        model.addAttribute("clientesEntrenador", clientesEntrenador);
+        model.addAttribute("trainer",entrenador);
+
+
+        return "admin/trainers/desactivar-trainer";
+    }
+
+    @GetMapping("/admin/dash-trainers/desactivar-trainer/{id_usuario}")
+    public String confirmDesactivarEntrenador(Entrenador entrenador){
 
         entrenador = (Entrenador) usuarioService.encontrarUsuario(entrenador);
 
@@ -334,6 +350,32 @@ public class EntrenadorController {
         usuarioService.guardar(entrenador);
 
         return "redirect:/trainer/perfil";
+    }
+
+    @GetMapping("/trainer/dash-rutinas/eliminar/{id_rutina}")
+    public String eliminarRutinasRevisionTrainer(Model model, Rutina rutina){
+
+        List<ClienteRutina> clientesRutina = clienteRutinaService.encontrarClientesRutina(rutina.getId_rutina());
+
+        model.addAttribute("clientesRutina", clientesRutina);
+
+        return "trainer/rutinas/eliminar-rutina";
+    }
+    @GetMapping("/trainer/dash-rutinas/eliminar-rutina/{id_rutina}")
+    public String eliminarRutinaTrainer(Rutina rutina){
+        rutinaService.eliminar(rutina);
+        return "redirect:/trainer/dash-rutinas";
+    }
+
+    @GetMapping("/trainer/dash-ejercicio/eliminar/{id_ejercicio}")
+    public String eliminarEjercicios(Ejercicio ejercicio){
+        ejercicioService.eliminar(ejercicio);
+        return "redirect:/trainer/dash-rutinas";
+    }
+    @GetMapping("/trainer/dash-rutina-ejercicio/eliminar/{id_rutina_ejercicio}")
+    public String eliminarRutinaEjercicio(RutinaEjercicio rutinaEjercicio){
+        rutinaEjercicioService.eliminar(rutinaEjercicio);
+        return "redirect:/trainer/dash-rutinas";
     }
 
 }

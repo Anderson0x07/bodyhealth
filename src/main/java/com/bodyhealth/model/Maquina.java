@@ -22,7 +22,7 @@ public class Maquina implements Serializable {
 
     private String observacion;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "id_proveedor")
     private Proveedor id_proveedor;
 }

@@ -35,7 +35,14 @@
                             <i class="fas fa-plus"></i> Crear Rutina
                         </a>
                         <section th:replace="layouts/agregar-rutina :: agregar-rutina"></section>
-                        <br>
+                        <br><br>
+                        <div th:if="${msj1.contains('Error')}">
+                            <div class="alert alert-danger" role="alert" th:text="${msj1}"></div>
+                        </div>
+                        <div th:if="${msj1.contains('exito')}">
+                            <div class="alert alert-success" role="alert" th:text="${msj1}"></div>
+                        </div>
+                        <br><br>
 
                         <h2 class="fs-5">Lista de Rutinas</h2>
                         <div class="table-responsive">
@@ -172,6 +179,13 @@
 
                                 </div>
                             </div>
+                        </div>
+                        <br><br>
+                        <div th:if="${msj2.contains('Error')}">
+                            <div class="alert alert-danger" role="alert" th:text="${msj2}"></div>
+                        </div>
+                        <div th:if="${msj2.contains('exito')}">
+                            <div class="alert alert-success" role="alert" th:text="${msj2}"></div>
                         </div>
                         <br> <br>
                         <h2 class="fs-5">Lista de Ejercicios</h2>
@@ -322,9 +336,18 @@
                         </div>
                     </div>
                 </div>
+                <br><br>
+                <div th:if="${msj3.contains('Error')}">
+                    <div class="alert alert-danger" role="alert" th:text="${msj3}"></div>
+                </div>
+                <div th:if="${msj3.contains('exito')}">
+                    <div class="alert alert-success" role="alert" th:text="${msj3}"></div>
+                </div>
                 <br> <br>
 
                 <h2 class="fs-5">Lista de Rutinas con Ejercicios</h2>
+
+
                 <div class="table-responsive">
                     <table id="tablaRutinaEjercicio" class="table table-bordered">
 

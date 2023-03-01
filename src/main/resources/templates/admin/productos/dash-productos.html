@@ -29,6 +29,15 @@
             <div class="dashboard-content px-3 pt-4">
                 <h2 class="fs-3">Lista de Productos Activos</h2> <br>
 
+                <br><br>
+                <div th:if="${msj.contains('Error')}">
+                    <div class="alert alert-danger" role="alert" th:text="${msj}"></div>
+                </div>
+                <div th:if="${msj.contains('exito')}">
+                    <div class="alert alert-success" role="alert" th:text="${msj}"></div>
+                </div>
+                <br> <br>
+
                 <a href="#" class="btn btn-secondary"
                    data-bs-toggle="modal" data-bs-target="#agregar-producto">
                     <i class="fas fa-plus"></i> Agregar Producto

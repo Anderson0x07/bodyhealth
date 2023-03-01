@@ -15,11 +15,11 @@ public class ClienteDetalle implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_factura;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "id_cliente")
     private Cliente id_cliente;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "id_detalle")
     private Detalle id_detalle;
 
@@ -31,7 +31,7 @@ public class ClienteDetalle implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fecha_fin;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "id_metodopago")
     private MetodoPago id_metodopago;
 }

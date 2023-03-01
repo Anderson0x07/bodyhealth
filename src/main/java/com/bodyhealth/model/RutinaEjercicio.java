@@ -13,11 +13,11 @@ public class RutinaEjercicio implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_rutina_ejercicio;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "id_rutina")
     private Rutina id_rutina;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "id_ejercicio")
     private Ejercicio id_ejercicio;
 }

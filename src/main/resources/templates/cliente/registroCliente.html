@@ -37,7 +37,7 @@
                 </div>
                 <div class="card-body">
                     <form th:action="@{/cliente/dash-clientes/expand/guardar}" th:object="${cliente}"
-                          method="POST" enctype="multipart/form-data"  class="signup-form">
+                          method="POST" enctype="multipart/form-data" id="formulario"  class="signup-form" >
                         <div class="form-row m-b-55">
                             <div class="name">Nombre</div>
                             <div class="value">
@@ -63,10 +63,14 @@
                                 <div class="row row-space">
                                     <div class="col-2">
                                         <div class="input-group-desc">
-                                            <input type="text" class="input--style-5" name="tipo_documento" id="tipo_documento" required="true" placeholder="Tipo de documento">
-
+                                            <select name="tipo_documento" id="tipo_documento" required class="input--style-5">
+                                                <option th:value="${'CC'}" th:text="${'Cédula de ciudadanía'}"></option>
+                                                <option th:value="${'TI'}" th:text="${'Tarjeta de identidad'}"></option>
+                                                <option th:value="${'CE'}" th:text="${'Cédula de extranjería'}"></option>
+                                            </select>
                                         </div>
                                     </div>
+
                                     <div class="col-2">
                                         <div class="input-group-desc">
                                             <input type="text" class="input--style-5" name="documento" id="documentoC" required="true" placeholder="Tú documento">
@@ -132,6 +136,16 @@
 
 
                         </div>
+
+                        <br><br>
+                        <div th:if="${msj.contains('Error')}">
+                            <div class="alert alert-danger" role="alert" th:text="${msj}"></div>
+                        </div>
+                        <div th:if="${msj.contains('exito')}">
+                            <div class="alert alert-success" role="alert" th:text="${msj}"></div>
+                        </div>
+                        <br><br>
+
                         <div>
                             <button class="btn btn--radius-2 btn--red" type="submit">Register</button>
                         </div>
